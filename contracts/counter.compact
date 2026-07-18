@@ -1,0 +1,17 @@
+pragma language_version >= 0.23;
+
+import CompactStandardLibrary;
+
+// Privacy Model:
+// - PUBLIC ledger state: 'value' (current counter value on chain)
+// - PRIVATE witness: 'incrementBy' (the private value that determines how much we increment the counter)
+// - What we disclose: the 'result' of addition (new counter value) and we write it to the public ledger.
+//   An observer sees the counter update to the new value, but does not see 'incrementBy' itself.
+
+export ledger value: Field;
+
+export circuit increment(incrementBy: Field): [] {
+    const currentValue = value;
+    const nextValue = currentValue + incrementBy;
+    value = disclose(nextValue);
+}
