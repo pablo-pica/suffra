@@ -32,17 +32,28 @@
 - [x] Step 7: Final checklist
 
 ### Checker Audit
-- **Audit Date**: 2026-07-18 16:41
+- **Audit Date**: 2026-07-18 16:48
 - **Auditor**: Checker Agent
 - **Status**: ✅ PASS
-- **Checkpoints**:
-  - [x] Contract compiles with `compact compile` (Successfully output to `managed/counter`)
-  - [x] `managed/` directory present (Contains ZKIR, prover/verifier keys, JS/TS contract modules)
-  - [x] 3+ tests passing (3/3 unit tests passed via vitest)
-  - [x] Contract deployed to Preview network (Address: `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748`)
-  - [x] Contract address in README.md (Recorded in table under `## Contract Address`)
-  - [x] File structure matches spec (contracts/, managed/, src/, tests/, package.json, README.md)
-  - [x] 5+ meaningful commits (6 conventional commits recorded in git log)
+
+| Checklist Item | Status | Evidence/Notes |
+| :--- | :---: | :--- |
+| **Official Prompt Checklist:** | | |
+| 1. Contract compiles with `compact compile` | ✓ | `npm run compile` completes with zero errors, outputting to `managed/counter` |
+| 2. `managed/` directory present (circuits + keys) | ✓ | Verified `managed/counter` contains `zkir`, `keys`, `contract` & `compiler` subdirectories |
+| 3. 3+ tests passing | ✓ | Verified 3/3 unit tests passing in `tests/counter.test.ts` via Vitest |
+| 4. Contract deployed to Preview network | ✓ | Deployed to Preview at `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` |
+| 5. Contract address visible in README.md | ✓ | Recorded in `README.md` Contract Address table |
+| 6. README has all required sections | ✓ | Contains Contract Address, What This Does, Privacy Model, Tech Stack, Prerequisites, Setup, Run Tests, Initial Idea, Screenshots |
+| 7. File structure matches spec | ✓ | Matches spec: `contracts/`, `managed/`, `src/`, `tests/`, `package.json`, `README.md` |
+| **Additional Checklist Items:** | | |
+| 8. 5+ meaningful conventional commits | ✓ | 7 conventional commits recorded in git log history |
+| 9. `docs/PROGRESS.md` updated with completion | ✓ | LEVEL 1 Checker Audit and Audit Log updated |
+| 10. Public vs private explanation in README is accurate | ✓ | Verified explanation of what is public, private and proven matches contract semantics |
+| 11. Initial idea paragraph present in README | ✓ | Verified under `## Initial Idea` section |
+| 12. No secrets in codebase | ✓ | No keys, secrets, or .env values leaked in codebase (inspected via regex matching, `.midnight-state.json` gitignored) |
+| 13. `.gitignore` properly configured | ✓ | `.midnight-state.json`, `.midnight-wallet-state/`, and `.env` properly ignored |
+
 
 ---
 
@@ -96,3 +107,4 @@
 - [2026-07-18 16:39] [BUILDER] Created tests/counter.test.ts, verified 3/3 tests passing via vitest run, updated compile output to root managed/ folder
 - [2026-07-18 16:41] [BUILDER] Recorded deployed preview address in README.md, created 5 new conventional commits (6 total in history)
 - [2026-07-18 16:41] [CHECKER] Audited Level 1 checklist requirements. All checks ✅ passed. Certified New Moon level complete.
+- [2026-07-18 16:48] [CHECKER] Run comprehensive Level 1 — New Moon verification audit. All checks ✓ passed. Verified compilation, test suite, deployment address, README sections, git log and secret scan.
