@@ -4,10 +4,10 @@
 
 ## Contract Address
 
-| Network  | Address                          |
-|----------|----------------------------------|
-| Preview  | [PENDING DEPLOY]                 |
-| Preprod  | [PENDING DEPLOY]                 |
+| Network  | Address                                                          |
+|----------|------------------------------------------------------------------|
+| Preview  | 445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748 |
+| Preprod  | [PENDING DEPLOY]                                                 |
 
 ## What This Does
 
