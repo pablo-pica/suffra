@@ -66,4 +66,8 @@ Suffra is a private voting application built on Midnight that enables anonymous 
 
 ## Screenshots
 
-[PENDING — will be added after compile and deploy]
+### Successful Compact Compile
+![Successful Compile](./public/compile-output.png)
+
+### Deployed Contract Address
+![Deployed Contract Address](./public/deployed-address.png)
