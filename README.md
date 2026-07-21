@@ -2,12 +2,12 @@
 
 > Private voting on Midnight — anonymous ballots, verifiable tallies.
 
-## Contract Address
+## Contract Address & Demo
 
-| Network  | Address                                                          |
-|----------|------------------------------------------------------------------|
-| Preview  | 445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748 |
-| Preprod  | [PENDING DEPLOY]                                                 |
+| Resource | Value |
+| :--- | :--- |
+| **Preview Contract Address** | `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` |
+| **Live Demo URL** | [https://suffra-private-voting.vercel.app](https://suffra-private-voting.vercel.app) |
 
 ## What This Does
 
