@@ -71,3 +71,7 @@ Suffra is a private voting application built on Midnight that enables anonymous 
 
 ### Deployed Contract Address
 ![Deployed Contract Address](./public/deployed-address.png)
+
+## Demo Video
+
+Detailed steps for recording the 2-minute project demonstration are outlined in [DEMO-VIDEO.md](file:///home/pablo-pica/Documents/programming/suffra/docs/DEMO-VIDEO.md).
