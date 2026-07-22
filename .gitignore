@@ -10,7 +10,6 @@ build/
 out/
 
 # Midnight
-managed/
 .midnight-state.json
 .midnight-wallet-state/
 midnight-level-db/
