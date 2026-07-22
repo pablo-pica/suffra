@@ -1,36 +1,39 @@
-# 🎥 Demo Video Checklist — Suffra
+# 🎥 Demo Video Guide — Suffra (Level 2 & Level 3 Unified Demo)
 
-This checklist outlines the precise sequence of steps to follow when recording the 2-minute demo video for the Midnight Builder Challenge (Level 2).
+> **Unified Demo Strategy:** This 1-to-2 minute video satisfies submission requirements for both **Level 2 (Waxing Crescent)** and **Level 3 (First Quarter)** by covering wallet connection, local ZK proof generation, circuit execution, and production dApp features.
 
-## ⏱️ Video Structure (Total: 2 Minutes)
+---
 
-### 1. Introduction & Context (0:00 - 0:20)
-- **Goal:** Introduce the project and state the core privacy claims.
-- **Action:** Show the landing page of the application.
-- **Talking Points:**
-  - Introduce Suffra: A private voting application built on the Midnight network.
-  - Explain the core value proposition: Secure, anonymous voting where individual choices are private, but the final tallies are cryptographically verifiable.
+## ⏱️ Video Structure & Script (60–90 Seconds)
 
-### 2. Wallet Connection (0:20 - 0:45)
-- **Goal:** Demonstrate connecting to the Lace Wallet (Midnight Edition).
-- **Action:**
-  - Click the **Connect Lace Wallet** button.
-  - Show the Lace wallet connection popup and approve it.
-  - Point out the unshielded address (public identity) and the shielded address (private keys).
-  - Verify the tNight and DUST balances are populated.
+### 1. Introduction & Privacy Claim (0:00 - 0:15)
+- **Visual:** Show Suffra landing page ([suffra-private-voting.vercel.app](https://suffra-private-voting.vercel.app)).
+- **Narration:** *"Welcome to Suffra — private voting on Midnight. Suffra uses zero-knowledge proofs to let users cast secret ballots with publicly verifiable tallies."*
+- **Privacy Claim:** Point out the on-chain privacy model (public tallies vs private ballot selection).
 
-### 3. Executing a Private ZK Transaction (0:45 - 1:30)
-- **Goal:** Show a circuit call being proven locally in the browser.
-- **Action:**
-  - Input a secret increment value (e.g., `5`).
-  - Click **Execute ZK Transaction**.
-  - Highlight the loading state: *"Generating local proof & submitting..."*
-  - Explain what is happening under the hood: The ZK proof is computed locally inside the browser using the wallet's proving provider without sending the secret input to any central server.
-  - Show the success state: Display the generated Transaction ID.
+### 2. Wallet Connection (Level 2 requirement) (0:15 - 0:30)
+- **Visual:** Click **Connect Lace Wallet**, approve popup in Lace (Midnight Edition).
+- **Narration:** *"First, we connect our Lace wallet. Suffra detects the Midnight testnet connection, displaying our wallet status and balances."*
 
-### 4. Verification & Explorer Link (1:30 - 2:00)
-- **Goal:** Confirm the transaction on-chain and conclude.
-- **Action:**
-  - Click the **Explorer** link to show the transaction status on the Preview Block Explorer.
-  - Show that the public ledger state (Counter Value) has updated.
-  - Conclude the demo by summarizing the privacy model: *The voter proved they submitted a valid increment without revealing the value of the increment itself.*
+### 3. Circuit Execution & Local Proof Generation (Level 2 & 3 core) (0:30 - 0:55)
+- **Visual:** 
+  1. Input vote choice / increment value.
+  2. Click **Execute ZK Transaction**.
+  3. Show Framer Motion animation and ZK proof generation status.
+- **Narration:** *"Now we execute a ZK circuit transaction. Notice how the proof is generated locally inside the browser. The private witness (our vote choice) never leaves the client or hits any server."*
+- **Visual:** Show transaction receipt with TxHash and contract state update.
+
+### 4. Verification, CI/CD & Wrap-up (Level 3 requirement) (0:55 - 1:15)
+- **Visual:**
+  1. Show contract link on Preview block explorer (`445c735e72a39...`).
+  2. Highlight the GitHub Actions CI badge (`.github/workflows/ci.yml`) and test suite (3/3 passing).
+- **Narration:** *"The transaction is verified on-chain, and the public counter updates. With passing automated unit tests, a GitHub Actions CI pipeline, and a complete product proposal, Suffra is ready for Level 2 and Level 3 submission."*
+
+---
+
+## 📋 Recording Checklist
+- [ ] Screen recording resolution: 1080p (1920x1080)
+- [ ] Audio: Clear mic audio without background noise
+- [ ] Wallet connected to Midnight Preview/Preprod testnet
+- [ ] Proof server running locally (`docker run -p 6300:6300 midnightnetwork/proof-server`)
+- [ ] Vercel live dApp loaded in browser
