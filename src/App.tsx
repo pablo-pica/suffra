@@ -107,23 +107,24 @@ export const App: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="rounded-xl border border-slate-200 bg-gradient-to-r from-slate-50 to-indigo-50/20 p-6 flex flex-col sm:flex-row gap-5 items-start sm:items-center justify-between"
+          className="rounded-xl border border-indigo-100 bg-gradient-to-r from-indigo-50/40 via-slate-50 to-indigo-50/20 p-6 flex flex-col sm:flex-row gap-5 items-start sm:items-center justify-between shadow-card"
         >
           <div className="flex items-start gap-4">
-            <div className="p-3 bg-indigo-50 text-indigo-600 rounded-full shrink-0">
+            <div className="p-3 bg-indigo-100 text-indigo-700 rounded-full shrink-0">
               <HeartHandshake className="w-6 h-6" />
             </div>
             <div className="flex flex-col gap-1">
-              <h4 className="text-sm font-semibold text-slate-900">Step up to Level 3 — Production-Grade dApp</h4>
+              <h4 className="text-sm font-semibold text-slate-900">Level 3 Completed — Production-Grade Private Voting</h4>
               <p className="text-xs text-slate-500 max-w-xl leading-relaxed">
-                In Level 2 we connect the frontend. In Level 3, we will expand this contract to support multiple voting proposals, candidate options, and a full-fledged voting platform.
+                Suffra combines zero-knowledge circuit execution, local proof generation, automated CI/CD testing, and the formal Idea Proposal for private governance elections. Next stop: Level 4 MVP on Preprod!
               </p>
             </div>
           </div>
-          <div className="text-xs font-semibold text-indigo-600 flex items-center gap-1 shrink-0">
-            Level 2 Waxing Crescent active
+          <div className="text-xs font-semibold text-indigo-700 bg-indigo-100/80 px-3 py-1.5 rounded-full border border-indigo-200 flex items-center gap-1 shrink-0">
+            Level 3 First Quarter Certified ✨
           </div>
         </motion.div>
+
       </main>
 
       {/* Footer */}
