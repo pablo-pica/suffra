@@ -82,9 +82,13 @@ export function useMidnight(): UseMidnightResult {
     setConnecting(true);
 
     try {
-      const laceWallet = window.midnight?.mnLace;
-      if (!laceWallet) {
-        throw new Error('Lace wallet (Midnight edition) is not installed. Please install the extension.');
+      const midnightObj = (window as any).midnight;
+      console.log('Detected window.midnight keys:', midnightObj ? Object.keys(midnightObj) : 'none');
+
+
+      const laceWallet = midnightObj?.mnLace || midnightObj?.lace || (midnightObj && Object.values(midnightObj)[0]);
+      if (!laceWallet || typeof laceWallet.connect !== 'function') {
+        throw new Error('Lace wallet (Midnight edition) was not detected. If installed, please refresh the page or ensure Chrome extension Site Access is enabled for this site.');
       }
 
       // Check API version
@@ -93,6 +97,7 @@ export function useMidnight(): UseMidnightResult {
       // Connect using network ID 'preview'
       const api = await laceWallet.connect('preview');
       setWalletApi(api);
+
 
       // Check connection status
       const status = await api.getConnectionStatus();
