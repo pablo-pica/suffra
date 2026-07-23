@@ -81,7 +81,7 @@
 | 2. Circuit called from frontend, proof generated locally | ✓ | Implemented via `CircuitCall.tsx` calling the contract's `increment` method through the wallet's proving provider |
 | 3. Private input never shown in UI | ✓ | Verified secret increment amount is treated as a private witness, with clear UI indicators and never logged/rendered in plain text on ledger |
 | 4. Contract address in README.md | ✓ | Visible in Contract Address table: `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` |
-| 5. Live demo link in README.md | ✓ | Added Vercel live demo link: `https://suffra-private-voting.vercel.app` |
+| 5. Live demo link in README.md | ✓ | Added Vercel live demo link: `https://suffra-pica.vercel.app` |
 | 6. Privacy Claim section in README.md | ✓ | Present under the `Privacy Model` section outlining public, private, and proven semantics |
 | 7. File structure matches spec | ✓ | Verified added files: `src/components/`, `src/hooks/`, `src/App.tsx`, `src/main.tsx`, `index.html` at project root |
 | **Additional Checklist Items:** | | |
@@ -121,7 +121,7 @@
 | 5. Minimum 10 commits | ✓ | Over 10 conventional commits recorded in git log history |
 | **Submission Checklist:** | | |
 | 6. Public GitHub repo & README | ✓ | Public repo with complete README, quickstart, tech stack & links |
-| 7. Live demo link | ✓ | Verified live demo at `https://suffra-private-voting.vercel.app` |
+| 7. Live demo link | ✓ | Verified live demo at `https://suffra-pica.vercel.app` |
 | 8. CI/CD workflow badge | ✓ | Added GitHub Actions workflow badge to README.md |
 | 9. Unified Demo Video guide | ✓ | Created `docs/DEMO-VIDEO.md` covering 1-minute unified Level 2 & 3 script |
 

@@ -9,7 +9,7 @@
 | Resource | Value / Link |
 | :--- | :--- |
 | **Preview Contract Address** | `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` |
-| **Live Demo dApp** | [suffra-private-voting.vercel.app](https://suffra-private-voting.vercel.app) |
+| **Live Demo dApp** | [suffra-pica.vercel.app](https://suffra-pica.vercel.app) |
 | **Product Proposal** | [PROPOSAL.md](PROPOSAL.md) *(The Turn — Private Voting)* |
 | **Unified Demo Video Guide** | [docs/DEMO-VIDEO.md](docs/DEMO-VIDEO.md) |
 | **CI/CD Workflow** | [.github/workflows/ci.yml](.github/workflows/ci.yml) |

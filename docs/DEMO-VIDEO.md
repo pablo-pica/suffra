@@ -7,7 +7,7 @@
 ## ⏱️ Video Structure & Script (60–90 Seconds)
 
 ### 1. Introduction & Privacy Claim (0:00 - 0:15)
-- **Visual:** Show Suffra landing page ([suffra-private-voting.vercel.app](https://suffra-private-voting.vercel.app)).
+- **Visual:** Show Suffra landing page ([suffra-pica.vercel.app](https://suffra-pica.vercel.app)).
 - **Narration:** *"Welcome to Suffra — private voting on Midnight. Suffra uses zero-knowledge proofs to let users cast secret ballots with publicly verifiable tallies."*
 - **Privacy Claim:** Point out the on-chain privacy model (public tallies vs private ballot selection).
 
