@@ -3,6 +3,14 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
 
+// Safeguard fetch binding to window to prevent 'Illegal invocation' errors in browser WASM/SDK calls
+if (typeof window !== 'undefined' && window.fetch) {
+  const originalFetch = window.fetch;
+  window.fetch = function (input: RequestInfo | URL, init?: RequestInit) {
+    return originalFetch.call(window, input, init);
+  };
+}
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <App />

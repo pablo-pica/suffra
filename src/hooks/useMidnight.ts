@@ -125,7 +125,11 @@ export function useMidnight(): UseMidnightResult {
       console.log('Wallet configuration:', config);
 
       // Initialize FetchZkConfigProvider pointing to /counter (served statically in Vite public/)
-      const zkConfigProvider = new FetchZkConfigProvider(`${window.location.origin}/counter`);
+      const zkConfigProvider = new FetchZkConfigProvider(
+        `${window.location.origin}/counter`,
+        (input: RequestInfo | URL, init?: RequestInit) => window.fetch(input, init)
+      );
+
 
       // Initialize Private State Provider
       const privateStateProvider = levelPrivateStateProvider({
