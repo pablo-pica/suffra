@@ -170,8 +170,9 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({ midnight }) => {
                 <div className="flex flex-col">
                   <span className="text-xs text-slate-500">DUST Balance</span>
                   <span className="font-mono font-semibold text-indigo-950">
-                    {dustBalance === 0n ? '0.00' : (dustBalance >= 1000000n ? (Number(dustBalance) / 1e6) : Number(dustBalance)).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} DUST
+                    {dustBalance === 0n ? '0.00' : (dustBalance >= 1000000000n ? (Number(dustBalance) / 1e6) : (dustBalance >= 1000000n ? Number(dustBalance) / 1e6 : Number(dustBalance))).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} DUST
                   </span>
+
                 </div>
               </div>
             </div>
