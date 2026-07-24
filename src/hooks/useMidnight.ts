@@ -209,11 +209,13 @@ export function useMidnight(): UseMidnightResult {
             lastBalancedTxHex = rawHex;
             
             return Transaction.deserialize('signature', 'proof', 'binding', fromHex(rawHex));
-
           } catch (err: any) {
             console.error('Error inside balanceTx:', err);
-            throw new Error(`Lace balanceTx failed: ${err?.message || String(err)}`);
+            const detail = err?.message || err?.cause?.message;
+            throw new Error(`Lace balanceTx failed${detail ? `: ${detail}` : ''}. Insufficient DUST gas tokens or wallet balance. Please request DUST tokens from the faucet.`);
           }
+
+
         },
       };
 
@@ -291,9 +293,16 @@ export function useMidnight(): UseMidnightResult {
       setError('Contract is not initialized. Connect your wallet first.');
       return;
     }
+    if (dustBalance === 0n) {
+      setError('Insufficient DUST balance. Midnight transactions require DUST tokens for gas fees. Please request DUST tokens from the Midnight Faucet.');
+      setLoading(false);
+      return;
+    }
+
     setError(null);
     setLoading(true);
     setTxId(null);
+
 
     try {
       try {
