@@ -9,10 +9,12 @@ import { findDeployedContract } from '@midnight-ntwrk/midnight-js-contracts';
 import { createProofProvider } from '@midnight-ntwrk/midnight-js-types';
 import { toHex, fromHex, parseCoinPublicKeyToHex, parseEncPublicKeyToHex } from '@midnight-ntwrk/midnight-js-utils';
 import { CompiledContract } from '@midnight-ntwrk/midnight-js-protocol/compact-js';
+import { setNetworkId } from '@midnight-ntwrk/midnight-js-network-id';
 import * as Counter from '../../managed/counter/contract/index.js';
 
 // The deployed contract address on the Preview network (from .midnight-state.json)
 const CONTRACT_ADDRESS = '445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748';
+
 const PRIVATE_STATE_ID = 'counterPrivateState';
 
 export interface UseMidnightResult {
@@ -107,7 +109,14 @@ export function useMidnight(): UseMidnightResult {
     setConnecting(true);
 
     try {
+      try {
+        setNetworkId('preview');
+      } catch (e) {
+        console.warn('Network ID set warning:', e);
+      }
+
       const midnightObj = (window as any).midnight;
+
       console.log('Detected window.midnight keys:', midnightObj ? Object.keys(midnightObj) : 'none');
 
 
@@ -262,7 +271,13 @@ export function useMidnight(): UseMidnightResult {
     setTxId(null);
 
     try {
+      try {
+        setNetworkId('preview');
+      } catch (e) {
+        console.warn('Network ID set warning in incrementCounter:', e);
+      }
       console.log('Calling increment circuit with private input amount:', amount);
+
       // Call the circuit; the ZK proof is generated locally (via the wallet proving provider)
       // and the balanced, signed transaction is submitted on-chain
       const tx = await contract.callTx.increment(amount);

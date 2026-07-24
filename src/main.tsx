@@ -2,6 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
+import { setNetworkId } from '@midnight-ntwrk/midnight-js-network-id';
+
+// Configure global Midnight Network ID to preview
+try {
+  setNetworkId('preview');
+} catch (err) {
+  console.warn('Network ID initialization warning:', err);
+}
 
 // Safeguard fetch binding to window to prevent 'Illegal invocation' errors in browser WASM/SDK calls
 if (typeof window !== 'undefined' && window.fetch) {
