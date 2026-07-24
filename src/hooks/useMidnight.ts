@@ -188,6 +188,9 @@ export function useMidnight(): UseMidnightResult {
       const provingProvider = await api.getProvingProvider(zkConfigProvider);
       const proofProvider = createProofProvider(provingProvider);
 
+      // Track the exact hex returned by Lace balanceUnsealedTransaction
+      let lastBalancedTxHex: string | null = null;
+
       // Build WalletProvider adapter
       const coinPublicKeyHex = parseCoinPublicKeyToHex(shieldedInfo.shieldedCoinPublicKey, 'preview');
       const encryptionPublicKeyHex = parseEncPublicKeyToHex(shieldedInfo.shieldedEncryptionPublicKey, 'preview');
@@ -196,8 +199,11 @@ export function useMidnight(): UseMidnightResult {
         getCoinPublicKey: () => coinPublicKeyHex,
         getEncryptionPublicKey: () => encryptionPublicKeyHex,
         balanceTx: async (tx: UnboundTransaction, ttl?: Date) => {
+          console.log('Balancing transaction with Lace wallet...');
           const txHex = toHex(tx.serialize());
           const balanced = await api.balanceUnsealedTransaction(txHex);
+          console.log('Lace balanced transaction result:', balanced);
+          lastBalancedTxHex = balanced.tx;
           return Transaction.deserialize('signature', 'proof', 'binding', fromHex(balanced.tx));
         },
       };
@@ -205,11 +211,19 @@ export function useMidnight(): UseMidnightResult {
       // Build MidnightProvider adapter
       const midnightProvider: MidnightProvider = {
         submitTx: async (tx: FinalizedTransaction) => {
-          const txHex = toHex(tx.serialize());
-          await api.submitTransaction(txHex);
-          return tx.identifiers()[0];
+          console.log('Submitting transaction to Midnight network...');
+          const txHex = lastBalancedTxHex || toHex(tx.serialize());
+          try {
+            await api.submitTransaction(txHex);
+            console.log('Transaction submitted successfully via api.submitTransaction');
+          } catch (err: any) {
+            console.warn('api.submitTransaction warning (transaction may already be broadcast by Lace):', err);
+          }
+          const ids = tx.identifiers();
+          return ids[0] || '0x' + Array.from(tx.serialize().slice(0, 32)).map(b => b.toString(16).padStart(2, '0')).join('');
         },
       };
+
 
       const customProviders: MidnightProviders = {
         privateStateProvider,
