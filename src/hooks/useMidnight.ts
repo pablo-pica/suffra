@@ -32,7 +32,32 @@ export interface UseMidnightResult {
   refreshCounter: () => Promise<void>;
 }
 
+function parseTNightBalance(unshieldedBalances: any): bigint {
+  if (!unshieldedBalances || typeof unshieldedBalances !== 'object') return 0n;
+  for (const [key, value] of Object.entries(unshieldedBalances)) {
+    if (key.toLowerCase().includes('night')) {
+      return BigInt(value as any);
+    }
+  }
+  const values = Object.values(unshieldedBalances);
+  if (values.length > 0) {
+    return BigInt(values[0] as any);
+  }
+  return 0n;
+}
+
+function parseDustBalance(dustInfo: any): bigint {
+  if (!dustInfo) return 0n;
+  if (typeof dustInfo === 'bigint') return dustInfo;
+  if (typeof dustInfo === 'number') return BigInt(dustInfo);
+  if (typeof dustInfo === 'object' && dustInfo.balance !== undefined) {
+    return BigInt(dustInfo.balance);
+  }
+  return 0n;
+}
+
 export function useMidnight(): UseMidnightResult {
+
   const [connected, setConnected] = useState(false);
   const [connecting, setConnecting] = useState(false);
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
@@ -115,10 +140,19 @@ export function useMidnight(): UseMidnightResult {
       const dustInfo = await api.getDustBalance();
       const unshieldedBalances = await api.getUnshieldedBalances();
 
+      console.log('Shielded addresses:', shieldedInfo);
+      console.log('Unshielded info:', unshieldedInfo);
+      console.log('Dust info:', dustInfo);
+      console.log('Unshielded balances:', unshieldedBalances);
+
+      const parsedBalance = parseTNightBalance(unshieldedBalances);
+      const parsedDust = parseDustBalance(dustInfo);
+
       setWalletAddress(unshieldedInfo.unshieldedAddress);
       setShieldedAddress(shieldedInfo.shieldedAddress);
-      setBalance(unshieldedBalances['tNight'] || unshieldedBalances['night'] || 0n);
-      setDustBalance(dustInfo.balance);
+      setBalance(parsedBalance);
+      setDustBalance(parsedDust);
+
 
       // Get configuration from the wallet connector
       const config = await api.getConfiguration();
@@ -239,8 +273,9 @@ export function useMidnight(): UseMidnightResult {
       if (walletApi) {
         const dustInfo = await walletApi.getDustBalance();
         const unshieldedBalances = await walletApi.getUnshieldedBalances();
-        setBalance(unshieldedBalances['tNight'] || unshieldedBalances['night'] || 0n);
-        setDustBalance(dustInfo.balance);
+        setBalance(parseTNightBalance(unshieldedBalances));
+        setDustBalance(parseDustBalance(dustInfo));
+
       }
 
       // Refresh counter value

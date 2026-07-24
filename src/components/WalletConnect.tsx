@@ -158,7 +158,7 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({ midnight }) => {
                 <div className="flex flex-col">
                   <span className="text-xs text-slate-500">tNight Balance</span>
                   <span className="font-mono font-semibold text-slate-900">
-                    {(Number(balance) / 1e6).toFixed(2)} tNight
+                    {balance === 0n ? '0.00' : (balance >= 1000000n ? (Number(balance) / 1e6) : Number(balance)).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} tNight
                   </span>
                 </div>
               </div>
@@ -170,11 +170,12 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({ midnight }) => {
                 <div className="flex flex-col">
                   <span className="text-xs text-slate-500">DUST Balance</span>
                   <span className="font-mono font-semibold text-indigo-950">
-                    {(Number(dustBalance) / 1e6).toFixed(2)} DUST
+                    {dustBalance === 0n ? '0.00' : (dustBalance >= 1000000n ? (Number(dustBalance) / 1e6) : Number(dustBalance)).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} DUST
                   </span>
                 </div>
               </div>
             </div>
+
 
             <motion.button
               variants={buttonVariants}
