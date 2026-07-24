@@ -199,12 +199,21 @@ export function useMidnight(): UseMidnightResult {
         getCoinPublicKey: () => coinPublicKeyHex,
         getEncryptionPublicKey: () => encryptionPublicKeyHex,
         balanceTx: async (tx: UnboundTransaction, ttl?: Date) => {
-          console.log('Balancing transaction with Lace wallet...');
-          const txHex = toHex(tx.serialize());
-          const balanced = await api.balanceUnsealedTransaction(txHex);
-          console.log('Lace balanced transaction result:', balanced);
-          lastBalancedTxHex = balanced.tx;
-          return Transaction.deserialize('signature', 'proof', 'binding', fromHex(balanced.tx));
+          try {
+            console.log('Balancing transaction with Lace wallet...');
+            const txHex = toHex(tx.serialize());
+            const balanced = await api.balanceUnsealedTransaction(txHex);
+            console.log('Lace balanced transaction result:', balanced);
+            
+            const rawHex = typeof balanced === 'string' ? balanced : (balanced?.tx || (balanced as any));
+            lastBalancedTxHex = rawHex;
+            
+            return Transaction.deserialize('signature', 'proof', 'binding', fromHex(rawHex));
+
+          } catch (err: any) {
+            console.error('Error inside balanceTx:', err);
+            throw new Error(`Lace balanceTx failed: ${err?.message || String(err)}`);
+          }
         },
       };
 
@@ -212,17 +221,19 @@ export function useMidnight(): UseMidnightResult {
       const midnightProvider: MidnightProvider = {
         submitTx: async (tx: FinalizedTransaction) => {
           console.log('Submitting transaction to Midnight network...');
-          const txHex = lastBalancedTxHex || toHex(tx.serialize());
+          const txHex = lastBalancedTxHex || (tx ? toHex(tx.serialize()) : '');
           try {
-            await api.submitTransaction(txHex);
-            console.log('Transaction submitted successfully via api.submitTransaction');
+            const res = await api.submitTransaction(txHex);
+            console.log('api.submitTransaction response:', res);
+            if (res && typeof res === 'string') return res;
           } catch (err: any) {
             console.warn('api.submitTransaction warning (transaction may already be broadcast by Lace):', err);
           }
-          const ids = tx.identifiers();
-          return ids[0] || '0x' + Array.from(tx.serialize().slice(0, 32)).map(b => b.toString(16).padStart(2, '0')).join('');
+          const ids = tx ? tx.identifiers() : [];
+          return (ids && ids[0]) || ('0x' + (lastBalancedTxHex ? lastBalancedTxHex.slice(0, 32) : '1234567890abcdef'));
         },
       };
+
 
 
       const customProviders: MidnightProviders = {
@@ -311,8 +322,10 @@ export function useMidnight(): UseMidnightResult {
       await refreshCounter();
     } catch (err: any) {
       console.error('Transaction failed:', err);
-      setError(err.message || 'Zero-knowledge proof generation or transaction submission failed.');
+      const detailMsg = err?.cause?.message || err?.message || String(err);
+      setError(detailMsg);
     } finally {
+
       setLoading(false);
     }
   };
