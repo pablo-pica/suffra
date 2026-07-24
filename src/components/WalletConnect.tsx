@@ -150,32 +150,32 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({ midnight }) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 pt-2 border-t border-slate-100">
-              <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-full bg-slate-100 text-slate-700">
-                  <Coins className="w-5 h-5" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t border-slate-100">
+              <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-50/80 border border-slate-100 min-w-0">
+                <div className="p-2 rounded-lg bg-white text-slate-700 shadow-xs shrink-0">
+                  <Coins className="w-4 h-4" />
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-xs text-slate-500">tNight Balance</span>
-                  <span className="font-mono font-semibold text-slate-900">
-                    {balance === 0n ? '0.00' : (balance >= 1000000n ? (Number(balance) / 1e6) : Number(balance)).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} tNight
+                <div className="flex flex-col min-w-0 overflow-hidden">
+                  <span className="text-[11px] font-medium text-slate-500 uppercase tracking-wider">tNight</span>
+                  <span className="font-mono text-sm font-bold text-slate-900 truncate" title={`${balance.toString()} raw base units`}>
+                    {balance === 0n ? '0.00' : (balance >= 1000000n ? (Number(balance) / 1e6).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : Number(balance).toLocaleString())}
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-full bg-indigo-50 text-indigo-700">
-                  <ShieldCheck className="w-5 h-5" />
+              <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-indigo-50/60 border border-indigo-100/50 min-w-0">
+                <div className="p-2 rounded-lg bg-white text-indigo-600 shadow-xs shrink-0">
+                  <ShieldCheck className="w-4 h-4" />
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-xs text-slate-500">DUST Balance</span>
-                  <span className="font-mono font-semibold text-indigo-950">
-                    {dustBalance === 0n ? '0.00' : (dustBalance >= 1000000000n ? (Number(dustBalance) / 1e6) : (dustBalance >= 1000000n ? Number(dustBalance) / 1e6 : Number(dustBalance))).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} DUST
+                <div className="flex flex-col min-w-0 overflow-hidden">
+                  <span className="text-[11px] font-medium text-indigo-600 uppercase tracking-wider">DUST</span>
+                  <span className="font-mono text-sm font-bold text-indigo-950 truncate" title={`${dustBalance.toString()} raw base units`}>
+                    {dustBalance === 0n ? '0.00' : (Number(dustBalance) >= 1e9 ? (Number(dustBalance) / 1e9).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : (Number(dustBalance) >= 1e6 ? (Number(dustBalance) / 1e6).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : Number(dustBalance).toLocaleString()))}
                   </span>
-
                 </div>
               </div>
             </div>
+
 
 
             <motion.button
