@@ -31,7 +31,8 @@ Before starting your screen recording, open the following tabs in order:
   3. Click **Execute ZK Transaction**.
   4. Highlight the loading state: *"Generating local proof & submitting..."*
   5. Show transaction receipt card displaying the generated Transaction ID.
-- **Narration:** *"Now we execute a ZK circuit transaction. Notice how the ZK proof is computed locally inside the browser using Lace's proving provider. The secret input never leaves the client or touches any server."*
+- **Narration:** *"Now we execute a ZK circuit transaction. Notice how Suffra outputs the local zero-knowledge proof identifier. Midnight separates private ZK circuit states from unshielded gas fees, settling on-chain in 30 to 60 seconds as the block mines on the Preview testnet."*
+
 
 ### 4. On-Chain Verification, CI/CD & Tests (Level 3 Requirement) (0:55 - 1:20)
 - **Visual:**
