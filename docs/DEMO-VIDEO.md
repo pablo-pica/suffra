@@ -4,6 +4,13 @@
 
 ---
 
+## 📺 Published Demo Video
+- **YouTube Link:** [https://youtu.be/G3Ppbny50tc](https://youtu.be/G3Ppbny50tc)
+- **Duration:** 1:15 (covers Level 2 wallet & circuit + Level 3 tests, CI/CD & proposal)
+
+---
+
+
 ## 🖥️ Browser Tabs to Prepare Before Recording
 Before starting your screen recording, open the following tabs in order:
 1. **Tab 1 — Live dApp:** [https://suffra-pica.vercel.app](https://suffra-pica.vercel.app)

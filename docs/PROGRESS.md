@@ -123,7 +123,8 @@
 | 6. Public GitHub repo & README | ✓ | Public repo with complete README, quickstart, tech stack & links |
 | 7. Live demo link | ✓ | Verified live demo at `https://suffra-pica.vercel.app` |
 | 8. CI/CD workflow badge | ✓ | Added GitHub Actions workflow badge to README.md |
-| 9. Unified Demo Video guide | ✓ | Created `docs/DEMO-VIDEO.md` covering 1-minute unified Level 2 & 3 script |
+| 9. Unified Demo Video link | ✓ | Published demo video on YouTube: [youtu.be/G3Ppbny50tc](https://youtu.be/G3Ppbny50tc) |
+
 
 ---
 

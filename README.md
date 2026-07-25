@@ -10,10 +10,12 @@
 | :--- | :--- |
 | **Preview Contract Address** | `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` |
 | **Live Demo dApp** | [suffra-pica.vercel.app](https://suffra-pica.vercel.app) |
+| **Demo Video (YouTube)** | [youtu.be/G3Ppbny50tc](https://youtu.be/G3Ppbny50tc) 🎬 |
 | **Product Proposal** | [PROPOSAL.md](PROPOSAL.md) *(The Turn — Private Voting)* |
-| **Unified Demo Video Guide** | [docs/DEMO-VIDEO.md](docs/DEMO-VIDEO.md) |
+| **Demo Video Script** | [docs/DEMO-VIDEO.md](docs/DEMO-VIDEO.md) |
 | **CI/CD Workflow** | [.github/workflows/ci.yml](.github/workflows/ci.yml) |
 | **Level Progress Tracker** | [docs/PROGRESS.md](docs/PROGRESS.md) |
+
 
 ---
 
