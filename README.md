@@ -19,7 +19,7 @@
 
 ## 🎬 Demo Video
 
-Watch our 1-minute walkthrough demonstrating Lace wallet connection, local zero-knowledge proof generation, on-chain settlement, unit test verification, and CI/CD automation:
+Watch our 3-minute walkthrough demonstrating Lace wallet connection, local zero-knowledge proof generation, on-chain settlement, unit test verification, and CI/CD automation:
 
 👉 **[Watch Suffra Demo Video on YouTube](https://youtu.be/G3Ppbny50tc)**
 
