@@ -9,13 +9,19 @@
 | Resource | Value / Link |
 | :--- | :--- |
 | **Preview Contract Address** | `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` |
-| **Live Demo dApp** | [suffra-pica.vercel.app](https://suffra-pica.vercel.app) |
-| **Demo Video (YouTube)** | [youtu.be/G3Ppbny50tc](https://youtu.be/G3Ppbny50tc) 🎬 |
-| **Product Proposal** | [PROPOSAL.md](PROPOSAL.md) *(The Turn — Private Voting)* |
-| **Demo Video Script** | [docs/DEMO-VIDEO.md](docs/DEMO-VIDEO.md) |
-| **CI/CD Workflow** | [.github/workflows/ci.yml](.github/workflows/ci.yml) |
-| **Level Progress Tracker** | [docs/PROGRESS.md](docs/PROGRESS.md) |
+| **Live Demo dApp** | [suffra-pica.vercel.app](https://suffra-pica.vercel.app) 🚀 |
+| **Demo Video** | [youtu.be/G3Ppbny50tc](https://youtu.be/G3Ppbny50tc) 🎬 |
+| **Product Proposal** | [PROPOSAL.md](PROPOSAL.md) *(The Turn — Private Voting)* 📄 |
+| **CI/CD Workflow** | [.github/workflows/ci.yml](.github/workflows/ci.yml) ⚙️ |
+| **Level Progress Tracker** | [docs/PROGRESS.md](docs/PROGRESS.md) 📊 |
 
+---
+
+## 🎬 Demo Video
+
+Watch our 1-minute walkthrough demonstrating Lace wallet connection, local zero-knowledge proof generation, on-chain settlement, unit test verification, and CI/CD automation:
+
+👉 **[Watch Suffra Demo Video on YouTube](https://youtu.be/G3Ppbny50tc)**
 
 ---
 
@@ -35,7 +41,7 @@ Suffra is a private voting application built on Midnight that enables anonymous 
 
 ## 🛠️ Tech Stack
 
-- **Midnight Network & Compact Language** (on-chain smart contracts & circuits)
+- **Midnight Network & Compact Language** (on-chain smart contracts & ZK circuits)
 - **Vite + React + TypeScript** (frontend dApp)
 - **Tailwind CSS v4 + Framer Motion** (modern design & fluid ZK state micro-animations)
 - **Lace Wallet (Midnight Edition)** (wallet connection & proving provider)
@@ -88,9 +94,3 @@ Suffra fulfills Idea #1 (*Private Voting*) from the official Midnight hackathon 
 
 ### Deployed Contract Address
 ![Deployed Contract Address](./public/deployed-address.png)
-
----
-
-## 🎥 Demo Video Guide
-
-Detailed steps for recording the unified 1-minute demo video covering Level 2 and Level 3 submissions are outlined in [docs/DEMO-VIDEO.md](docs/DEMO-VIDEO.md).
