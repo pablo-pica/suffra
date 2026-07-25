@@ -176,11 +176,11 @@ export const CircuitCall: React.FC<CircuitCallProps> = ({ midnight }) => {
                   </span>
                 </div>
 
-                <div className="text-[11px] text-slate-500 mt-1 flex items-center gap-1.5">
+                <div className="text-[11px] text-slate-500 mt-1 flex items-center gap-1.5 flex-wrap">
                   <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-ping" />
-                  <span>State will update shortly as transaction settles on Preview network.</span>
+                  <span>State updates in ~30–60s once mined in a block on Preview network.</span>
                   <a
-                    href={`https://explorer.preview.midnight.network/transaction/${txId}`}
+                    href={`https://explorer.preview.midnight.network/tx/${txId}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="ml-auto inline-flex items-center gap-0.5 text-accent-blue hover:text-indigo-600 transition-colors font-medium"
@@ -188,6 +188,7 @@ export const CircuitCall: React.FC<CircuitCallProps> = ({ midnight }) => {
                     Explorer <ExternalLink className="w-3 h-3" />
                   </a>
                 </div>
+
               </motion.div>
             )}
           </AnimatePresence>
