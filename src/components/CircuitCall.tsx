@@ -180,13 +180,14 @@ export const CircuitCall: React.FC<CircuitCallProps> = ({ midnight }) => {
                   <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-ping" />
                   <span>State updates in ~30–60s once mined in a block on Preview network.</span>
                   <a
-                    href={`https://explorer.preview.midnight.network/tx/${txId}`}
+                    href={`https://explorer.preview.midnight.network/transactions/${txId}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="ml-auto inline-flex items-center gap-0.5 text-accent-blue hover:text-indigo-600 transition-colors font-medium"
                   >
                     Explorer <ExternalLink className="w-3 h-3" />
                   </a>
+
                 </div>
 
               </motion.div>

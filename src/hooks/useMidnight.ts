@@ -69,6 +69,8 @@ export function useMidnight(): UseMidnightResult {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [txId, setTxId] = useState<string | null>(null);
+  const [lastTxHash, setLastTxHash] = useState<string | null>(null);
+
   const [counterValue, setCounterValue] = useState<bigint | null>(null);
   const [walletApi, setWalletApi] = useState<ConnectedAPI | null>(null);
   const [providers, setProviders] = useState<MidnightProviders | null>(null);
@@ -206,7 +208,9 @@ export function useMidnight(): UseMidnightResult {
             console.log('Lace balanced transaction result:', balanced);
             
             const rawHex = typeof balanced === 'string' ? balanced : (balanced?.tx || (balanced as any));
+            setLastTxHash(rawHex);
             lastBalancedTxHex = rawHex;
+
             
             return Transaction.deserialize('signature', 'proof', 'binding', fromHex(rawHex));
           } catch (err: any) {
@@ -312,11 +316,12 @@ export function useMidnight(): UseMidnightResult {
       }
       console.log('Calling increment circuit with private input amount:', amount);
 
-      // Call the circuit; the ZK proof is generated locally (via the wallet proving provider)
-      // and the balanced, signed transaction is submitted on-chain
       const tx = await contract.callTx.increment(amount);
-      console.log('Circuit call success. Tx details:', tx);
-      setTxId(tx.public.txId);
+      const resolvedTxHash = (tx?.public as any)?.txHash || tx?.public?.txId || lastTxHash;
+      setTxId(resolvedTxHash);
+
+
+
       
       // Update balances
       if (walletApi) {
