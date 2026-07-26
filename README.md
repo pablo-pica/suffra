@@ -71,13 +71,29 @@ npm run dev
 
 ---
 
-## 🧪 Run Tests
+## 🧪 Run Tests & Verification
 
 ```bash
 npm run test
 ```
 
+### Verified Test Suite Output (Vitest)
+```text
+ RUN  v4.1.10 /home/pablo-pica/Documents/programming/suffra
+
+ ✓ tests/counter.test.ts (3 tests) 31ms
+   ✓ Counter Smart Contract Tests (3)
+     ✓ should initialize counter value to 0 20ms
+     ✓ should increment counter by a private witness value 5ms
+     ✓ should maintain privacy: private input remains a parameter and is never written to public ledger 5ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Duration  340ms
+```
+
 > **Passing Test Suite:** 3/3 tests passing in `tests/counter.test.ts` covering contract initialization, private witness increment circuit execution, and ledger privacy invariant enforcement.
+
 
 ---
 
