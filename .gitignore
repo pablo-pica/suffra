@@ -12,6 +12,7 @@ out/
 # Midnight
 .midnight-state.json
 .midnight-wallet-state/
+.suffra-voter-secret
 midnight-level-db/
 
 # Environment

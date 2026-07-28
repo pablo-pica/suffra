@@ -1,12 +1,12 @@
 {
-  "name": "mn-demo",
+  "name": "suffra",
   "version": "1.0.0",
   "type": "module",
-  "description": "A Midnight Network application created with create-mn-app",
+  "description": "A private voting MVP on Midnight Network",
   "author": "",
   "license": "MIT",
   "scripts": {
-    "compile": "compact compile contracts/counter.compact managed/counter",
+    "compile": "compact compile contracts/suffra.compact managed/suffra && rm -rf public/suffra && cp -R managed/suffra public/suffra",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
@@ -17,9 +17,9 @@
     "network": "npx tsx src/network.ts",
     "proof-server:start": "docker compose up -d",
     "proof-server:stop": "docker compose down",
-    "clean": "rm -rf contracts/managed .midnight-state.json .midnight-wallet-state",
+    "clean": "rm -rf .midnight-state.json .midnight-wallet-state",
     "test": "vitest run",
-    "test:e2e": "tsx scripts/e2e-check.ts"
+    "test:e2e": "vitest run tests/suffra.test.ts"
   },
   "dependencies": {
     "@midnight-ntwrk/compact-runtime": "0.16.0",
