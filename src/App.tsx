@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ShieldAlert, ShieldCheck, HeartHandshake, FileText, Compass, ExternalLink } from 'lucide-react';
+import { ShieldCheck, HeartHandshake, FileText, Compass, ExternalLink, Network } from 'lucide-react';
 import { useMidnight } from './hooks/useMidnight';
 import { WalletConnect } from './components/WalletConnect';
-import { CircuitCall } from './components/CircuitCall';
+import { BallotBox } from './components/BallotBox';
 
 export const App: React.FC = () => {
   const midnight = useMidnight();
@@ -16,7 +16,6 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-indigo-100 selection:text-indigo-900">
-      {/* Header */}
       <header className="border-b border-slate-200 bg-white/80 backdrop-blur sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
@@ -25,7 +24,7 @@ export const App: React.FC = () => {
             </div>
             <div>
               <span className="font-headings font-bold text-lg text-slate-900 tracking-tight">Suffra</span>
-              <span className="text-[10px] ml-1.5 font-mono px-1.5 py-0.5 rounded-md bg-indigo-50 text-indigo-600 border border-indigo-100 uppercase tracking-wider font-semibold">Preview</span>
+              <span className="text-[10px] ml-1.5 font-mono px-1.5 py-0.5 rounded-md bg-indigo-50 text-indigo-600 border border-indigo-100 uppercase tracking-wider font-semibold">Sealed Ballot MVP</span>
             </div>
           </div>
           <div className="flex items-center gap-4 text-xs font-semibold text-slate-500">
@@ -33,17 +32,15 @@ export const App: React.FC = () => {
               Docs <ExternalLink className="w-3.5 h-3.5" />
             </a>
             <span className="text-slate-300">|</span>
-            <span className="flex items-center gap-1.5 text-green-700 bg-green-50 px-2 py-1 rounded-full border border-green-200">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-              Proof Server Active
+            <span className="flex items-center gap-1.5 text-indigo-700 bg-indigo-50 px-2 py-1 rounded-full border border-indigo-200">
+              <Network className="w-3.5 h-3.5" />
+              Preview network
             </span>
           </div>
         </div>
       </header>
 
-      {/* Main content */}
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col gap-8">
-        {/* Hero Section */}
         <motion.div
           initial={fadeInUp.initial}
           animate={fadeInUp.animate}
@@ -51,16 +48,14 @@ export const App: React.FC = () => {
           className="text-center md:text-left max-w-3xl flex flex-col gap-3"
         >
           <h1 className="text-3xl sm:text-4xl font-bold font-headings text-slate-900 leading-tight tracking-tight">
-            Private Voting on Midnight Network
+            Private voting starts with sealed ballots.
           </h1>
           <p className="text-sm sm:text-base text-slate-500 leading-relaxed max-w-2xl">
-            Suffra provides anonymous ballot casting with cryptographically verifiable and publicly auditable tallies. Using zero-knowledge proofs, voters prove their eligibility and ballot validity without exposing their choice or identity.
+            Suffra is a Midnight governance MVP where voters register a private local secret, cast a salted ballot commitment, and publish only the commitment/nullifier data needed for verification. The current milestone proves one-ballot-per-registered-secret without exposing the vote choice on-chain.
           </p>
         </motion.div>
 
-        {/* Dashboard Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Column - Wallet Connector */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -68,41 +63,38 @@ export const App: React.FC = () => {
             className="lg:col-span-5 flex flex-col gap-6"
           >
             <WalletConnect midnight={midnight} />
-            
-            {/* ZK Info Card */}
+
             <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-card flex flex-col gap-3">
               <h3 className="text-xs font-semibold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
-                <Compass className="w-4 h-4 text-indigo-500" /> ZK Privacy Model
+                <Compass className="w-4 h-4 text-indigo-500" /> Privacy Model
               </h3>
               <div className="flex flex-col gap-2 text-xs text-slate-500 leading-relaxed">
                 <div className="flex items-start gap-2">
                   <span className="text-green-500 font-bold">✓</span>
-                  <p><strong>Private choices:</strong> Choice of ballot option and voter identity are encrypted in browser and never hit the ledger.</p>
+                  <p><strong>Private:</strong> voter secret, vote choice, and ballot salt stay off the public ledger.</p>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="text-indigo-500 font-bold">✓</span>
-                  <p><strong>Public Verification:</strong> The final tally updates and double-voting nullifier are published to the public ledger.</p>
+                  <p><strong>Public:</strong> voter commitments, one-use nullifiers, sealed ballot commitments, and counts are auditable.</p>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="text-indigo-500 font-bold">✓</span>
-                  <p><strong>The Proof:</strong> A ZK proof is generated locally in your browser. Validator verifies it on-chain without knowing who you are or what you voted for.</p>
+                  <p><strong>Proved:</strong> the voter registered first, used a valid choice, and has not reused the same voting secret.</p>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Right Column - Circuit Interaction */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="lg:col-span-7"
           >
-            <CircuitCall midnight={midnight} />
+            <BallotBox midnight={midnight} />
           </motion.div>
         </div>
 
-        {/* Bottom Feature Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -114,20 +106,24 @@ export const App: React.FC = () => {
               <HeartHandshake className="w-6 h-6" />
             </div>
             <div className="flex flex-col gap-1">
-              <h4 className="text-sm font-semibold text-slate-900">Level 3 Completed — Production-Grade Private Voting</h4>
+              <h4 className="text-sm font-semibold text-slate-900">Pre-Level 4 hardening in progress</h4>
               <p className="text-xs text-slate-500 max-w-xl leading-relaxed">
-                Suffra combines zero-knowledge circuit execution, local proof generation, automated CI/CD testing, and the formal Idea Proposal for private governance elections. Next stop: Level 4 MVP on Preprod!
+                The counter demo has been replaced by a privacy-meaningful sealed ballot contract. Final Level 4 submission still needs approved idea confirmation, a deployed Suffra contract address, public product profile, and a recorded MVP demo.
               </p>
             </div>
           </div>
-          <div className="text-xs font-semibold text-indigo-700 bg-indigo-100/80 px-3 py-1.5 rounded-full border border-indigo-200 flex items-center gap-1 shrink-0">
-            Level 3 First Quarter Certified ✨
-          </div>
+          <a
+            href="https://github.com/pablo-pica/suffra/blob/main/docs/USAGE.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs font-semibold text-indigo-700 bg-indigo-100/80 px-3 py-1.5 rounded-full border border-indigo-200 flex items-center gap-1 shrink-0"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            Usage guide
+          </a>
         </motion.div>
-
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-slate-200 bg-white py-6">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <p>© 2026 Suffra. Built on Midnight Network.</p>
@@ -145,4 +141,5 @@ export const App: React.FC = () => {
     </div>
   );
 };
+
 export default App;

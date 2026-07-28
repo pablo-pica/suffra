@@ -78,7 +78,7 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({ midnight }) => {
             className="flex flex-col gap-4"
           >
             <p className="text-sm text-slate-500 leading-relaxed">
-              Connect your Lace Wallet (Midnight edition) to preview private credentials, generate zero-knowledge proofs locally, and interact with the Counter smart contract.
+              Connect your Lace Wallet (Midnight edition) to register a local voter secret, generate zero-knowledge proofs, and interact with the Suffra sealed ballot contract.
             </p>
 
             {error && (
@@ -133,7 +133,7 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({ midnight }) => {
                   {formatAddress(walletAddress)}
                 </span>
                 <span className="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
-                  Public ID (visible on chain)
+                  Wallet account used for transaction funding
                 </span>
               </div>
 
@@ -145,7 +145,7 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({ midnight }) => {
                   {formatAddress(shieldedAddress)}
                 </span>
                 <span className="text-[11px] text-indigo-400 mt-1">
-                  Private Keypair (Z-Swap enabled)
+                  Shielded account details stay inside Lace
                 </span>
               </div>
             </div>

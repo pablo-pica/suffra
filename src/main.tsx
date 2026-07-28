@@ -7,8 +7,8 @@ import { setNetworkId } from '@midnight-ntwrk/midnight-js-network-id';
 // Configure global Midnight Network ID to preview
 try {
   setNetworkId('preview');
-} catch (err) {
-  console.warn('Network ID initialization warning:', err);
+} catch {
+  // The hook sets the network again before wallet operations.
 }
 
 // Safeguard fetch binding to window to prevent 'Illegal invocation' errors in browser WASM/SDK calls

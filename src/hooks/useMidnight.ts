@@ -10,12 +10,20 @@ import { createProofProvider } from '@midnight-ntwrk/midnight-js-types';
 import { toHex, fromHex, parseCoinPublicKeyToHex, parseEncPublicKeyToHex } from '@midnight-ntwrk/midnight-js-utils';
 import { CompiledContract } from '@midnight-ntwrk/midnight-js-protocol/compact-js';
 import { setNetworkId } from '@midnight-ntwrk/midnight-js-network-id';
-import * as Counter from '../../managed/counter/contract/index.js';
+import * as Suffra from '../../managed/suffra/contract/index.js';
 
-// The deployed contract address on the Preview network (from .midnight-state.json)
-const CONTRACT_ADDRESS = '445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748';
+const CONTRACT_ADDRESS = (import.meta.env.VITE_SUFFRA_CONTRACT_ADDRESS || '').trim();
+const NETWORK_ID = 'preview';
+const PRIVATE_STATE_ID = 'suffraPrivateState';
 
-const PRIVATE_STATE_ID = 'counterPrivateState';
+export interface ElectionState {
+  votingOpen: boolean;
+  registeredCount: bigint;
+  ballotCount: bigint;
+  registeredVoters: bigint;
+  usedNullifiers: bigint;
+  sealedBallots: bigint;
+}
 
 export interface UseMidnightResult {
   connected: boolean;
@@ -25,13 +33,18 @@ export interface UseMidnightResult {
   balance: bigint;
   dustBalance: bigint;
   error: string | null;
+  deploymentNotice: string | null;
   loading: boolean;
   txId: string | null;
-  counterValue: bigint | null;
+  contractAddress: string | null;
+  contractReady: boolean;
+  electionState: ElectionState | null;
   connect: () => Promise<void>;
   disconnect: () => Promise<void>;
-  incrementCounter: (amount: bigint) => Promise<void>;
-  refreshCounter: () => Promise<void>;
+  registerVoter: () => Promise<void>;
+  castVote: (choice: 0 | 1) => Promise<void>;
+  closeVoting: () => Promise<void>;
+  refreshElection: () => Promise<void>;
 }
 
 function parseTNightBalance(unshieldedBalances: any): bigint {
@@ -58,8 +71,61 @@ function parseDustBalance(dustInfo: any): bigint {
   return 0n;
 }
 
-export function useMidnight(): UseMidnightResult {
+function randomBytes32(): Uint8Array {
+  const bytes = new Uint8Array(32);
+  crypto.getRandomValues(bytes);
+  return bytes;
+}
 
+function bytesToHexString(bytes: Uint8Array): string {
+  return Array.from(bytes)
+    .map((byte) => byte.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+function hexStringToBytes(hex: string): Uint8Array {
+  if (!/^[0-9a-fA-F]{64}$/.test(hex)) {
+    throw new Error('Stored Suffra secret is invalid.');
+  }
+  const bytes = new Uint8Array(32);
+  for (let i = 0; i < bytes.length; i += 1) {
+    bytes[i] = Number.parseInt(hex.slice(i * 2, i * 2 + 2), 16);
+  }
+  return bytes;
+}
+
+function getOrCreateLocalHex(key: string): string {
+  const existing = localStorage.getItem(key);
+  if (existing && /^[0-9a-fA-F]{64}$/.test(existing)) return existing;
+  const created = bytesToHexString(randomBytes32());
+  localStorage.setItem(key, created);
+  return created;
+}
+
+function getPrivateStoragePassword(accountId: string): string {
+  return getOrCreateLocalHex(`suffra_private_storage_password:${accountId}`);
+}
+
+function getVoterSecret(accountId: string): Uint8Array {
+  return hexStringToBytes(getOrCreateLocalHex(`suffra_voter_secret:${accountId}`));
+}
+
+function contractAddressIsConfigured(): boolean {
+  return /^[0-9a-fA-F]{64}$/.test(CONTRACT_ADDRESS);
+}
+
+function ledgerToElectionState(ledger: Suffra.Ledger): ElectionState {
+  return {
+    votingOpen: ledger.votingOpen,
+    registeredCount: ledger.registeredCount,
+    ballotCount: ledger.ballotCount,
+    registeredVoters: ledger.registeredVoters.size(),
+    usedNullifiers: ledger.usedNullifiers.size(),
+    sealedBallots: ledger.sealedBallots.size(),
+  };
+}
+
+export function useMidnight(): UseMidnightResult {
   const [connected, setConnected] = useState(false);
   const [connecting, setConnecting] = useState(false);
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
@@ -67,16 +133,29 @@ export function useMidnight(): UseMidnightResult {
   const [balance, setBalance] = useState<bigint>(0n);
   const [dustBalance, setDustBalance] = useState<bigint>(0n);
   const [error, setError] = useState<string | null>(null);
+  const [deploymentNotice, setDeploymentNotice] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [txId, setTxId] = useState<string | null>(null);
   const [lastTxHash, setLastTxHash] = useState<string | null>(null);
-
-  const [counterValue, setCounterValue] = useState<bigint | null>(null);
+  const [electionState, setElectionState] = useState<ElectionState | null>(null);
   const [walletApi, setWalletApi] = useState<ConnectedAPI | null>(null);
   const [providers, setProviders] = useState<MidnightProviders | null>(null);
   const [contract, setContract] = useState<any>(null);
 
-  // Check if wallet was previously connected
+  const contractReady = Boolean(contract && contractAddressIsConfigured());
+
+  const refreshElection = useCallback(async () => {
+    if (!providers || !contractAddressIsConfigured()) return;
+    try {
+      const contractState = await providers.publicDataProvider.queryContractState(CONTRACT_ADDRESS);
+      if (contractState) {
+        setElectionState(ledgerToElectionState(Suffra.ledger(contractState.data)));
+      }
+    } catch {
+      setDeploymentNotice('Suffra contract state is not available yet. Deploy the new contract and set VITE_SUFFRA_CONTRACT_ADDRESS.');
+    }
+  }, [providers]);
+
   useEffect(() => {
     const wasConnected = localStorage.getItem('midnight_wallet_connected') === 'true';
     if (wasConnected && window.midnight?.mnLace) {
@@ -84,163 +163,101 @@ export function useMidnight(): UseMidnightResult {
     }
   }, []);
 
-  // Set up auto-refresh for public state (counter value)
-  const refreshCounter = useCallback(async () => {
-    if (!providers) return;
-    try {
-      const contractState = await providers.publicDataProvider.queryContractState(CONTRACT_ADDRESS);
-      if (contractState) {
-        const ledgerState = Counter.ledger(contractState.data);
-        setCounterValue(ledgerState.value);
-      }
-    } catch (err: any) {
-      console.error('Failed to query contract state:', err);
-    }
-  }, [providers]);
-
   useEffect(() => {
     if (providers) {
-      refreshCounter();
-      const interval = setInterval(refreshCounter, 10000);
+      refreshElection();
+      const interval = setInterval(refreshElection, 10000);
       return () => clearInterval(interval);
     }
-  }, [providers, refreshCounter]);
+  }, [providers, refreshElection]);
 
   const connect = async () => {
     setError(null);
+    setDeploymentNotice(null);
     setConnecting(true);
 
     try {
-      try {
-        setNetworkId('preview');
-      } catch (e) {
-        console.warn('Network ID set warning:', e);
-      }
+      setNetworkId(NETWORK_ID);
 
       const midnightObj = (window as any).midnight;
-
-      console.log('Detected window.midnight keys:', midnightObj ? Object.keys(midnightObj) : 'none');
-
-
       const laceWallet = midnightObj?.mnLace || midnightObj?.lace || (midnightObj && Object.values(midnightObj)[0]);
       if (!laceWallet || typeof laceWallet.connect !== 'function') {
-        throw new Error('Lace wallet (Midnight edition) was not detected. If installed, please refresh the page or ensure Chrome extension Site Access is enabled for this site.');
+        throw new Error('Lace wallet (Midnight edition) was not detected. Refresh the page or enable extension site access for this site.');
       }
 
-      // Check API version
-      console.log('Connecting to Lace wallet version:', laceWallet.apiVersion);
-
-      // Connect using network ID 'preview'
-      const api = await laceWallet.connect('preview');
+      const api = await laceWallet.connect(NETWORK_ID);
       setWalletApi(api);
 
-
-      // Check connection status
       const status = await api.getConnectionStatus();
       if (status.status !== 'connected') {
         throw new Error('Wallet is not connected to the network.');
       }
 
-      if (status.networkId !== 'preview') {
-        throw new Error(`Network mismatch: Wallet is connected to ${status.networkId}, but this dApp requires preview.`);
+      if (status.networkId !== NETWORK_ID) {
+        throw new Error(`Network mismatch: wallet is connected to ${status.networkId}, but this dApp requires ${NETWORK_ID}.`);
       }
 
-      // Fetch user addresses
       const shieldedInfo = await api.getShieldedAddresses();
       const unshieldedInfo = await api.getUnshieldedAddress();
       const dustInfo = await api.getDustBalance();
       const unshieldedBalances = await api.getUnshieldedBalances();
-
-      console.log('Shielded addresses:', shieldedInfo);
-      console.log('Unshielded info:', unshieldedInfo);
-      console.log('Dust info:', dustInfo);
-      console.log('Unshielded balances:', unshieldedBalances);
-
-      const parsedBalance = parseTNightBalance(unshieldedBalances);
-      const parsedDust = parseDustBalance(dustInfo);
+      const config = await api.getConfiguration();
 
       setWalletAddress(unshieldedInfo.unshieldedAddress);
       setShieldedAddress(shieldedInfo.shieldedAddress);
-      setBalance(parsedBalance);
-      setDustBalance(parsedDust);
+      setBalance(parseTNightBalance(unshieldedBalances));
+      setDustBalance(parseDustBalance(dustInfo));
 
-
-      // Get configuration from the wallet connector
-      const config = await api.getConfiguration();
-      console.log('Wallet configuration:', config);
-
-      // Initialize FetchZkConfigProvider pointing to /counter (served statically in Vite public/)
       const zkConfigProvider = new FetchZkConfigProvider(
-        `${window.location.origin}/counter`,
-        (input: RequestInfo | URL, init?: RequestInit) => window.fetch(input, init)
+        `${window.location.origin}/suffra`,
+        (input: RequestInfo | URL, init?: RequestInit) => window.fetch(input, init),
       );
 
-
-      // Initialize Private State Provider
       const privateStateProvider = levelPrivateStateProvider({
-        privateStateStoreName: 'counter-state',
+        privateStateStoreName: 'suffra-state',
         accountId: unshieldedInfo.unshieldedAddress,
-        privateStoragePasswordProvider: () => 'Browser-Storage-Counter-Key-Placeholder-1',
+        privateStoragePasswordProvider: () => getPrivateStoragePassword(unshieldedInfo.unshieldedAddress),
       });
 
-      // Initialize Public Data Provider using Indexer URL from wallet config
       const publicDataProvider = indexerPublicDataProvider(config.indexerUri, config.indexerWsUri);
-
-      // Initialize Proof Provider via the wallet's proving provider
       const provingProvider = await api.getProvingProvider(zkConfigProvider);
       const proofProvider = createProofProvider(provingProvider);
 
-      // Track the exact hex returned by Lace balanceUnsealedTransaction
       let lastBalancedTxHex: string | null = null;
-
-      // Build WalletProvider adapter
-      const coinPublicKeyHex = parseCoinPublicKeyToHex(shieldedInfo.shieldedCoinPublicKey, 'preview');
-      const encryptionPublicKeyHex = parseEncPublicKeyToHex(shieldedInfo.shieldedEncryptionPublicKey, 'preview');
+      const coinPublicKeyHex = parseCoinPublicKeyToHex(shieldedInfo.shieldedCoinPublicKey, NETWORK_ID);
+      const encryptionPublicKeyHex = parseEncPublicKeyToHex(shieldedInfo.shieldedEncryptionPublicKey, NETWORK_ID);
 
       const walletProvider: WalletProvider = {
         getCoinPublicKey: () => coinPublicKeyHex,
         getEncryptionPublicKey: () => encryptionPublicKeyHex,
-        balanceTx: async (tx: UnboundTransaction, ttl?: Date) => {
+        balanceTx: async (tx: UnboundTransaction) => {
           try {
-            console.log('Balancing transaction with Lace wallet...');
             const txHex = toHex(tx.serialize());
             const balanced = await api.balanceUnsealedTransaction(txHex);
-            console.log('Lace balanced transaction result:', balanced);
-            
             const rawHex = typeof balanced === 'string' ? balanced : (balanced?.tx || (balanced as any));
             setLastTxHash(rawHex);
             lastBalancedTxHex = rawHex;
-
-            
             return Transaction.deserialize('signature', 'proof', 'binding', fromHex(rawHex));
           } catch (err: any) {
-            console.error('Error inside balanceTx:', err);
             const detail = err?.message || err?.cause?.message;
-            throw new Error(`Lace balanceTx failed${detail ? `: ${detail}` : ''}. Insufficient DUST gas tokens or wallet balance. Please request DUST tokens from the faucet.`);
+            throw new Error(`Lace balanceTx failed${detail ? `: ${detail}` : ''}. Check DUST gas balance and request faucet funds if needed.`);
           }
-
-
         },
       };
 
-      // Build MidnightProvider adapter
       const midnightProvider: MidnightProvider = {
         submitTx: async (tx: FinalizedTransaction) => {
-          console.log('Submitting transaction to Midnight network...');
           const txHex = lastBalancedTxHex || (tx ? toHex(tx.serialize()) : '');
           try {
             const res = await api.submitTransaction(txHex);
-            console.log('api.submitTransaction response:', res);
             if (res && typeof res === 'string') return res;
-          } catch (err: any) {
-            console.warn('api.submitTransaction warning (transaction may already be broadcast by Lace):', err);
+          } catch {
+            // Lace may already have broadcast the balanced transaction.
           }
           const ids = tx ? tx.identifiers() : [];
-          return (ids && ids[0]) || ('0x' + (lastBalancedTxHex ? lastBalancedTxHex.slice(0, 32) : '1234567890abcdef'));
+          return (ids && ids[0]) || ('0x' + (lastBalancedTxHex ? lastBalancedTxHex.slice(0, 32) : ''));
         },
       };
-
-
 
       const customProviders: MidnightProviders = {
         privateStateProvider,
@@ -252,14 +269,20 @@ export function useMidnight(): UseMidnightResult {
       };
 
       setProviders(customProviders);
+      setConnected(true);
+      localStorage.setItem('midnight_wallet_connected', 'true');
 
-      // Load the contract compiled object
-      const compiledContract = CompiledContract.make('counter', Counter.Contract).pipe(
+      if (!contractAddressIsConfigured()) {
+        setContract(null);
+        setDeploymentNotice('Wallet connected. Deploy the Suffra contract to Preview/Preprod and set VITE_SUFFRA_CONTRACT_ADDRESS to enable registration and voting.');
+        return;
+      }
+
+      const compiledContract = CompiledContract.make('suffra', Suffra.Contract).pipe(
         CompiledContract.withVacantWitnesses,
-        CompiledContract.withCompiledFileAssets('./counter')
+        CompiledContract.withCompiledFileAssets('./suffra'),
       );
 
-      console.log('Connecting to contract at:', CONTRACT_ADDRESS);
       const foundContract = await findDeployedContract(customProviders, {
         compiledContract: compiledContract as any,
         contractAddress: CONTRACT_ADDRESS,
@@ -268,10 +291,7 @@ export function useMidnight(): UseMidnightResult {
       });
 
       setContract(foundContract);
-      setConnected(true);
-      localStorage.setItem('midnight_wallet_connected', 'true');
     } catch (err: any) {
-      console.error('Connection failed:', err);
       setError(err.message || 'An unknown error occurred during wallet connection.');
       setConnected(false);
     } finally {
@@ -288,59 +308,75 @@ export function useMidnight(): UseMidnightResult {
     setWalletApi(null);
     setProviders(null);
     setContract(null);
-    setCounterValue(null);
+    setElectionState(null);
+    setDeploymentNotice(null);
     localStorage.removeItem('midnight_wallet_connected');
   };
 
-  const incrementCounter = async (amount: bigint) => {
-    if (!contract) {
-      setError('Contract is not initialized. Connect your wallet first.');
-      return;
+  const refreshBalances = async () => {
+    if (!walletApi) return;
+    const dustInfo = await walletApi.getDustBalance();
+    const unshieldedBalances = await walletApi.getUnshieldedBalances();
+    setBalance(parseTNightBalance(unshieldedBalances));
+    setDustBalance(parseDustBalance(dustInfo));
+  };
+
+  const ensureContract = () => {
+    if (!contractReady) {
+      throw new Error('Suffra contract is not ready. Deploy the contract and set VITE_SUFFRA_CONTRACT_ADDRESS first.');
     }
     if (dustBalance === 0n) {
-      setError('Insufficient DUST balance. Midnight transactions require DUST tokens for gas fees. Please request DUST tokens from the Midnight Faucet.');
-      setLoading(false);
-      return;
+      throw new Error('Insufficient DUST balance. Midnight transactions require DUST gas tokens.');
     }
+  };
 
+  const runTransaction = async (operation: () => Promise<any>) => {
     setError(null);
     setLoading(true);
     setTxId(null);
 
-
     try {
-      try {
-        setNetworkId('preview');
-      } catch (e) {
-        console.warn('Network ID set warning in incrementCounter:', e);
-      }
-      console.log('Calling increment circuit with private input amount:', amount);
-
-      const tx = await contract.callTx.increment(amount);
+      setNetworkId(NETWORK_ID);
+      const tx = await operation();
       const resolvedTxHash = (tx?.public as any)?.txHash || tx?.public?.txId || lastTxHash;
-      setTxId(resolvedTxHash);
-
-
-
-      
-      // Update balances
-      if (walletApi) {
-        const dustInfo = await walletApi.getDustBalance();
-        const unshieldedBalances = await walletApi.getUnshieldedBalances();
-        setBalance(parseTNightBalance(unshieldedBalances));
-        setDustBalance(parseDustBalance(dustInfo));
-
-      }
-
-      // Refresh counter value
-      await refreshCounter();
+      setTxId(resolvedTxHash || null);
+      await refreshBalances();
+      await refreshElection();
     } catch (err: any) {
-      console.error('Transaction failed:', err);
       const detailMsg = err?.cause?.message || err?.message || String(err);
       setError(detailMsg);
     } finally {
-
       setLoading(false);
+    }
+  };
+
+  const registerVoter = async () => {
+    try {
+      ensureContract();
+      const secret = getVoterSecret(walletAddress || 'anonymous');
+      await runTransaction(() => contract.callTx.registerVoter(secret));
+    } catch (err: any) {
+      setError(err.message || String(err));
+    }
+  };
+
+  const castVote = async (choice: 0 | 1) => {
+    try {
+      ensureContract();
+      const secret = getVoterSecret(walletAddress || 'anonymous');
+      const ballotSalt = randomBytes32();
+      await runTransaction(() => contract.callTx.castVote(BigInt(choice), secret, ballotSalt));
+    } catch (err: any) {
+      setError(err.message || String(err));
+    }
+  };
+
+  const closeVoting = async () => {
+    try {
+      ensureContract();
+      await runTransaction(() => contract.callTx.closeVoting());
+    } catch (err: any) {
+      setError(err.message || String(err));
     }
   };
 
@@ -352,12 +388,17 @@ export function useMidnight(): UseMidnightResult {
     balance,
     dustBalance,
     error,
+    deploymentNotice,
     loading,
     txId,
-    counterValue,
+    contractAddress: CONTRACT_ADDRESS || null,
+    contractReady,
+    electionState,
     connect,
     disconnect,
-    incrementCounter,
-    refreshCounter,
+    registerVoter,
+    castVote,
+    closeVoting,
+    refreshElection,
   };
 }
