@@ -1,89 +1,71 @@
-# 🗳️ Proposal: Suffra — Private Voting on Midnight
+# Product Proposal
 
-> **Chosen Idea:** Option 1 — Private Voting (anonymous ballots with publicly verifiable tallies)
+## What is the product, and who uses it?
 
----
+Suffra is a private voting product for governance groups that need credible secret ballots: DAOs, community associations, student councils, working groups, cooperatives, and small civic organizations.
 
-## 1. Executive Summary & Product Overview
+The product goal is simple: let a voter prove they are allowed to participate and cast exactly one ballot, while keeping the ballot choice private from observers. The public should be able to audit the election process without learning how any individual voted.
 
-### What is Suffra?
-Suffra is a zero-knowledge private voting dApp built on the Midnight network. It enables voters to cast anonymous ballots on governance proposals, municipal initiatives, and organizational elections while maintaining 100% publicly auditable and cryptographically verifiable election tallies.
+The current implementation is a sealed-ballot MVP. It provides the privacy core: registration commitments, sealed ballot commitments, and one-use nullifiers. This creates a real Midnight privacy workflow before Level 4 instead of relying on the earlier counter demo.
 
-### Who Uses It?
-- **DAO Governance:** Decentralized autonomous organizations seeking plutocracy-resistant or voter-coercion-resistant voting where individual choices remain confidential.
-- **Academic & Educational Institutions:** Student government elections, faculty board votes, and departmental polls.
-- **Corporate & Executive Boards:** Confidential proxy voting and strategic board resolutions requiring secret ballots.
-- **Community & Civic Groups:** Public sentiment polling where privacy is mandatory to prevent retaliation or peer pressure.
+## Why Midnight specifically?
 
----
+Transparent chains are a poor fit for secret ballots. If each vote updates a visible tally in real time, observers can often infer the voter’s choice from the public state delta. If the app hides the choice only in the UI, the privacy claim is weak.
 
-## 2. Why Midnight Specifically?
+Midnight gives Suffra the right primitives for the job:
 
-Traditional blockchains (e.g. Ethereum, Solana) enforce total transparency: every transaction, caller address, and state payload is publicly readable. This renders secret ballot voting impossible without relying on centralized trusted execution environments (TEEs) or complex off-chain commit-reveal schemes vulnerable to frontrunning and collusion.
+- Compact treats circuit inputs as private unless they are deliberately disclosed.
+- Public ledger state can store commitments and nullifiers instead of raw sensitive values.
+- Zero-knowledge proofs let the contract enforce valid registration, valid ballot choice, and one-use voting without publishing the voter secret or vote choice.
+- The public state remains auditable while sensitive voter data stays local.
 
-Midnight uniquely solves this through its dual-state ledger model powered by zero-knowledge proofs (zk-SNARKs):
+## Data Model
 
-1. **Client-Side Proof Generation:** ZK proofs are generated entirely locally on the user's device (via the Midnight Proving Server and Lace wallet). The voter's actual ballot choice and private key never cross the wire or touch any server.
-2. **Private Witness Execution:** Compact smart contracts allow function arguments to be treated as private witnesses. The proof verifies that the voter is eligible and hasn't voted before without exposing *who* they are or *what* option they selected.
-3. **On-Chain Verifiability:** Midnight validators verify the ZK proof on-chain before accepting the state transition. Anyone in the public can independently verify the final tally without ever being able to decrypt individual votes.
+| Data Point | Type | Disclosed To |
+| :--- | :--- | :--- |
+| Voting status | Public ledger | Everyone |
+| Registered voter commitment | Public ledger | Everyone |
+| Used vote nullifier | Public ledger | Everyone |
+| Sealed ballot commitment | Public ledger | Everyone |
+| Registered count | Public ledger | Everyone |
+| Sealed ballot count | Public ledger | Everyone |
+| Voter secret | Private circuit input | User only |
+| Vote choice | Private circuit input | User only |
+| Ballot salt | Private circuit input | User only |
 
----
-
-## 3. Data Model & Architecture
-
-Suffra divides all application data into a strict dual-state table:
-
-| Data Attribute | State Type | Storage Location | Visibility | Purpose |
-| :--- | :--- | :--- | :--- | :--- |
-| **Proposal ID & Metadata** | Public | On-Chain Ledger | Anyone | Defines election parameters (title, description, choices, duration) |
-| **Vote Option Tallies** | Public | On-Chain Ledger | Anyone | Aggregate count of valid votes cast per option |
-| **Nullifiers / Commitment Set** | Public | On-Chain Ledger | Anyone | Prevents double-voting without linking to voter identity |
-| **Contract Status** | Public | On-Chain Ledger | Anyone | Active, Paused, or Finalized |
-| **Individual Ballot Selection** | Private | Local Witness | User Only | The specific choice made by the voter (never leaves client) |
-| **Voter Identity / Keypair** | Private | Local Witness | User Only | User's wallet key used for signing eligibility proofs |
-| **Nullifier Secret** | Private | Local Witness | User Only | Deterministic secret generating unique one-time nullifiers |
-
----
-
-## 4. Smart Contract Mechanics (Compact)
-
-Suffra leverages Compact smart contracts to enforce the following zero-knowledge circuit rules:
+## Smart Contract Model
 
 ```compact
-// High-level conceptual compact circuit model for Suffra
-export circuit castVote(choice: Field, voterSecret: Bytes[32]): Void {
-    // 1. Verify voter secret generates a valid nullifier
-    const nullifier = hash(voterSecret, proposalId);
-    assert(!nullifiers.contains(nullifier), "Double voting detected");
-    
-    // 2. Add nullifier to public state (prevents future votes)
-    nullifiers.insert(nullifier);
-    
-    // 3. Increment public tally for the selected choice
-    tallies.increment(choice, 1);
+export circuit registerVoter(voterSecret: Bytes<32>): [] {
+  const commitment = voterCommitment(voterSecret);
+  assert(!registeredVoters.member(commitment), "already registered");
+  registeredVoters.insert(disclose(commitment));
+  registeredCount.increment(1);
+}
+
+export circuit castVote(choice: Field, voterSecret: Bytes<32>, ballotSalt: Bytes<32>): [] {
+  assert(choice == 0 || choice == 1, "invalid choice");
+  assert(registeredVoters.member(voterCommitment(voterSecret)), "not registered");
+
+  const nul = voteNullifier(voterSecret);
+  assert(!usedNullifiers.member(nul), "already voted");
+
+  usedNullifiers.insert(disclose(nul));
+  sealedBallots.insert(disclose(ballotCommitment(choice, ballotSalt)));
+  ballotCount.increment(1);
 }
 ```
 
-- **Nullifier Invariant:** Each voter generates a deterministic nullifier per proposal. The contract asserts the nullifier has not been spent, then adds it to the public nullifier set.
-- **Tally Invariant:** The aggregate tally increments by 1 for the chosen option, but the input `choice` remains a private witness hidden inside the ZK proof.
+The key design choice is that Suffra does not increment a public option tally during each vote. That would leak the choice through public state changes. Instead, the current MVP records sealed ballot commitments and leaves final tally reveal/aggregation for the next milestone.
 
----
+## Mainnet Feasibility
 
-## 5. Mainnet Feasibility & Roadmap
+Suffra is feasible on Mainnet because the core transaction is compact: one registration commitment, one nullifier, one sealed ballot commitment, and small public counters. The design avoids storing raw voter data or full ballots on-chain.
 
-### Feasibility Assessment: **High**
-Suffra is designed from the ground up to operate seamlessly on Midnight Mainnet:
-- **Low Proof Overhead:** Ballot proofs are lightweight single-statement ZK proofs (nullifier insertion + counter increment), ensuring fast local proof generation (< 3 seconds) even on mobile devices.
-- **Minimal State Footprint:** Storing aggregate counters and 32-byte nullifiers minimizes on-chain storage costs and ledger bloat.
+The next implementation step is a Level 4 Preprod MVP with an approved election flow:
 
-### Development Roadmap
-- **Phase 1 (Current — Level 2/3):** Single-proposal voting prototype with Lace wallet integration, proof server local proving, and Preprod deployment.
-- **Phase 2 (Level 4 MVP):** Multi-proposal voting dashboard, voter eligibility whitelist verification via ZK membership proofs (`PROPOSAL.md` + MVP launch).
-- **Phase 3 (Level 5 Users):** Community pilot with 50+ Preprod voters, UX feedback collection, and performance monitoring.
-- **Phase 4 (Level 6 Mainnet):** Audit, Mainnet deployment, brand assets, and 20+ live governance elections hosted.
-
----
-
-## 6. Alignment with Lunar Hackathon Goals
-
-Suffra embodies Midnight's core mission: **protecting sensitive data while enabling public trust**. By making vote choices completely private and vote tallies completely public, Suffra delivers a real-world utility that demonstrates the necessity of ZK privacy in Web3 governance.
+- deploy `contracts/suffra.compact` to Preprod;
+- wire the frontend to the deployed Suffra address;
+- document the user flow in `docs/USAGE.md`;
+- publish the product X profile;
+- add a tally protocol that avoids per-vote choice leakage.

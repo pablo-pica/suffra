@@ -1,10 +1,10 @@
 # Progress Tracker — Suffra
 
 ## Current Status
-- **Active Level**: Level 2 — Waxing Crescent
-- **Active Step**: Step 1: File structure (add frontend)
-- **Commits**: 6
-- **Target**: Level 3 + Idea Submission by end of July 2026
+- **Active Level**: Pre-Level 4 hardening — The Turn gate
+- **Active Step**: Privacy core implementation + documentation alignment
+- **Commits**: 41 before current hardening commit(s)
+- **Target**: Level 4 MVP after idea approval, Suffra contract deployment, and public product profile
 
 ---
 
@@ -14,9 +14,9 @@
 |:--|:--|:--|:--|
 | Phase 0: Codebase setup | July 18 | July 18 | ✅ |
 | Level 1: New Moon submitted | Flexible | July 18 | ✅ |
-| Level 2: Waxing Crescent submitted | Flexible | — | ⏳ |
-| Level 3: First Quarter submitted | Flexible | — | ⏳ |
-| Idea Submission: The Turn | Flexible | — | ⏳ |
+| Level 2: Waxing Crescent submitted | Flexible | July 19 | ✅ |
+| Level 3: First Quarter submitted | Flexible | July 23 | ✅ |
+| Idea Submission: The Turn | Flexible | Pending approval | ⏳ |
 
 ---
 
@@ -153,3 +153,6 @@
 ### Level 3 — First Quarter
 - [2026-07-23 21:35] [BUILDER] Created GitHub Actions CI workflow (.github/workflows/ci.yml), created PROPOSAL.md for Idea #1 (Private Voting), updated unified DEMO-VIDEO.md guide, updated README.md with CI badge & proposal link, verified 3/3 Vitest tests passing.
 - [2026-07-23 21:35] [CHECKER] Audited Level 3 checklist requirements. All checks ✅ passed. Certified First Quarter level complete.
+
+### Pre-Level 4 Hardening
+- [2026-07-28 13:16] [BUILDER] Replaced the counter-centered product implementation with `contracts/suffra.compact`, a sealed-ballot Compact contract using voter commitments, one-use nullifiers, and salted ballot commitments. Added Suffra tests, moved frontend/CLI/deploy wiring to Suffra artifacts, updated CI to compile before test/build, created `docs/USAGE.md`, and rewrote README/PROPOSAL/ARCHITECTURE/DEMO docs to distinguish current sealed-ballot privacy from future tally protocol work.

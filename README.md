@@ -1,112 +1,101 @@
-# 🗳️ Suffra
-
-> Private voting on Midnight — anonymous ballots, verifiable tallies.
+# Suffra
 
 [![Suffra CI](https://github.com/pablo-pica/suffra/actions/workflows/ci.yml/badge.svg)](https://github.com/pablo-pica/suffra/actions/workflows/ci.yml)
 
-## 📌 Submission Resources & Links
+> Private voting on Midnight, starting with a sealed-ballot MVP that proves registration and one-ballot-per-registered-secret without exposing the vote choice on-chain.
 
-| Resource | Value / Link |
-| :--- | :--- |
-| **Preview Contract Address** | `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` |
-| **Live Demo dApp** | [suffra-pica.vercel.app](https://suffra-pica.vercel.app) 🚀 |
-| **Demo Video** | [youtu.be/G3Ppbny50tc](https://youtu.be/G3Ppbny50tc) 🎬 |
-| **Product Proposal** | [PROPOSAL.md](PROPOSAL.md) *(The Turn — Private Voting)* 📄 |
-| **CI/CD Workflow** | [.github/workflows/ci.yml](.github/workflows/ci.yml) ⚙️ |
-| **Level Progress Tracker** | [docs/PROGRESS.md](docs/PROGRESS.md) 📊 |
+## Live Demo
 
----
+[suffra-pica.vercel.app](https://suffra-pica.vercel.app)
 
-## 🎬 Demo Video
+The frontend is ready for the Suffra sealed-ballot contract. Set `VITE_SUFFRA_CONTRACT_ADDRESS` after deploying the new contract to enable live registration and voting.
 
-Watch our 3-minute walkthrough demonstrating Lace wallet connection, local zero-knowledge proof generation, on-chain settlement, unit test verification, and CI/CD automation:
+## Contract Address
 
-👉 **[Watch Suffra Demo Video on YouTube](https://youtu.be/G3Ppbny50tc)**
+| Network | Contract | Address |
+| :--- | :--- | :--- |
+| Preview | Suffra sealed ballot | Pending redeploy with `contracts/suffra.compact` |
+| Preview | Legacy counter demo | `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` |
 
----
+## What This Product Does
 
-## 🎯 What This Does
+Suffra is a private governance voting MVP for communities, DAOs, schools, and organizations that need secret ballots without giving up public auditability. The current implementation replaces the earlier counter demo with a real sealed-ballot Compact contract.
 
-Suffra is a private voting application built on Midnight that enables anonymous ballot casting with publicly verifiable tallies. Using Midnight's zero-knowledge proof system, voters can cast ballots without revealing their identity or their choice to anyone — yet the final tally is cryptographically verified and publicly auditable.
+Voters register a local voter secret, cast a choice, and submit a zero-knowledge transaction. The public ledger receives only a voter commitment, a one-use nullifier, and a salted ballot commitment. The contract proves that the voter registered first, used a valid choice, and has not reused the same voting secret.
 
----
+This milestone intentionally does not publish per-vote public tally deltas, because those deltas can reveal individual choices. Final tallying belongs in the next product step: aggregate reveal or another tally protocol that does not leak a ballot choice transaction-by-transaction.
 
-## 🔒 Privacy Model
+## Privacy Model
 
-- **What is PUBLIC** (on-chain, visible to anyone): Vote tallies per option, proposal metadata, voting period status, nullifiers (prevent double-voting).
-- **What is PRIVATE** (private witness, never on-chain): Individual ballot choice, voter identity, eligibility proof details.
-- **What the user PROVES without revealing**: That their vote is valid, that they are eligible to vote, and that they haven't voted before — all without exposing who they are or what option they selected.
+- **PUBLIC:** voting status, registered voter commitments, used nullifiers, sealed ballot commitments, registered count, and sealed ballot count.
+- **PRIVATE:** voter secret, ballot choice, ballot salt, and the link between a real-world voter and their local voting secret.
+- **PROVED without revealing:** the voter has registered, the choice is valid, the same voter secret has not voted before, and the submitted ballot commitment was derived from a private choice plus fresh salt.
 
----
+## Privacy Claim
 
-## 🛠️ Tech Stack
+An on-chain observer can see that a registered voting secret cast one sealed ballot and that a nullifier was spent. They cannot read the raw vote choice, voter secret, or ballot salt from the ledger.
 
-- **Midnight Network & Compact Language** (on-chain smart contracts & ZK circuits)
-- **Vite + React + TypeScript** (frontend dApp)
-- **Tailwind CSS v4 + Framer Motion** (modern design & fluid ZK state micro-animations)
-- **Lace Wallet (Midnight Edition)** (wallet connection & proving provider)
-- **Vitest & GitHub Actions** (automated testing & CI/CD pipeline)
+In the browser demo, the local voter secret is generated client-side and stored by wallet account in browser storage. A production eligibility layer should move beyond self-registration and use an approved registry or membership proof.
 
----
+This is a sealed-ballot MVP, not a finished election tally protocol. It is designed to avoid the privacy bug where a public tally increments by one on every vote and reveals each voter’s choice by subtraction.
 
-## ⚡ Quickstart & Setup
+## Tech Stack
+
+- Midnight Network and Compact smart contracts
+- Midnight.js SDK and Lace wallet connector
+- Vite, React, and TypeScript
+- Tailwind CSS v4 and Framer Motion
+- Vitest and GitHub Actions
+
+## Prerequisites
+
+- Node.js v22+
+- Docker for the local proof server
+- Lace Wallet, Midnight edition
+- Midnight proof server reachable on port `6300`
+
+## Setup & Run Locally
 
 ```bash
-# Clone the repository
-git clone https://github.com/pablo-pica/suffra.git
-cd suffra
-
-# Install dependencies
-npm install
-
-# Start Midnight local proof server (Docker required)
-docker run -p 6300:6300 midnightnetwork/proof-server
-
-# Run TypeScript type check & unit tests
-npm run test
-
-# Start local frontend dev server
+npm ci
+npm run compile
+npm run proof-server:start
 npm run dev
 ```
 
----
+To connect the frontend to a deployed Suffra contract:
 
-## 🧪 Run Tests & Verification
+```bash
+VITE_SUFFRA_CONTRACT_ADDRESS=<64-char-contract-address> npm run dev
+```
+
+## Run Tests
 
 ```bash
 npm run test
 ```
 
-### Verified Test Suite Output (Vitest)
+Current local result:
+
 ```text
- RUN  v4.1.10 /home/pablo-pica/Documents/programming/suffra
-
- ✓ tests/counter.test.ts (3 tests) 31ms
-   ✓ Counter Smart Contract Tests (3)
-     ✓ should initialize counter value to 0 20ms
-     ✓ should increment counter by a private witness value 5ms
-     ✓ should maintain privacy: private input remains a parameter and is never written to public ledger 5ms
-
- Test Files  1 passed (1)
-      Tests  3 passed (3)
-   Duration  340ms
+Test Files  2 passed (2)
+Tests       8 passed (8)
 ```
 
-> **Passing Test Suite:** 3/3 tests passing in `tests/counter.test.ts` covering contract initialization, private witness increment circuit execution, and ledger privacy invariant enforcement.
+The Suffra tests cover initialization, voter registration, sealed vote casting, privacy of ledger outputs, duplicate-vote rejection, and closed-ballot rejection.
 
+## CI/CD
 
----
+GitHub Actions runs on `push` and `pull_request`. The pipeline installs dependencies, compiles `contracts/suffra.compact`, typechecks, runs Vitest, and builds the production frontend.
 
-## 💡 Product Proposal — The Turn
+## Usage Guide
 
-Suffra fulfills Idea #1 (*Private Voting*) from the official Midnight hackathon idea list. Read our full architecture, data model breakdown, and Mainnet feasibility roadmap in [PROPOSAL.md](PROPOSAL.md).
+See [docs/USAGE.md](docs/USAGE.md).
 
----
+## Product Proposal
 
-## 📸 Screenshots
+See [PROPOSAL.md](PROPOSAL.md). Suffra is aligned with the Midnight challenge idea “Private Voting: anonymous ballots with publicly verifiable tallies.” The current contract implements the sealed-ballot privacy core; the Level 4 MVP should add the approved deployment, public profile, and final tally path.
 
-### Successful Compact Compile
-![Successful Compile](./public/compile-output.png)
+## Product X Profile
 
-### Deployed Contract Address
-![Deployed Contract Address](./public/deployed-address.png)
+Pending. Create the public Suffra product profile during Level 4 and add the link here.
