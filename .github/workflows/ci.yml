@@ -29,9 +29,19 @@ jobs:
       - name: Install Compact Compiler
         run: |
           curl --proto '=https' --tlsv1.2 -LsSf https://github.com/midnightntwrk/compact/releases/latest/download/compact-installer.sh | sh
-          echo "$HOME/.compact/bin" >> "$GITHUB_PATH"
-          "$HOME/.compact/bin/compact" update "$COMPACT_VERSION"
-          "$HOME/.compact/bin/compact" compile --version
+
+          if [ -x "$HOME/.local/bin/compact" ]; then
+            COMPACT_BIN_DIR="$HOME/.local/bin"
+          elif [ -x "$HOME/.compact/bin/compact" ]; then
+            COMPACT_BIN_DIR="$HOME/.compact/bin"
+          else
+            echo "Compact installer completed, but compact was not found in the expected install locations." >&2
+            exit 1
+          fi
+
+          echo "$COMPACT_BIN_DIR" >> "$GITHUB_PATH"
+          "$COMPACT_BIN_DIR/compact" update "$COMPACT_VERSION"
+          "$COMPACT_BIN_DIR/compact" compile --version
 
       - name: Compile Suffra Contract
         run: npm run compile
