@@ -8,8 +8,8 @@ import CompactStandardLibrary;
 // - PRIVATE inputs: voter secret, vote choice, and ballot salt.
 // - Deliberate disclosure: only commitments and nullifiers are written to public state. The vote
 //   choice is committed with fresh salt so observers cannot recover it from a low-domain guess.
-// - This is a sealed-ballot MVP: it proves eligibility and one-ballot-per-registered-secret without
-//   exposing each ballot choice. Public tally reveal is intentionally not implemented here because
+// - This is a sealed-ballot MVP: it proves prior self-registration and one-ballot-per-registered-secret
+//   without exposing each ballot choice. Public tally reveal is intentionally not implemented because
 //   per-transaction tally deltas would reveal individual choices.
 
 export ledger votingOpen: Boolean;
