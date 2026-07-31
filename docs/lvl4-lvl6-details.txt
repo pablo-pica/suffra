@@ -1,0 +1,128 @@
+🌔 Level 4 - Waxing Gibbous Submission
+﻿
+The prompt explained in the video is provided here.
+The moon swells past half, brightening fast. Your MVP goes live on Preprod with documentation, CI/CD, and a public product profile on X. More is disclosed now than hidden — the shape of a real product is impossible to mistake.
+Your mission this cycle: MVP live on Preprod, with docs, CI/CD, and a public product (X) profile.
+Who Can Join?
+Open to developers who have completed Level 3 with an approved idea, ready to build a real MVP and start building in public.
+What You Will Learn
+
+    Implementing the privacy-critical core of your product first,
+
+    Writing user-facing and technical documentation,
+
+    Running CI/CD on your own codebase,
+
+    Building in public and launching a product X profile.
+
+Requirements to Pass
+
+    Working MVP live on Preprod (verifiable address),
+
+    Documentation (README + setup + usage),
+
+    CI/CD pipeline running on the product repo,
+
+    Product X profile created, linked in the README,
+
+    Minimum 15 meaningful commits.
+
+﻿
+Submission Checklist
+
+    Public GitHub repository with full documentation,
+
+    Live Preprod demo link + contract address,
+
+    CI/CD badge or workflow file with passing runs,
+
+    Link to the product X profile,
+
+    Demo video of the MVP,
+
+    Minimum 15 meaningful commits.
+
+﻿
+💰 At the end of the monthly review period, selected winners will receive a prize based on the quality of their submission, and each winner will receive $60.
+
+🌕 Level 5 - Full Moon Submission
+The moon comes full and turns its whole face to the world. Your product is complete enough to meet real people: 50 Preprod users, a living feedback loop, docs that hold their weight. You stop building in private and start listening — letting the light, and the users, in.
+Your mission this cycle: The same MVP refined through a feedback loop, with documentation and 50 Preprod users.
+Who Can Join?
+Open to developers who have completed Level 4, with a live Preprod MVP, ready to acquire and onboard real users and collect structured feedback.
+What You Will Learn
+
+    User acquisition and onboarding at small scale,
+
+    Collecting structured user feedback,
+
+    Prioritizing what to change,
+
+    Keeping docs in sync with a changing product.
+
+Requirements to Pass
+
+    Same MVP from Level 4, extended,
+
+    50 Preprod users (verifiable wallet addresses),
+
+    Feedback loop documented,
+
+    Updated documentation,
+
+    Minimum 20 meaningful commits.
+
+Submission Checklist
+
+    Public GitHub repository with updated documentation,
+
+    Live demo link,
+
+    List of 50 Preprod user wallet addresses (verifiable on-chain),
+
+    Feedback documentation or link to feedback document,
+
+    Demo video showing full MVP functionality,
+
+    Minimum 20 meaningful commits.
+
+🌝 Level 6 - Supermoon Submission
+The moon comes full and turns its whole face to the world. Your product is complete enough to meet real people: 50 Preprod users, a living feedback loop, docs that hold their weight. You stop building in private and start listening — letting the light, and the users, in.
+Your mission this cycle: The same MVP refined through a feedback loop, with documentation and 50 Preprod users.
+Who Can Join?
+Open to developers who have completed Level 4, with a live Preprod MVP, ready to acquire and onboard real users and collect structured feedback.
+What You Will Learn
+
+    User acquisition and onboarding at small scale,
+
+    Collecting structured user feedback,
+
+    Prioritizing what to change,
+
+    Keeping docs in sync with a changing product.
+
+Requirements to Pass
+
+    Same MVP from Level 4, extended,
+
+    50 Preprod users (verifiable wallet addresses),
+
+    Feedback loop documented,
+
+    Updated documentation,
+
+    Minimum 20 meaningful commits.
+
+Submission Checklist
+
+    Public GitHub repository with updated documentation,
+
+    Live demo link,
+
+    List of 70 Preprod user wallet addresses (verifiable on-chain),
+
+    Feedback documentation or link to feedback document,
+
+    Demo video showing full MVP functionality, Minimum 30 meaningful commits.
+
+💰 At the end of the monthly review period, selected winners will receive a prize based on the quality of their submission, and each winner will receive $150.

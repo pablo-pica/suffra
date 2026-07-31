@@ -1,7 +1,6 @@
 # Lunar Requirements — Suffra
 
-> Verbatim requirements from the RiseIn dashboard, structured as checkboxes
-> for the checker agent. Reference: `docs/midnight_prompts.md` for full prompt steps.
+> Requirements from the RiseIn dashboard and repository source prompts, structured as checker checkboxes. Historical L1-L3 requirements are retained. Source references: `docs/midnight_prompts.md` and `docs/lvl4-lvl6-details.txt`.
 
 ---
 
@@ -14,13 +13,13 @@
 - [ ] Passing test suite
 - [ ] Generated `managed/` directory present (circuits + keys)
 - [ ] Contract deployed to Preview or Preprod with a visible contract address
-- [ ] An initial product idea (1 short paragraph) drafted in the README
+- [ ] An initial product idea drafted in the README
 - [ ] Minimum 5 meaningful commits
 
 ### Submission Checklist
 - [ ] Public GitHub repository with a README.md
-- [ ] Setup instructions (how to run locally)
-- [ ] Screenshot: successful compile output (circuits listed)
+- [ ] Setup instructions
+- [ ] Screenshot: successful compile output
 - [ ] Screenshot: contract deployed with address shown
 - [ ] README section explaining public state vs private witness
 - [ ] Initial product idea paragraph
@@ -35,15 +34,15 @@
 ### Requirements to Pass
 - [ ] Lace wallet connect / disconnect implemented
 - [ ] Circuit called successfully from the frontend
-- [ ] An observable privacy behavior (something proven without being shown)
+- [ ] Observable privacy behavior
 - [ ] Contract deployed to Preprod with a verifiable address
 - [ ] Minimum 8 meaningful commits
 
 ### Submission Checklist
 - [ ] Public GitHub repository with README
-- [ ] Live demo link (Vercel, Netlify, or similar)
-- [ ] Deployed Preprod contract address (verifiable on-chain)
-- [ ] Demo video: wallet connect + a successful circuit call
+- [ ] Live demo link
+- [ ] Deployed Preprod contract address
+- [ ] Demo video: wallet connect + successful circuit call
 - [ ] README documenting the privacy claim
 - [ ] Minimum 8 meaningful commits
 
@@ -54,82 +53,121 @@
 *Prize: $30 per winner × 55 winners = $1,650 total*
 
 ### Requirements to Pass
-- [ ] Fully functional dApp that meaningfully uses Midnight's privacy model
+- [ ] Fully functional dApp meaningfully using Midnight's privacy model
 - [ ] Minimum 3 tests passing
-- [ ] CI/CD pipeline running (workflow file + passing runs)
+- [ ] CI/CD pipeline running
 - [ ] Approved idea submitted from the provided idea list
 - [ ] Minimum 10 meaningful commits
 
 ### Submission Checklist
 - [ ] Public GitHub repository with complete README
 - [ ] Live demo link
-- [ ] Screenshot: test output (3+ tests passing)
+- [ ] Screenshot: test output
 - [ ] CI/CD badge or workflow file with passing runs
-- [ ] Demo video (1 minute) showing full functionality
-- [ ] README "privacy model" section: what an observer can and cannot learn
-- [ ] Product proposal (from the idea list) submitted for approval
+- [ ] Demo video showing full functionality
+- [ ] README privacy model section
+- [ ] Product proposal submitted for approval
 - [ ] Minimum 10 meaningful commits
 
 ---
 
 ## 💭 Idea Submission — The Turn
 
-*Gate to Level 4+. Must be approved before starting Level 4.*
+*Gate to Level 4+. Status: approved; approval date not recorded.*
 
-### Provided Idea List (choose one)
-1. **Private Voting** — anonymous ballots with publicly verifiable tallies ← OUR CHOICE
-2. Age / Eligibility Gate — prove a threshold without revealing the underlying value
-3. Private Allowlist Access — prove membership without revealing identity
-4. Confidential Credentials — prove a credential is valid without disclosing it
-5. Sealed-Bid Auction — private bids, verifiable winner
-6. Private Payroll / Splits — distribute funds without exposing amounts
-7. Anonymous Feedback / Survey — verifiable participation, private responses
+### Provided Idea List
+1. **Private Voting** — anonymous ballots with publicly verifiable tallies ← approved program idea; Suffra's current tally is not implemented
+2. Age / Eligibility Gate
+3. Private Allowlist Access
+4. Confidential Credentials
+5. Sealed-Bid Auction
+6. Private Payroll / Splits
+7. Anonymous Feedback / Survey
 
 ### Submission Requirements
-- [ ] Brief overview of the idea for Level 4
-- [ ] Alignment with Level 4-6 scope and expectations
-- [ ] PROPOSAL.md in project root with:
-  - What is the product, and who uses it?
-  - Why Midnight specifically?
-  - Data Model (public vs private table)
-  - Mainnet Feasibility
+- [x] Brief overview of the idea for Level 4
+- [x] Alignment with Level 4-6 scope and expectations
+- [x] `PROPOSAL.md` with product/users, Midnight rationale, data model, and Mainnet feasibility
+
+Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 
 ---
 
 ## 🌔 Level 4 — Waxing Gibbous | MVP Goes Live
 
-*Prize: $60 per winner × 25 winners = $1,500 total*
-*(Only after idea approval from The Turn)*
+*Prize: $60 per winner × 25 winners = $1,500 total. Active target: August 24, 2026; August 25-31 contingency buffer.*
 
 ### Requirements to Pass
-- [ ] MVP live on Preprod
-- [ ] Documentation (docs/USAGE.md)
-- [ ] CI/CD pipeline running
-- [ ] Public product (X) profile
+- [ ] Working MVP live on Preprod with a verifiable Suffra contract address
+- [ ] Documentation: README, setup, and `docs/USAGE.md`
+- [ ] CI/CD pipeline running on the product repo
+- [ ] Public product X profile created and linked in README
 - [ ] Minimum 15 meaningful commits
+
+### Prompt-Step and Project-Gate Checklist
+- [ ] Step 1 — structure/baseline: verify required paths before new work
+- [ ] Step 2 — privacy core: compile `contracts/suffra.compact`, run tests, confirm public/private boundary
+- [ ] Project gate — tally: include a minimal privacy-preserving tally only if it cannot threaten Aug 24; otherwise defer to Level 5
+- [ ] Step 3 — frontend: wallet connect, circuit calls, loading states, error states, `npm run build` with zero errors
+- [ ] Step 4 — CI/CD: install, compile, test, build; README badge or workflow file
+- [ ] Step 5 — deploy to Preprod: stop for deploy address, then update README immediately
+- [ ] Step 6 — `docs/USAGE.md`: user-facing setup/use/privacy/troubleshooting
+- [ ] Step 7 — README: live Preprod demo URL, mandatory Preprod address, privacy model, setup, tests, CI/CD, usage guide, X profile placeholder/link
+- [ ] Step 8 — X launch posts/profile
+- [ ] Step 9 — final checklist and submission
+
+### Submission Checklist
+- [ ] Public GitHub repository with full documentation
+- [ ] Live Preprod demo link
+- [ ] Verified Suffra Preprod contract address
+- [ ] CI/CD badge or workflow file with passing runs
+- [ ] Link to product X profile
+- [ ] Demo video of the MVP
+- [ ] Minimum 15 meaningful commits
+
+### Current Blockers
+
+| Blocker | Verified State |
+|:--|:--|
+| Suffra Preprod deployment | No deployment recorded |
+| Local deployment state | `.midnight-state.json` contains only the legacy Preview counter address `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748`, dated 2026-07-18 |
+| Product X profile | Pending |
+| Fresh Level 4 demo | Pending |
+| Frontend network | `src/hooks/useMidnight.ts` reads `VITE_SUFFRA_CONTRACT_ADDRESS` but hardcodes `NETWORK_ID = 'preview'` |
 
 ---
 
 ## 🌕 Level 5 — Full Moon | Users & Feedback
 
-*Prize: $100 per winner × 20 winners = $2,000 total*
+*Prize: $100 per winner × 20 winners = $2,000 total.*
 
 ### Requirements to Pass
-- [ ] Same MVP on Preprod
-- [ ] Documentation maintained
-- [ ] Living feedback loop (docs/FEEDBACK.md)
-- [ ] 50 Preprod users (USERS.md with wallet addresses)
+- [ ] Same Level 4 MVP, extended on Preprod
+- [ ] 50 Preprod users with verifiable wallet addresses
+- [ ] Feedback loop documented
+- [ ] Updated documentation
+- [ ] Minimum 20 meaningful commits
+
+### Submission Checklist
+- [ ] Public GitHub repository with updated documentation
+- [ ] Live demo link
+- [ ] List of 50 Preprod user wallet addresses
+- [ ] Feedback documentation or link to feedback document
+- [ ] Demo video showing full MVP functionality
 - [ ] Minimum 20 meaningful commits
 
 ---
 
-## 🌝 Level 6 — Supermoon | Mainnet Launch
+## 🌝 Level 6 — Supermoon
 
-*Prize: $150 per winner × 15 winners = $2,250 total*
+*Prize: $150 per winner × 15 winners = $2,250 total.*
 
-### Requirements to Pass
-- [ ] Deploy to Mainnet (or redeploy to Preprod with improvements)
-- [ ] Iterate on feedback
-- [ ] Brand assets (logo, banner)
-- [ ] Onboard 20 real users (LAUNCH_USERS.md)
+Repository sources conflict: `docs/midnight_prompts.md` frames Level 6 as Mainnet launch, while `docs/lvl4-lvl6-details.txt` repeats Level 5-style Preprod language but lists 70 Preprod wallet addresses and 30 commits. Treat the following as a conservative planning baseline, not a verified dashboard requirement.
+
+### Conservative Planning Baseline
+- [ ] Same MVP refined through the Level 5 feedback loop
+- [ ] 70 cumulative Preprod wallet addresses
+- [ ] Updated feedback/documentation evidence
+- [ ] Demo video showing full MVP functionality
 - [ ] Minimum 30 meaningful commits
+- [ ] Mainnet scope pending official clarification before claiming or submitting

@@ -1,10 +1,13 @@
 # Progress Tracker — Suffra
 
 ## Current Status
-- **Active Level**: Pre-Level 4 hardening — The Turn gate
-- **Active Step**: Privacy core implementation + documentation alignment
-- **Commits**: 41 before current hardening commit(s)
-- **Target**: Level 4 MVP after idea approval, Suffra contract deployment, and public product profile
+- **Active Level**: Level 4 — Waxing Gibbous (MVP Goes Live)
+- **Active Step**: Step 1 — structure/baseline audit, then Step 2 privacy-core gate
+- **Idea/The Turn**: Approved; approval date not recorded in repo, so no date is claimed
+- **Internal Level 4 Target**: August 24, 2026
+- **Official Month-End Deadline**: August 31, 2026
+- **Contingency Buffer**: August 25-31, 2026 for deploy/review/submission fixes only
+- **Known Blockers**: no verified Suffra Preprod deployment, no Product X profile, no fresh Level 4 demo video, frontend hook still hardcodes `NETWORK_ID = 'preview'`
 
 ---
 
@@ -16,10 +19,38 @@
 | Level 1: New Moon submitted | Flexible | July 18 | ✅ |
 | Level 2: Waxing Crescent submitted | Flexible | July 19 | ✅ |
 | Level 3: First Quarter submitted | Flexible | July 23 | ✅ |
-| Idea Submission: The Turn | Flexible | Pending approval | ⏳ |
+| Idea Submission: The Turn | Gate before L4 | Approved, date unknown | ✅ |
+| Level 4 internal submission target | August 24, 2026 | Pending | ⏳ |
+| Level 4 contingency buffer | August 25-31, 2026 | Pending | ⏳ |
 
 ---
 
+## Level 4 — Waxing Gibbous Active Plan
+
+**Objective:** ship the approved Suffra private-election MVP live on Preprod by **August 24, 2026**, leaving **August 25-31** as contingency. Planned items stay unchecked until verified.
+
+| Phase | Dates | Official Step Order | Gate / Status | Checklist |
+|:--|:--|:--|:--|:--|
+| 1 | Aug 12 | Step 1 — file structure / baseline | Audit the existing repo before changing code | [ ] Confirm required paths exist [ ] Record stale Preview/counter references as blockers, not Suffra deployment evidence |
+| 2 | Aug 13 | Step 2 — privacy core first | Current sealed-ballot contract exists; tally is a feasibility gate, not assumed | [ ] Run `npm run compile` [ ] Run `npm run test` [ ] Audit the public/private boundary [ ] Decide whether a minimal tally is safe for Level 4 or must move to Level 5 |
+| 3 | Aug 14-16 | Step 3 — frontend | Blocked until network config is corrected | [ ] Replace the Preview hardcode in `src/hooks/useMidnight.ts` with verified Preprod-capable config [ ] Use `VITE_SUFFRA_CONTRACT_ADDRESS` consistently [ ] Run `npm run build` [ ] Verify loading and error states |
+| 4 | Aug 17 | Step 4 — CI/CD | Existing workflow must be re-audited against Level 4 | [ ] Verify install, compile, test, and build jobs [ ] Confirm the README badge points to the workflow [ ] Confirm a passing run |
+| 5 | Aug 18-19 | Step 5 — deploy to Preprod | No verified Suffra Preprod address yet | [ ] Run the repo Preprod deploy command [ ] Record the exact Suffra address in README immediately [ ] Smoke-test the deployed contract and frontend |
+| 6 | Aug 20-21 | Steps 6-8 — usage, README, X | Public launch assets pending | [ ] Verify `docs/USAGE.md` [ ] Update README with verified Preprod/demo/X links [ ] Create the Product X profile [ ] Prepare and publish launch posts |
+| 7 | Aug 22 | Step 9 — final evidence audit | Submission package review | [ ] Record the fresh Level 4 demo [ ] Audit README and links [ ] Confirm the 15-commit minimum [ ] Run the checker workflow |
+| 8 | Aug 23-24 | Fixes and submission | Internal cutoff | [ ] Resolve checker findings [ ] Re-run affected checks [ ] Submit the public repository on Rise In |
+| Buffer | Aug 25-31 | Contingency | Use only for fixes, redeploys, or submission evidence gaps | [ ] Do not expand scope |
+
+### Tally Feasibility Gate
+- **Current:** `contracts/suffra.compact` is a sealed-ballot contract. It records commitments/nullifiers and counts ballots, but it does **not** produce a final election tally.
+- **Level 4 decision rule:** add only a minimal privacy-preserving tally if design and implementation are proven safe early enough that Aug 24 remains realistic.
+- **Fallback:** if the gate fails, document tally as deferred to Level 5 rather than claiming Level 4 has one.
+
+### Future Roadmap
+- **Level 5 — Full Moon:** refine the same Preprod MVP with a feedback loop, updated docs, **50 Preprod users/wallet addresses**, demo evidence, and **20 meaningful commits** minimum.
+- **Level 6 — Supermoon:** conservative planning baseline is **70 cumulative Preprod wallet addresses** and **30 meaningful commits**. Mainnet scope is pending official clarification because repository sources conflict; do not treat Mainnet as verified until clarified.
+
+---
 ## Level 1 — New Moon
 
 ### Prompt Steps

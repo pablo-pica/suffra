@@ -4,30 +4,44 @@
 - **Platform**: RiseIn
 - **Monthly Prize Pool**: $8,000
 - **Structure**: 6 lunar levels (New Moon → Supermoon)
-- **Our Target**: Level 3 + Idea Submission by end of July 2026
-- **Approach**: AI-assisted vibe coding with human supervision
+- **Current Target**: Level 4 MVP live on Preprod by August 24, 2026
+- **Official Deadline**: August 31, 2026; August 25-31 is contingency buffer
+- **Approach**: follow official prompts in order, with documentation and verification discipline
 
 ---
 
 ## Strategy
 
 ### Core Philosophy
-Follow the official `midnight_prompts.md` EXACTLY for each level. Layer our design
-system, documentation depth, and automated quality gates ON TOP for differentiation.
+Follow `docs/midnight_prompts.md` in order for each level. Layer the Suffra design system, documentation depth, and quality gates on top without widening scope.
 
-### Competitive Insights (from Aethyr experience)
-1. **README IS your pitch** — judges evaluate primarily through your README
-2. **Exceed minimum requirements** — minimums are the floor, not the ceiling
-3. **Design polish differentiates** — most builders use default styles; we use Tailwind + Framer Motion
-4. **Documentation depth shows production thinking** — our 8-doc system is rare among competitors
-5. **Commit frequency shows active development** — target 15+ by L3 (minimums: 5/8/10)
-6. **Checker agent prevents non-compliant submissions** — catch issues before judges do
+### Competitive Insights
+1. README is the pitch and must distinguish current, planned, and unknown evidence.
+2. Preprod address, live demo, X profile, and fresh video are Level 4 launch assets; none should be claimed before verified.
+3. Design polish differentiates, but privacy correctness and submission evidence come first.
+4. Commit frequency shows active development; Level 4 minimum is 15 meaningful commits.
+5. Checker audits prevent non-compliant submissions.
 
 ### Level Progression Strategy
-- L1-L2 are **learning levels** — use generic `counter.compact` as prompts specify
-- L3 is where we **evolve into our real product** (Private Voting)
-- L3 + Idea Submission unlocks the prize track from L4 onward
-- Only highest level reached per month is rewarded → sprint to L3
+- L1-L3 historical audits remain the baseline.
+- The Turn / idea submission is approved; approval date is unknown.
+- L4 is active: ship the approved Suffra private-election MVP on Preprod.
+- Tally scope is gated: include only if a minimal privacy-preserving design is safe before the Aug 24 target; otherwise defer to L5.
+- L5 focuses on feedback and 50 Preprod users.
+- L6 uses a conservative planning baseline of 70 cumulative Preprod wallet addresses and 30 meaningful commits while Mainnet scope remains pending clarification.
+
+### Level 4 Pacing
+| Window | Focus | Exit Criteria |
+|:--|:--|:--|
+| Aug 12 | Structure/baseline audit | Required repo paths and stale blockers documented |
+| Aug 13 | Privacy core and tally gate | Compile/tests re-run; tally included only if safe |
+| Aug 14-16 | Frontend | Network config no longer hardcoded to Preview; build passes |
+| Aug 17 | CI/CD | Workflow compiles, tests, builds, and has a passing run |
+| Aug 18-19 | Preprod deploy | Verified Suffra Preprod address recorded and smoke-tested |
+| Aug 20-21 | README/usage/X | Usage docs, README evidence, X profile, and launch posts ready |
+| Aug 22 | Evidence audit | Fresh demo and checker review complete |
+| Aug 23-24 | Fixes/submission | Findings resolved and Rise In submission completed |
+| Aug 25-31 | Buffer | Fix blockers only; no scope expansion |
 
 ---
 
@@ -43,12 +57,7 @@ system, documentation depth, and automated quality gates ON TOP for differentiat
 | 🌕 L5 | Full Moon | $100 | 20 | $2,000 |
 | 🌝 L6 | Supermoon | $150 | 15 | $2,250 |
 
-**Key rules:**
-- Sequential progression required — can't skip levels
-- Only highest level reached per month is rewarded
-- Once rewarded for a level, must advance to stay eligible
-- Chain rule: if L2 fails, only L1 credit even if L3 was attempted
-- Prizes per project, not per person (team submissions)
+**Key rules:** sequential progression required; only the highest level reached per month is rewarded; once rewarded for a level, the project must advance to stay eligible; prizes are per project, not per person.
 
 ---
 
@@ -61,9 +70,9 @@ system, documentation depth, and automated quality gates ON TOP for differentiat
 | Styling | Tailwind CSS v4 + Framer Motion |
 | Wallet | Lace browser extension (Midnight edition) |
 | SDK | Midnight.js SDK + DApp Connector API |
-| Testing | Vitest (frontend) + Compact test framework |
+| Testing | Vitest |
 | CI/CD | GitHub Actions |
-| Deployment | Vercel (frontend) + Midnight Preprod (contracts) |
+| Deployment target | Vercel frontend + Midnight Preprod contract (contract pending) |
 | Docs MCP | https://midnight.mcp.kapa.ai |
 
 ---
@@ -72,28 +81,12 @@ system, documentation depth, and automated quality gates ON TOP for differentiat
 
 | Risk | Likelihood | Impact | Mitigation |
 |:--|:--|:--|:--|
-| Compact toolchain installation issues | High | High | Follow prompt Steps 1-2 exactly, Docker for proof server, join Midnight Discord |
-| Compact language learning curve | Medium | High | Study Compact by Example, start with hello-world, use Midnight Docs MCP |
-| Proof server slow/unstable on Preprod | Medium | Medium | Test locally with devnet first, deploy to Preprod only when contract is stable |
-| Lace wallet compatibility issues | Medium | Medium | Test with latest Lace version, check Midnight Discord for known issues |
-| CI/CD can't run Compact compiler | Medium | Medium | May need custom Docker image or conditional compile step |
-| Not enough meaningful commits | Low | High | Commit after each prompt step — natural 5-8+ per level |
-| Vercel deployment issues with Midnight SDK | Low | Medium | Test build locally first, check client-side vs server-side SDK usage |
-| Level 2 reviewed before Level 1 approved | Low | High | Submit L1 first, wait for confirmation before L2 submission |
-
----
-
-## Pace Targets (Flexible)
-
-| Milestone | Target | Notes |
-|:--|:--|:--|
-| Level 1 complete | ~Day 3 | Toolchain + contract + deploy |
-| Level 2 complete | ~Day 6 | Frontend + wallet + circuit call |
-| Level 3 complete | ~Day 11 | Tests + CI/CD + polish + proposal |
-| Idea submitted | ~Day 11 | PROPOSAL.md + The Turn submission |
-| Buffer | Days 12-13 | Polish, fix checker failures |
-
-These are targets, not deadlines. We sprint when we can, pause when blocked.
+| No verified Suffra Preprod deployment yet | High | High | Schedule deploy phase Aug 18-19; record only the verified address |
+| Frontend hardcoded to Preview | High | High | Fix `src/hooks/useMidnight.ts` network config before demo claims |
+| Tally implementation leaks choices or delays submission | Medium | High | Early gate; defer to Level 5 if unsafe for Aug 24 |
+| Product X profile/demo not ready | Medium | High | Reserve Aug 19-24 for launch assets |
+| Proof server or Preprod instability | Medium | Medium | Keep Aug 25-31 contingency for redeploy/fixes |
+| Not enough meaningful commits | Low | High | Commit at prompt-step milestones; no commits in this planning update |
 
 ---
 
@@ -101,6 +94,6 @@ These are targets, not deadlines. We sprint when we can, pause when blocked.
 
 | Network | Purpose | Used In |
 |:--|:--|:--|
-| Preview | Early testing, faster iteration | L1 (optional) |
-| Preprod | Required deployment target | L1-L5 |
-| Mainnet | Production launch | L6 only |
+| Preview | Historical early testing | Legacy Level 1 counter evidence |
+| Preprod | Required Level 4/5 deployment target | Active Suffra target |
+| Mainnet | Possible future production scope | Pending official Level 6 clarification |

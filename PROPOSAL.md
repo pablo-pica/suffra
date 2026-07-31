@@ -2,70 +2,48 @@
 
 ## What is the product, and who uses it?
 
-Suffra is a private voting product for governance groups that need credible secret ballots: DAOs, community associations, student councils, working groups, cooperatives, and small civic organizations.
+Suffra is the approved **Private Voting** idea applied first to Sangguniang Kabataan elections. The product goal is to let an eligible voter cast one ballot while keeping the individual choice private. The same design can later serve student councils, DAOs, cooperatives, associations, and working groups, but the Level 4 story is an SK election MVP rather than a generic governance toolkit.
 
-The product goal is simple: let a voter prove they are allowed to participate and cast exactly one ballot, while keeping the ballot choice private from observers. The public should be able to audit the election process without learning how any individual voted.
+The current implementation is a sealed-ballot MVP. It provides registration commitments, sealed ballot commitments, one-use nullifiers, and public counts. This is the privacy core for a real Midnight voting workflow.
 
-The current implementation is a sealed-ballot MVP. It provides the privacy core: registration commitments, sealed ballot commitments, and one-use nullifiers. This creates a real Midnight privacy workflow before Level 4 instead of relying on the earlier counter demo.
+Boundary: the current contract does **not** include eligibility credentials beyond self-registration, and it does **not** produce a final tally. Those are planned product gates, not completed capabilities.
 
 ## Why Midnight specifically?
 
-Transparent chains are a poor fit for secret ballots. If each vote updates a visible tally in real time, observers can often infer the voter’s choice from the public state delta. If the app hides the choice only in the UI, the privacy claim is weak.
+Transparent chains are a poor fit for secret ballots. If each vote updates a visible per-option tally in real time, observers can infer choices from public state deltas. Suffra uses Midnight circuits to check private inputs while writing only the commitments and nullifiers needed by the current contract.
 
-Midnight gives Suffra the right primitives for the job:
-
-- Compact treats circuit inputs as private unless they are deliberately disclosed.
-- Public ledger state can store commitments and nullifiers instead of raw sensitive values.
-- Zero-knowledge proofs let the contract enforce valid registration, valid ballot choice, and one-use voting without publishing the voter secret or vote choice.
-- The public state remains auditable while sensitive voter data stays local.
+- Public ledger state stores commitments and nullifiers instead of raw voter secrets or raw choices.
+- Zero-knowledge proofs let the current contract enforce prior self-registration, a valid ballot choice, and one-use voting without publishing the voter secret or vote choice.
+- Observers can audit registration and ballot counts, commitments, and spent nullifiers. Public eligibility verification and final result verification are not implemented yet.
 
 ## Data Model
 
-| Data Point | Type | Disclosed To |
+| Data Point | Type | Current Status |
 | :--- | :--- | :--- |
-| Voting status | Public ledger | Everyone |
-| Registered voter commitment | Public ledger | Everyone |
-| Used vote nullifier | Public ledger | Everyone |
-| Sealed ballot commitment | Public ledger | Everyone |
-| Registered count | Public ledger | Everyone |
-| Sealed ballot count | Public ledger | Everyone |
-| Voter secret | Private circuit input | User only |
-| Vote choice | Private circuit input | User only |
-| Ballot salt | Private circuit input | User only |
+| Voting status | Public ledger | Implemented |
+| Registered voter commitment | Public ledger | Implemented |
+| Used vote nullifier | Public ledger | Implemented |
+| Sealed ballot commitment | Public ledger | Implemented |
+| Registered count | Public ledger | Implemented |
+| Sealed ballot count | Public ledger | Implemented |
+| Voter secret | Private circuit input | Implemented |
+| Vote choice | Private circuit input | Implemented |
+| Ballot salt | Private circuit input | Implemented |
+| Eligibility credential | Planned | Not implemented |
+| Final tally | Feasibility gate | Not implemented |
 
 ## Smart Contract Model
 
-```compact
-export circuit registerVoter(voterSecret: Bytes<32>): [] {
-  const commitment = voterCommitment(voterSecret);
-  assert(!registeredVoters.member(commitment), "already registered");
-  registeredVoters.insert(disclose(commitment));
-  registeredCount.increment(1);
-}
+`contracts/suffra.compact` registers a voter commitment, rejects duplicate registration, accepts a private vote choice plus salt, spends one nullifier per voter secret, and stores only a sealed ballot commitment. It deliberately avoids a public per-choice tally during voting because that would leak choices by observing state changes.
 
-export circuit castVote(choice: Field, voterSecret: Bytes<32>, ballotSalt: Bytes<32>): [] {
-  assert(choice == 0 || choice == 1, "invalid choice");
-  assert(registeredVoters.member(voterCommitment(voterSecret)), "not registered");
+A minimal privacy-preserving tally can enter Level 4 only if the early feasibility/design gate proves it will not threaten the August 24 cutoff. If not, tally work is explicitly deferred to Level 5.
 
-  const nul = voteNullifier(voterSecret);
-  assert(!usedNullifiers.member(nul), "already voted");
+## Level 4-6 Delivery Path
 
-  usedNullifiers.insert(disclose(nul));
-  sealedBallots.insert(disclose(ballotCommitment(choice, ballotSalt)));
-  ballotCount.increment(1);
-}
-```
-
-The key design choice is that Suffra does not increment a public option tally during each vote. That would leak the choice through public state changes. Instead, the current MVP records sealed ballot commitments and leaves final tally reveal/aggregation for the next milestone.
+- **Level 4 — by August 24, 2026:** audit structure/baseline, verify privacy core, fix frontend network config, recheck CI, deploy Suffra to Preprod, update README/usage docs, create Product X profile, record a fresh demo, and submit. August 25-31 is contingency buffer.
+- **Level 5:** refine the same Preprod MVP through feedback, document the loop, collect 50 Preprod user wallet addresses, update docs, record full MVP demo evidence, and maintain at least 20 meaningful commits.
+- **Level 6:** conservative planning baseline is 70 cumulative Preprod wallet addresses and 30 meaningful commits. Mainnet scope remains pending official clarification because repository sources conflict.
 
 ## Mainnet Feasibility
 
-Suffra is feasible on Mainnet because the core transaction is compact: one registration commitment, one nullifier, one sealed ballot commitment, and small public counters. The design avoids storing raw voter data or full ballots on-chain.
-
-The next implementation step is a Level 4 Preprod MVP with an approved election flow:
-
-- deploy `contracts/suffra.compact` to Preprod;
-- wire the frontend to the deployed Suffra address;
-- document the user flow in `docs/USAGE.md`;
-- publish the product X profile;
-- add a tally protocol that avoids per-vote choice leakage.
+The current data model limits each registration or vote to a small set of public commitments, nullifiers, and counters. Mainnet feasibility still requires a completed tally/eligibility design plus deployment, cost, and performance validation. Mainnet launch is not claimed for the current MVP and should not be treated as a verified Level 6 dashboard requirement until the source conflict is resolved.
