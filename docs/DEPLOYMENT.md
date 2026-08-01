@@ -1,175 +1,108 @@
 # Deployment Guide — Suffra
 
+## Current Deployment Status
+
+- No verified Suffra Preprod deployment is recorded yet.
+- Local `.midnight-state.json` contains only the legacy Preview counter address `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` from 2026-07-18; do not use it as Suffra Preprod evidence.
+- `src/hooks/useMidnight.ts` currently reads `VITE_SUFFRA_CONTRACT_ADDRESS` but hardcodes `NETWORK_ID = 'preview'`. The frontend remains Preview-bound until the planned Level 4 network-config change lands.
+
 ## Prerequisites
 
-- Node.js v22+ (`node --version`)
-- Docker running (`docker --version`)
-- Lace wallet browser extension (Midnight edition)
-- Git configured (`git config user.name` / `git config user.email`)
+- Node.js v22+
+- Docker running
+- Lace wallet browser extension, Midnight edition
+- Compact compiler available for `npm run compile`
 
----
+## 1. Compile Contracts
 
-## 1. Midnight Toolchain Setup
-
-### Install Compact Compiler
-```bash
-npm install -g @midnight-ntwrk/compact-compiler
-compact --version   # Verify installation
-```
-
-### Pull & Run Proof Server
-```bash
-docker pull midnightnetwork/proof-server
-docker run -p 6300:6300 midnightnetwork/proof-server
-```
-The proof server runs on `http://localhost:6300` and generates ZK proofs.
-
-### Midnight Docs MCP
-For AI-assisted development, connect to Midnight documentation:
-```
-MCP endpoint: https://midnight.mcp.kapa.ai
-```
-
----
-
-## 2. Hello World Deploy (Level 1 Step 3)
+Use the repo-defined script from `package.json`:
 
 ```bash
-# Scaffold hello-world starter
-npx -y create-mn-app mn-demo --template hello-world --use-npm
-cd mn-demo
-
-# Deploy to Preview network
-NODE_OPTIONS="--max-old-space-size=12288" npm run deploy -- --network preview
+npm run compile
 ```
 
-⚠️ **STOP** when the wallet address prints.
-→ Fund the wallet at the Preview faucet (URL provided in terminal output).
-→ Wait for funding confirmation before continuing.
+This compiles `contracts/suffra.compact` into `managed/suffra` and copies generated artifacts to `public/suffra`.
+
+## 2. Start/Stop Proof Server
 
 ```bash
-# After funding, verify deployment
+npm run proof-server:start
+npm run proof-server:stop
+```
+
+The configured local proof server endpoint in `src/network.ts` is `http://127.0.0.1:6300` for `undeployed`, `preview`, and `preprod`.
+
+## 3. Network Commands
+
+```bash
+npm run network
 npm run network preview
-# Record the deployed contract address
+npm run network preprod
 ```
 
----
+`src/network.ts` defines these exact network endpoints:
 
-## 3. Contract Compilation
+| Network | Indexer | Indexer WS | Node | Faucet |
+|:--|:--|:--|:--|:--|
+| `undeployed` | `http://127.0.0.1:8088/api/v4/graphql` | `ws://127.0.0.1:8088/api/v4/graphql/ws` | `ws://127.0.0.1:9944` | None |
+| `preview` | `https://indexer.preview.midnight.network/api/v4/graphql` | `wss://indexer.preview.midnight.network/api/v4/graphql/ws` | `https://rpc.preview.midnight.network` | `https://midnight-tmnight-preview.nethermind.dev` |
+| `preprod` | `https://indexer.preprod.midnight.network/api/v4/graphql` | `wss://indexer.preprod.midnight.network/api/v4/graphql/ws` | `https://rpc.preprod.midnight.network` | `https://midnight-tmnight-preprod.nethermind.dev` |
 
-```bash
-# From project root
-compact compile
+No explorer URLs are defined in this repo.
 
-# Verify output
-ls managed/
-# Should show circuit files and keys
-```
+## 4. Deploy Suffra to Preprod
 
----
-
-## 4. Contract Deployment to Preprod
+Repo command for a Preprod deployment:
 
 ```bash
-# Deploy custom contract to Preprod
 NODE_OPTIONS="--max-old-space-size=12288" npm run deploy -- --network preprod
 ```
 
-⚠️ The deploy command will:
-1. Print a wallet address → fund it at Preprod faucet
-2. Compile the contract
-3. Generate proof
-4. Submit transaction
-5. Print the contract address
+When the deploy flow prints a wallet address, fund that wallet from the Preprod faucet, then continue the deploy. After a successful deploy, record the exact Suffra Preprod contract address in `README.md` immediately.
 
-**Record the contract address** — it goes in README.md (MANDATORY).
+## 5. Frontend Environment
 
----
+`src/hooks/useMidnight.ts` currently consumes this Vite variable:
 
-## 5. Frontend Deployment (Vercel)
-
-### First-time Setup
 ```bash
-# Install Vercel CLI
-npm install -g vercel
-
-# Deploy
-vercel
-
-# Follow prompts:
-# - Link to existing project? No
-# - Project name: suffra
-# - Framework: Vite
-# - Build command: npm run build
-# - Output directory: dist
+VITE_SUFFRA_CONTRACT_ADDRESS=<64-char-contract-address>
 ```
 
-### Subsequent Deploys
+Do **not** use the stale `VITE_CONTRACT_ADDRESS`; the hook does not read it. The frontend has no environment-based network selector yet.
+
+Local frontend run against a configured address:
+
 ```bash
-vercel --prod
+VITE_SUFFRA_CONTRACT_ADDRESS=<64-char-contract-address> npm run dev
 ```
 
-### Environment Variables on Vercel
-Set in Vercel dashboard → Settings → Environment Variables:
-```
-VITE_MIDNIGHT_NETWORK=preprod
-VITE_CONTRACT_ADDRESS=[your-contract-address]
-```
+Current blocker: even with a Preprod address, the hook still calls `setNetworkId('preview')`. Fix network configuration before claiming a working Preprod frontend.
 
-### vercel.json
-```json
-{
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
-}
+## 6. Frontend Deployment
+
+Build command and output directory from the repo:
+
+```bash
+npm run build
+# output: dist/
 ```
 
----
+For Vercel, configure:
 
-## 6. Lace Wallet Setup
+- Framework: Vite
+- Build command: `npm run build`
+- Output directory: `dist`
+- Environment variable: `VITE_SUFFRA_CONTRACT_ADDRESS=<verified Suffra Preprod address>`
 
-1. Install Lace browser extension from the Chrome Web Store
-2. Create or import a wallet
-3. Switch to Midnight Preprod network in wallet settings
-4. Get Preprod test tokens from faucet
-5. The DApp connector is available at `window.midnight.mnLace`
-
----
+Keep the Product X profile, fresh Level 4 demo URL, and Preprod address as pending placeholders until verified.
 
 ## 7. Local Development
 
 ```bash
-# Clone and install
-git clone https://github.com/[username]/suffra.git
-cd suffra
-npm install
-
-# Start proof server (Docker must be running)
-docker run -p 6300:6300 midnightnetwork/proof-server
-
-# Compile contracts
-compact compile
-
-# Start dev server
+npm ci
+npm run compile
+npm run proof-server:start
 npm run dev
-# Opens at http://localhost:5173
-
-# Run tests
 npm run test
-
-# Production build
 npm run build
 ```
-
----
-
-## Network Reference
-
-| Network | Purpose | Faucet | Explorer |
-|:--|:--|:--|:--|
-| Preview | Early testing | [Preview faucet URL] | [Preview explorer URL] |
-| Preprod | Required for submissions | [Preprod faucet URL] | [Preprod explorer URL] |
-| Mainnet | Level 6 only | N/A | [Mainnet explorer URL] |
-
-*Exact URLs will be filled in during Level 1 setup from Midnight docs.*
