@@ -23,7 +23,7 @@
 - Conventional commits: feat|fix|test|ci|docs|style|refactor(scope): message
 - Commit as user (git config user.name and user.email are set)
 - Pre-commit: scan for secrets (wallet keys, .env values, private keys)
-- Minimum commits per level: L1=5, L2=8, L3=10 (cumulative)
+- Minimum meaningful commits per level (cumulative): L1=5, L2=8, L3=10, L4=15, L5=20, L6=30
 - Make commits at natural milestones — after completing each prompt step
 
 ## Level Progression

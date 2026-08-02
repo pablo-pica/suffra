@@ -12,20 +12,21 @@ This includes both official prompt items and our additions.
 ### 2. File & Config Audit
 For each expected file in the prompt's file structure:
 ```bash
-# Check file exists
-ls -la contracts/counter.compact
-ls -la managed/
+# Level 4+ product paths
+ls -la contracts/suffra.compact
+ls -la managed/suffra/
 ls -la README.md
-ls -la tests/counter.test.ts
-ls -la .github/workflows/ci.yml  # Level 3 only
-ls -la PROPOSAL.md               # Level 3 only
+ls -la tests/suffra.test.ts
+ls -la .github/workflows/ci.yml
+ls -la PROPOSAL.md
+ls -la docs/USAGE.md
 ```
 
 ### 3. Compilation Check
 ```bash
-compact compile
-# Verify managed/ directory has circuits and keys
-ls managed/
+npm run compile
+# Verify the Suffra artifacts exist
+ls managed/suffra/
 ```
 
 ### 4. Test Suite
@@ -44,7 +45,7 @@ npm run build
 ### 6. Git Audit
 ```bash
 git log --oneline | head -20
-# Count: minimum 5 (L1), 8 (L2), 10 (L3) commits
+# Cumulative minimum: L1=5, L2=8, L3=10, L4=15, L5=20, L6=30 commits
 # Format: all must be conventional commits
 git log --oneline | wc -l
 ```
@@ -56,6 +57,9 @@ Check README.md has ALL required sections per the current level's prompt:
 - Setup instructions
 - Live demo link (Level 2+)
 - CI badge (Level 3+)
+- Verified Suffra Preprod address, Product X profile, and fresh demo (Level 4+)
+- `docs/USAGE.md` (Level 4+)
+- `USERS.md` and `docs/FEEDBACK.md` evidence (Level 5+)
 
 ### 8. Secret Scan
 ```bash

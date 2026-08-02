@@ -57,7 +57,7 @@
 - Use the exact section structure from the prompt's Step 6/7
 
 ## Commit Strategy
-- Commit after completing each prompt step (natural 5-8+ per level)
+- Commit after completing each prompt step; cumulative minimums are L4=15, L5=20, and L6=30 meaningful commits
 - Format: `feat(contract): add counter with public ledger state`
 - Never batch all work into one giant commit
 - Each commit message should be meaningful and descriptive

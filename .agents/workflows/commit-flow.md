@@ -39,7 +39,9 @@ docs: update README with CI badge and proposal reference
 - Level 1: 5 commits
 - Level 2: 8 commits (cumulative)
 - Level 3: 10 commits (cumulative)
-- Realistic target: 15+ by Level 3 (exceeding minimums shows active development)
+- Level 4: 15 commits (cumulative)
+- Level 5: 20 commits (cumulative)
+- Level 6: 30 commits (cumulative)
 
 ## Rules
 - Never batch all work into one giant commit

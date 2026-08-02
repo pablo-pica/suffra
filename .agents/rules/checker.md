@@ -75,6 +75,53 @@ section in `docs/midnight_prompts.md`. Our checks ADD to it — never subtract.
 
 ---
 
+## Level 4 — Waxing Gibbous Checklist
+
+### From Official Prompt (Step 9):
+- [ ] Contract compiles and tests pass
+- [ ] Suffra contract deployed to Preprod
+- [ ] Verified Suffra Preprod address in README.md
+- [ ] Live Preprod demo link in README.md
+- [ ] CI/CD has a passing run and the badge/workflow is linked
+- [ ] `docs/USAGE.md` exists and matches the live flow
+- [ ] File structure matches the Level 4 prompt
+- [ ] `npm run build` passes with zero errors
+
+### Our Additions:
+- [ ] Product X profile exists and is linked in README.md
+- [ ] Fresh Level 4 demo video covers the deployed Suffra flow
+- [ ] Minimum 15 meaningful commits (cumulative)
+- [ ] Frontend is configured for Preprod rather than the legacy Preview hardcode
+- [ ] Tally capability is described accurately as implemented or deferred
+- [ ] `docs/PROGRESS.md` contains current evidence and blockers
+
+---
+
+## Level 5 — Full Moon Checklist
+
+- [ ] Same Level 4 MVP remains live on Preprod
+- [ ] `docs/FEEDBACK.md` documents collection method, raw feedback, themes, and changes
+- [ ] `USERS.md` contains 50 verifiable Preprod wallet addresses
+- [ ] README.md links the contract, user list, and feedback evidence
+- [ ] Documentation reflects implemented feedback changes
+- [ ] Demo video shows the full refined MVP
+- [ ] Minimum 20 meaningful commits (cumulative)
+
+---
+
+## Level 6 — Supermoon Planning Checklist
+
+`docs/midnight_prompts.md` and `docs/lvl4-lvl6-details.txt` conflict on Level 6 user and Mainnet scope. Until clarified, audit against the conservative planning baseline without claiming it is a verified dashboard requirement.
+
+- [ ] Level 5 feedback improvements are implemented and documented
+- [ ] 70 cumulative Preprod wallet addresses are recorded
+- [ ] Updated usage and launch documentation matches current behavior
+- [ ] Demo video shows the final current MVP flow
+- [ ] Minimum 30 meaningful commits (cumulative)
+- [ ] Mainnet versus improved Preprod scope is confirmed before submission claims
+
+---
+
 ## Audit Workflow
 
 1. Load the current level's checklist (above)
@@ -82,7 +129,7 @@ section in `docs/midnight_prompts.md`. Our checks ADD to it — never subtract.
    a. Check file existence, run command, or verify visually
    b. Record ✅ (pass) or ❌ (fail) with specific evidence
 3. Run test suite: `npm run test` (if tests exist)
-4. Run contract compilation: `compact compile` (if contract exists)
+4. Run contract compilation: `npm run compile` (if contract exists)
 5. Run production build: `npm run build` (Level 2+)
 6. Verify git log: `git log --oneline | head -20`
    - Count commits, check conventional format
@@ -96,6 +143,7 @@ section in `docs/midnight_prompts.md`. Our checks ADD to it — never subtract.
 - `package.json` has correct scripts (test, build, dev)
 - `.github/workflows/ci.yml` exists and is valid YAML (Level 3+)
 - `.env.example` exists (no real secrets)
-- `PROPOSAL.md` exists in root (Level 3)
-- `managed/` directory exists with circuits (after compile)
+- `PROPOSAL.md` exists in root (Level 3+)
+- `docs/USAGE.md` exists (Level 4+)
+- `managed/suffra/` exists with generated artifacts after compile (Level 4+)
 - No hardcoded secrets in any source file
