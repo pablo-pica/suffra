@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Vote, Shield, RefreshCw, CheckCircle2, AlertTriangle, ExternalLink, UserPlus, Lock, Ban } from 'lucide-react';
+import { explorerTransactionUrl, resolveDappNetwork } from '../config/network';
 import { type UseMidnightResult } from '../hooks/useMidnight';
 
 interface BallotBoxProps {
@@ -23,6 +24,9 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
   } = midnight;
 
   const [choice, setChoice] = useState<0 | 1>(1);
+  const explorerUrl = txId
+    ? explorerTransactionUrl(resolveDappNetwork(import.meta.env.VITE_MIDNIGHT_NETWORK), txId)
+    : null;
 
   const spring = { type: 'spring', stiffness: 400, damping: 25 } as const;
   const buttonVariants = {
@@ -213,14 +217,16 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
                 <span className="text-xs font-mono text-slate-800 break-all select-all leading-tight">
                   {txId}
                 </span>
-                <a
-                  href={`https://explorer.preview.midnight.network/transactions/${txId}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs text-accent-blue hover:text-indigo-600 transition-colors font-medium"
-                >
-                  Open in Explorer <ExternalLink className="w-3 h-3" />
-                </a>
+                {explorerUrl && (
+                  <a
+                    href={explorerUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs text-accent-blue hover:text-indigo-600 transition-colors font-medium"
+                  >
+                    Open in Explorer <ExternalLink className="w-3 h-3" />
+                  </a>
+                )}
               </motion.div>
             )}
           </AnimatePresence>

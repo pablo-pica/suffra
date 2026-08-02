@@ -11,9 +11,10 @@ import { toHex, fromHex, parseCoinPublicKeyToHex, parseEncPublicKeyToHex } from 
 import { CompiledContract } from '@midnight-ntwrk/midnight-js-protocol/compact-js';
 import { setNetworkId } from '@midnight-ntwrk/midnight-js-network-id';
 import * as Suffra from '../../managed/suffra/contract/index.js';
+import { resolveDappNetwork } from '../config/network';
 
 const CONTRACT_ADDRESS = (import.meta.env.VITE_SUFFRA_CONTRACT_ADDRESS || '').trim();
-const NETWORK_ID = 'preview';
+const NETWORK_ID = resolveDappNetwork(import.meta.env.VITE_MIDNIGHT_NETWORK);
 const PRIVATE_STATE_ID = 'suffraPrivateState';
 
 export interface ElectionState {
@@ -274,7 +275,7 @@ export function useMidnight(): UseMidnightResult {
 
       if (!contractAddressIsConfigured()) {
         setContract(null);
-        setDeploymentNotice('Wallet connected. Deploy the Suffra contract to Preview/Preprod and set VITE_SUFFRA_CONTRACT_ADDRESS to enable registration and voting.');
+        setDeploymentNotice(`Wallet connected to ${NETWORK_ID}. Deploy the Suffra contract to this network and set VITE_SUFFRA_CONTRACT_ADDRESS to enable registration and voting.`);
         return;
       }
 
