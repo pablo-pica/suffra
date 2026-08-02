@@ -50,7 +50,7 @@ The current sealed-ballot contract proves only that a local voter secret was reg
 
 ## 🗺️ Level 4-6 Roadmap
 
-- **Level 4 by Aug 24:** audit baseline, verify privacy core, fix frontend network config, recheck CI, deploy Suffra to Preprod, update README/usage docs, create Product X profile, record fresh demo, submit. Add a minimal privacy-preserving tally only if the early gate proves it will not threaten Aug 24; otherwise defer tally to Level 5.
+- **Level 4 by Aug 24:** audit baseline, verify privacy core, configure the frontend for Preprod, recheck CI, deploy Suffra to Preprod, update README/usage docs, create Product X profile, record a fresh demo, and submit. The tally gate is complete: the current sealed-ballot design cannot safely produce a final tally, so tally work is deferred to Level 5.
 - **Level 5:** same Preprod MVP refined with feedback, 50 Preprod users/wallet addresses, updated docs, demo evidence, and 20 meaningful commits.
 - **Level 6:** conservative baseline is 70 cumulative Preprod wallet addresses and 30 meaningful commits. Mainnet scope remains pending official clarification.
 
@@ -76,10 +76,12 @@ The current sealed-ballot contract proves only that a local voter secret was reg
 npm ci
 npm run compile
 npm run proof-server:start
-VITE_SUFFRA_CONTRACT_ADDRESS=<64-char-contract-address> npm run dev
+VITE_MIDNIGHT_NETWORK=preprod \
+VITE_SUFFRA_CONTRACT_ADDRESS=<64-char-contract-address> \
+npm run dev
 ```
 
-Current blocker: `src/hooks/useMidnight.ts` reads `VITE_SUFFRA_CONTRACT_ADDRESS` but still hardcodes `NETWORK_ID = 'preview'`; the planned Level 4 frontend phase must make network selection Preprod-capable before claiming a Preprod demo.
+The frontend validates `VITE_MIDNIGHT_NETWORK` and defaults to `preprod`. A real Preprod contract address and a successful wallet smoke test are still required before claiming a live Preprod demo.
 
 ## 🧪 Run Tests
 

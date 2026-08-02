@@ -2,12 +2,12 @@
 
 ## Current Status
 - **Active Level**: Level 4 — Waxing Gibbous (MVP Goes Live)
-- **Active Step**: Step 1 — structure/baseline audit, then Step 2 privacy-core gate
+- **Active Step**: Step 3 — frontend Preprod configuration and validation
 - **Idea/The Turn**: Approved; approval date not recorded in repo, so no date is claimed
 - **Internal Level 4 Target**: August 24, 2026
 - **Official Month-End Deadline**: August 31, 2026
 - **Contingency Buffer**: August 25-31, 2026 for deploy/review/submission fixes only
-- **Known Blockers**: no verified Suffra Preprod deployment, no Product X profile, no fresh Level 4 demo video, frontend hook still hardcodes `NETWORK_ID = 'preview'`
+- **Known Blockers**: no verified Suffra Preprod deployment, no Product X profile, no fresh Level 4 demo video, and no real-wallet Preprod smoke test
 
 ---
 
@@ -31,9 +31,9 @@
 
 | Phase | Dates | Official Step Order | Gate / Status | Checklist |
 |:--|:--|:--|:--|:--|
-| 1 | Aug 12 | Step 1 — file structure / baseline | Audit the existing repo before changing code | [ ] Confirm required paths exist [ ] Record stale Preview/counter references as blockers, not Suffra deployment evidence |
-| 2 | Aug 13 | Step 2 — privacy core first | Current sealed-ballot contract exists; tally is a feasibility gate, not assumed | [ ] Run `npm run compile` [ ] Run `npm run test` [ ] Audit the public/private boundary [ ] Decide whether a minimal tally is safe for Level 4 or must move to Level 5 |
-| 3 | Aug 14-16 | Step 3 — frontend | Blocked until network config is corrected | [ ] Replace the Preview hardcode in `src/hooks/useMidnight.ts` with verified Preprod-capable config [ ] Use `VITE_SUFFRA_CONTRACT_ADDRESS` consistently [ ] Run `npm run build` [ ] Verify loading and error states |
+| 1 | Aug 12 | Step 1 — file structure / baseline | Completed | [x] Required paths confirmed [x] Stale Preview/counter references recorded as blockers, not Suffra deployment evidence |
+| 2 | Aug 13 | Step 2 — privacy core first | Completed; tally deferred to Level 5 | [x] `npm run compile` [x] `npm run test` [x] Public/private boundary audited [x] Tally decision recorded |
+| 3 | Aug 14-16 | Step 3 — frontend | In progress; code configuration is complete but not yet proven with Lace on Preprod | [x] Replace the Preview hardcode with `VITE_MIDNIGHT_NETWORK` [x] Use `VITE_SUFFRA_CONTRACT_ADDRESS` consistently [x] Run `npm run build` [ ] Verify loading and error states with a Preprod wallet |
 | 4 | Aug 17 | Step 4 — CI/CD | Existing workflow must be re-audited against Level 4 | [ ] Verify install, compile, test, and build jobs [ ] Confirm the README badge points to the workflow [ ] Confirm a passing run |
 | 5 | Aug 18-19 | Step 5 — deploy to Preprod | No verified Suffra Preprod address yet | [ ] Run the repo Preprod deploy command [ ] Record the exact Suffra address in README immediately [ ] Smoke-test the deployed contract and frontend |
 | 6 | Aug 20-21 | Steps 6-8 — usage, README, X | Public launch assets pending | [ ] Verify `docs/USAGE.md` [ ] Update README with verified Preprod/demo/X links [ ] Create the Product X profile [ ] Prepare and publish launch posts |
@@ -41,10 +41,10 @@
 | 8 | Aug 23-24 | Fixes and submission | Internal cutoff | [ ] Resolve checker findings [ ] Re-run affected checks [ ] Submit the public repository on Rise In |
 | Buffer | Aug 25-31 | Contingency | Use only for fixes, redeploys, or submission evidence gaps | [ ] Do not expand scope |
 
-### Tally Feasibility Gate
-- **Current:** `contracts/suffra.compact` is a sealed-ballot contract. It records commitments/nullifiers and counts ballots, but it does **not** produce a final election tally.
-- **Level 4 decision rule:** add only a minimal privacy-preserving tally if design and implementation are proven safe early enough that Aug 24 remains realistic.
-- **Fallback:** if the gate fails, document tally as deferred to Level 5 rather than claiming Level 4 has one.
+### Tally Feasibility Gate — Decision Recorded
+- **Evidence:** `contracts/suffra.compact` records salted ballot commitments, nullifiers, and counts only. It has no reveal, decryption, aggregation, or authorized tally input.
+- **Risk:** adding a public per-choice counter would disclose vote choices through transaction-level state changes.
+- **Decision:** defer final tally work to Level 5. Level 4 ships the sealed-ballot privacy core rather than an unsafe or incomplete tally.
 
 ### Future Roadmap
 - **Level 5 — Full Moon:** refine the same Preprod MVP with a feedback loop, updated docs, **50 Preprod users/wallet addresses**, demo evidence, and **20 meaningful commits** minimum.
@@ -187,3 +187,6 @@
 
 ### Pre-Level 4 Hardening
 - [2026-07-28 13:16] [BUILDER] Replaced the counter-centered product implementation with `contracts/suffra.compact`, a sealed-ballot Compact contract using voter commitments, one-use nullifiers, and salted ballot commitments. Added Suffra tests, moved frontend/CLI/deploy wiring to Suffra artifacts, updated CI to compile before test/build, created `docs/USAGE.md`, and rewrote README/PROPOSAL/ARCHITECTURE/DEMO docs to distinguish current sealed-ballot privacy from future tally protocol work.
+
+### Level 4 — Waxing Gibbous
+- [2026-08-13] [BUILDER] Completed the tally feasibility gate. Deferred tally to Level 5 because the sealed-ballot contract stores only commitments/nullifiers and has no safe reveal, aggregation, or authorized tally input. Added validated `VITE_MIDNIGHT_NETWORK` selection with a Preprod default, updated explorer links, and verified compile, test, and production build.

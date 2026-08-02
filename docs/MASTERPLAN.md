@@ -26,7 +26,7 @@ Follow `docs/midnight_prompts.md` in order for each level. Layer the Suffra desi
 - L1-L3 historical audits remain the baseline.
 - The Turn / idea submission is approved; approval date is unknown.
 - L4 is active: ship the approved Suffra private-election MVP on Preprod.
-- Tally scope is gated: include only if a minimal privacy-preserving design is safe before the Aug 24 target; otherwise defer to L5.
+- Tally gate decision: defer tally to L5. The current contract stores salted commitments only; adding a public per-choice counter would leak choices, while a reveal/aggregation design is out of the L4 deadline scope.
 - L5 focuses on feedback and 50 Preprod users.
 - L6 uses a conservative planning baseline of 70 cumulative Preprod wallet addresses and 30 meaningful commits while Mainnet scope remains pending clarification.
 
@@ -34,8 +34,8 @@ Follow `docs/midnight_prompts.md` in order for each level. Layer the Suffra desi
 | Window | Focus | Exit Criteria |
 |:--|:--|:--|
 | Aug 12 | Structure/baseline audit | Required repo paths and stale blockers documented |
-| Aug 13 | Privacy core and tally gate | Compile/tests re-run; tally included only if safe |
-| Aug 14-16 | Frontend | Network config no longer hardcoded to Preview; build passes |
+| Aug 13 | Privacy core and tally gate | Compile/tests re-run; tally deferred to Level 5 |
+| Aug 14-16 | Frontend | Preprod configuration is validated; build passes |
 | Aug 17 | CI/CD | Workflow compiles, tests, builds, and has a passing run |
 | Aug 18-19 | Preprod deploy | Verified Suffra Preprod address recorded and smoke-tested |
 | Aug 20-21 | README/usage/X | Usage docs, README evidence, X profile, and launch posts ready |
@@ -82,8 +82,8 @@ Follow `docs/midnight_prompts.md` in order for each level. Layer the Suffra desi
 | Risk | Likelihood | Impact | Mitigation |
 |:--|:--|:--|:--|
 | No verified Suffra Preprod deployment yet | High | High | Schedule deploy phase Aug 18-19; record only the verified address |
-| Frontend hardcoded to Preview | High | High | Fix `src/hooks/useMidnight.ts` network config before demo claims |
-| Tally implementation leaks choices or delays submission | Medium | High | Early gate; defer to Level 5 if unsafe for Aug 24 |
+| Preprod configuration not proven with a real wallet | High | High | Validate configured `preprod` selection in a wallet smoke test before demo claims |
+| Tally implementation leaks choices or delays submission | Medium | High | Decision made: defer reveal/aggregation work to Level 5 |
 | Product X profile/demo not ready | Medium | High | Reserve Aug 19-24 for launch assets |
 | Proof server or Preprod instability | Medium | Medium | Keep Aug 25-31 contingency for redeploy/fixes |
 | Not enough meaningful commits | Low | High | Commit at prompt-step milestones; no commits in this planning update |

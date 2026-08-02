@@ -107,7 +107,7 @@ Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 ### Prompt-Step and Project-Gate Checklist
 - [ ] Step 1 — structure/baseline: verify required paths before new work
 - [ ] Step 2 — privacy core: compile `contracts/suffra.compact`, run tests, confirm public/private boundary
-- [ ] Project gate — tally: include a minimal privacy-preserving tally only if it cannot threaten Aug 24; otherwise defer to Level 5
+- [x] Project gate — tally: deferred to Level 5 because the current contract stores commitments only; no safe tally protocol fits the Level 4 deadline
 - [ ] Step 3 — frontend: wallet connect, circuit calls, loading states, error states, `npm run build` with zero errors
 - [ ] Step 4 — CI/CD: install, compile, test, build; README badge or workflow file
 - [ ] Step 5 — deploy to Preprod: stop for deploy address, then update README immediately
@@ -133,7 +133,7 @@ Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 | Local deployment state | `.midnight-state.json` contains only the legacy Preview counter address `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748`, dated 2026-07-18 |
 | Product X profile | Pending |
 | Fresh Level 4 demo | Pending |
-| Frontend network | `src/hooks/useMidnight.ts` reads `VITE_SUFFRA_CONTRACT_ADDRESS` but hardcodes `NETWORK_ID = 'preview'` |
+| Frontend network | `VITE_MIDNIGHT_NETWORK` accepts `undeployed`, `preview`, or `preprod` and defaults to `preprod`; a real-wallet Preprod smoke test remains pending |
 
 ---
 

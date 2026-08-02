@@ -36,7 +36,7 @@ Transparent chains are a poor fit for secret ballots. If each vote updates a vis
 
 `contracts/suffra.compact` registers a voter commitment, rejects duplicate registration, accepts a private vote choice plus salt, spends one nullifier per voter secret, and stores only a sealed ballot commitment. It deliberately avoids a public per-choice tally during voting because that would leak choices by observing state changes.
 
-A minimal privacy-preserving tally can enter Level 4 only if the early feasibility/design gate proves it will not threaten the August 24 cutoff. If not, tally work is explicitly deferred to Level 5.
+The Level 4 feasibility gate is complete: a tally cannot be added safely to the current contract because it stores only salted ballot commitments, with no reveal, decryption, aggregation, or authorized tally input. Tally work is explicitly deferred to Level 5 rather than adding a public per-choice counter that would leak choices.
 
 ## Level 4-6 Delivery Path
 
