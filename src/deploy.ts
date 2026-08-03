@@ -8,6 +8,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { resolveNetwork, getOrCreateSeed, recordDeployment } from './network';
 import { createWallet, persistWalletState, unshieldedToken, type WalletContext } from './wallet';
+import { startPeriodicCheckpoint, SyncInterruptedError, waitForSyncWithCheckpoint } from './wallet-sync-checkpoint';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { WebSocket } from 'ws';
 import * as Rx from 'rxjs';
@@ -147,12 +148,31 @@ async function main() {
     const elapsed = Math.round((Date.now() - syncStart) / 1000);
     process.stdout.write(`\r  ⏳ Still syncing... (${elapsed}s elapsed)   `);
   }, 5000);
-  const state = await walletCtx.wallet.waitForSyncedState();
-  clearInterval(syncInterval);
+  // A first public-network sync can take a long time. Checkpoint every minute
+  // so a user interruption resumes from the latest SDK state rather than seed.
+  const syncCheckpoints = startPeriodicCheckpoint(
+    () => persistWalletState(network, walletCtx),
+    {
+      intervalMs: 60_000,
+      onError: (error) => {
+        const message = error instanceof Error ? error.message : String(error);
+        process.stderr.write(`\n  ⚠ Could not checkpoint wallet sync (${message}); continuing.\n`);
+      },
+    },
+  );
+  let state: Awaited<ReturnType<typeof walletCtx.wallet.waitForSyncedState>>;
+  try {
+    state = await waitForSyncWithCheckpoint(
+      () => walletCtx.wallet.waitForSyncedState(),
+      syncCheckpoints,
+    );
+  } catch (error) {
+    if (error instanceof SyncInterruptedError) await walletCtx.wallet.stop();
+    throw error;
+  } finally {
+    clearInterval(syncInterval);
+  }
   process.stdout.write('\r  ✓ Synced with network.                                      \n');
-
-  // Persist sync state now so a later deploy failure doesn't waste the sync work.
-  await persistWalletState(network, walletCtx);
 
   const address = walletCtx.unshieldedKeystore.getBech32Address();
   let balance = state.unshielded.balances[unshieldedToken().raw] ?? 0n;
@@ -363,6 +383,11 @@ async function main() {
 }
 
 main().catch((err) => {
+  if (err instanceof SyncInterruptedError) {
+    console.error('\n  Sync checkpoint saved. Re-run the same deploy command to resume.\n');
+    process.exitCode = 130;
+    return;
+  }
   console.error(err);
-  process.exit(1);
+  process.exitCode = 1;
 });

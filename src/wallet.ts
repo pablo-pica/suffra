@@ -174,22 +174,18 @@ export async function persistWalletState(
   ctx: WalletContext,
   cwd?: string,
 ): Promise<void> {
-  const next: PersistedWalletState = {};
+  const wallet = ctx.wallet as unknown as Record<ChildKind, { serializeState: () => Promise<unknown> }>;
 
+  // Save each child as it serializes. If an interrupt lands between children,
+  // the next run restores every completed checkpoint and only re-syncs the
+  // missing child; saveWalletState writes each file atomically.
   for (const kind of CHILD_KINDS) {
     try {
-      const child = (ctx.wallet as unknown as Record<ChildKind, { serializeState: () => Promise<unknown> }>)[kind];
-      const serialized = await child.serializeState();
-      if (kind === 'dust') {
-        next.dust = serialized as string;
-      } else {
-        next[kind] = serialized;
-      }
+      const serialized = await wallet[kind].serializeState();
+      saveWalletState(network, kind === 'dust' ? { dust: serialized as string } : { [kind]: serialized }, { cwd });
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       process.stderr.write(`  ⚠ Could not serialize ${kind} wallet state (${msg}); next run will re-sync.\n`);
     }
   }
-
-  saveWalletState(network, next, { cwd });
 }
