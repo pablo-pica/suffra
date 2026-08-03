@@ -11,7 +11,7 @@
 
 1. Open the Suffra dApp.
 2. Connect Lace Wallet.
-3. Confirm the wallet is on the expected Midnight test network.
+3. Confirm Lace is on Midnight Preprod, the network configured through `VITE_MIDNIGHT_NETWORK` for the Level 4 deployment.
 4. Select **Register Local Voter Secret**.
 5. Approve the transaction in Lace.
 6. Choose **For** or **Against**.

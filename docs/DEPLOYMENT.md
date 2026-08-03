@@ -4,7 +4,7 @@
 
 - No verified Suffra Preprod deployment is recorded yet.
 - Local `.midnight-state.json` contains only the legacy Preview counter address `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` from 2026-07-18; do not use it as Suffra Preprod evidence.
-- `src/hooks/useMidnight.ts` currently reads `VITE_SUFFRA_CONTRACT_ADDRESS` but hardcodes `NETWORK_ID = 'preview'`. The frontend remains Preview-bound until the planned Level 4 network-config change lands.
+- `src/config/network.ts` validates `VITE_MIDNIGHT_NETWORK` as `undeployed`, `preview`, or `preprod`, and defaults the frontend to `preprod`. A real-wallet Preprod smoke test is still required.
 
 ## Prerequisites
 
@@ -62,21 +62,24 @@ When the deploy flow prints a wallet address, fund that wallet from the Preprod 
 
 ## 5. Frontend Environment
 
-`src/hooks/useMidnight.ts` currently consumes this Vite variable:
+`src/config/network.ts` and `src/hooks/useMidnight.ts` consume these Vite variables:
 
 ```bash
+VITE_MIDNIGHT_NETWORK=preprod
 VITE_SUFFRA_CONTRACT_ADDRESS=<64-char-contract-address>
 ```
 
-Do **not** use the stale `VITE_CONTRACT_ADDRESS`; the hook does not read it. The frontend has no environment-based network selector yet.
+`VITE_MIDNIGHT_NETWORK` accepts `undeployed`, `preview`, or `preprod`; it defaults to `preprod`. Do **not** use the stale `VITE_CONTRACT_ADDRESS`; the hook does not read it.
 
 Local frontend run against a configured address:
 
 ```bash
-VITE_SUFFRA_CONTRACT_ADDRESS=<64-char-contract-address> npm run dev
+VITE_MIDNIGHT_NETWORK=preprod \
+VITE_SUFFRA_CONTRACT_ADDRESS=<64-char-contract-address> \
+npm run dev
 ```
 
-Current blocker: even with a Preprod address, the hook still calls `setNetworkId('preview')`. Fix network configuration before claiming a working Preprod frontend.
+Before claiming a working Preprod frontend, connect Lace on Preprod and complete the smoke test against the deployed Suffra address.
 
 ## 6. Frontend Deployment
 
@@ -92,7 +95,7 @@ For Vercel, configure:
 - Framework: Vite
 - Build command: `npm run build`
 - Output directory: `dist`
-- Environment variable: `VITE_SUFFRA_CONTRACT_ADDRESS=<verified Suffra Preprod address>`
+- Environment variables: `VITE_MIDNIGHT_NETWORK=preprod` and `VITE_SUFFRA_CONTRACT_ADDRESS=<verified Suffra Preprod address>`
 
 Keep the Product X profile, fresh Level 4 demo URL, and Preprod address as pending placeholders until verified.
 
