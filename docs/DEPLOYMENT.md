@@ -58,6 +58,8 @@ Repo command for a Preprod deployment:
 NODE_OPTIONS="--max-old-space-size=12288" npm run deploy -- --network preprod
 ```
 
+The first Preprod sync can take a long time. The deploy command checkpoints each child wallet every minute in `.midnight-wallet-state/preprod/`; if it is interrupted, rerun the same command and it restores the latest checkpoint. Do **not** run `npm run clean` unless you deliberately intend to discard the deployment wallet and its sync checkpoints.
+
 When the deploy flow prints a wallet address, fund that wallet from the Preprod faucet, then continue the deploy. After a successful deploy, record the exact Suffra Preprod contract address in `README.md` immediately.
 
 ## 5. Frontend Environment

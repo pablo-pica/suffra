@@ -190,3 +190,4 @@
 
 ### Level 4 — Waxing Gibbous
 - [2026-08-13] [BUILDER] Completed the tally feasibility gate. Deferred tally to Level 5 because the sealed-ballot contract stores only commitments/nullifiers and has no safe reveal, aggregation, or authorized tally input. Added validated `VITE_MIDNIGHT_NETWORK` selection with a Preprod default, updated explorer links, and verified compile, test, and production build.
+- [2026-08-13] [BUILDER] Investigated slow initial Preprod wallet synchronization. Indexer/RPC and proof server were healthy, but fresh shielded and DUST wallets require a full historical scan. Added one-minute atomic SDK-state checkpoints during deploy sync so an interrupted run resumes from `.midnight-wallet-state/preprod/` instead of starting over.
