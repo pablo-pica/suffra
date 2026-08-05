@@ -10,7 +10,7 @@
 - **Active level:** Level 4 — MVP Goes Live.
 - **Internal Level 4 target:** August 24, 2026.
 - **Official deadline:** August 31, 2026, with August 25-31 reserved as contingency buffer.
-- **Pending launch assets:** verified Suffra Preprod contract address, Product X profile, and fresh Level 4 demo video.
+- **Verified Preprod deployment:** Suffra was deployed on 2026-08-13. Product X profile, frontend smoke test, and fresh Level 4 demo video remain pending.
 
 ## 🌐 Live Demo
 
@@ -33,7 +33,7 @@ The repository currently lists this public demo URL, but it is not Level 4 evide
 
 | Network | Contract | Address | Status |
 | :--- | :--- | :--- | :--- |
-| Preprod | Suffra sealed ballot | Pending | Required for Level 4 |
+| Preprod | Suffra sealed ballot | `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` | Deployed 2026-08-13; frontend smoke test pending |
 | Preview | Legacy counter demo | `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` | Historical Level 1 evidence only; not a Suffra Preprod deployment |
 
 ## ✨ What This Product Does

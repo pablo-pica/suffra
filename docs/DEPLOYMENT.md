@@ -2,8 +2,8 @@
 
 ## Current Deployment Status
 
-- No verified Suffra Preprod deployment is recorded yet.
-- Local `.midnight-state.json` contains only the legacy Preview counter address `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` from 2026-07-18; do not use it as Suffra Preprod evidence.
+- Suffra is deployed to Preprod at `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` (2026-08-13).
+- Local `.midnight-state.json` also contains the legacy Preview counter address `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` from 2026-07-18; do not use it as Suffra Preprod evidence.
 - `src/config/network.ts` validates `VITE_MIDNIGHT_NETWORK` as `undeployed`, `preview`, or `preprod`, and defaults the frontend to `preprod`. A real-wallet Preprod smoke test is still required.
 
 ## Prerequisites

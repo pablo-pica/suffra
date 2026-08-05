@@ -7,7 +7,7 @@
 - **Internal Level 4 Target**: August 24, 2026
 - **Official Month-End Deadline**: August 31, 2026
 - **Contingency Buffer**: August 25-31, 2026 for deploy/review/submission fixes only
-- **Known Blockers**: no verified Suffra Preprod deployment, no Product X profile, no fresh Level 4 demo video, and no real-wallet Preprod smoke test
+- **Known Blockers**: no Product X profile, no fresh Level 4 demo video, and no real-wallet Preprod frontend smoke test
 
 ---
 
@@ -35,7 +35,7 @@
 | 2 | Aug 13 | Step 2 — privacy core first | Completed; tally deferred to Level 5 | [x] `npm run compile` [x] `npm run test` [x] Public/private boundary audited [x] Tally decision recorded |
 | 3 | Aug 14-16 | Step 3 — frontend | In progress; code configuration is complete but not yet proven with Lace on Preprod | [x] Replace the Preview hardcode with `VITE_MIDNIGHT_NETWORK` [x] Use `VITE_SUFFRA_CONTRACT_ADDRESS` consistently [x] Run `npm run build` [ ] Verify loading and error states with a Preprod wallet |
 | 4 | Aug 17 | Step 4 — CI/CD | Existing workflow must be re-audited against Level 4 | [ ] Verify install, compile, test, and build jobs [ ] Confirm the README badge points to the workflow [ ] Confirm a passing run |
-| 5 | Aug 18-19 | Step 5 — deploy to Preprod | No verified Suffra Preprod address yet | [ ] Run the repo Preprod deploy command [ ] Record the exact Suffra address in README immediately [ ] Smoke-test the deployed contract and frontend |
+| 5 | Aug 18-19 | Step 5 — deploy to Preprod | Suffra deployed at `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` on 2026-08-13 | [x] Run the repo Preprod deploy command [x] Record the exact Suffra address in README [ ] Smoke-test the deployed contract and frontend |
 | 6 | Aug 20-21 | Steps 6-8 — usage, README, X | Public launch assets pending | [ ] Verify `docs/USAGE.md` [ ] Update README with verified Preprod/demo/X links [ ] Create the Product X profile [ ] Prepare and publish launch posts |
 | 7 | Aug 22 | Step 9 — final evidence audit | Submission package review | [ ] Record the fresh Level 4 demo [ ] Audit README and links [ ] Confirm the 15-commit minimum [ ] Run the checker workflow |
 | 8 | Aug 23-24 | Fixes and submission | Internal cutoff | [ ] Resolve checker findings [ ] Re-run affected checks [ ] Submit the public repository on Rise In |
@@ -191,3 +191,4 @@
 ### Level 4 — Waxing Gibbous
 - [2026-08-13] [BUILDER] Completed the tally feasibility gate. Deferred tally to Level 5 because the sealed-ballot contract stores only commitments/nullifiers and has no safe reveal, aggregation, or authorized tally input. Added validated `VITE_MIDNIGHT_NETWORK` selection with a Preprod default, updated explorer links, and verified compile, test, and production build.
 - [2026-08-13] [BUILDER] Investigated slow initial Preprod wallet synchronization. Indexer/RPC and proof server were healthy, but fresh shielded and DUST wallets require a full historical scan. Added one-minute atomic SDK-state checkpoints during deploy sync so an interrupted run resumes from `.midnight-wallet-state/preprod/` instead of starting over.
+- [2026-08-13] [BUILDER] Deployed Suffra to Preprod at `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6`. Deployment wallet funding and DUST registration completed; frontend configuration and Lace smoke test remain pending.

@@ -119,7 +119,7 @@ Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 ### Submission Checklist
 - [ ] Public GitHub repository with full documentation
 - [ ] Live Preprod demo link
-- [ ] Verified Suffra Preprod contract address
+- [x] Verified Suffra Preprod contract address: `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` (deployed 2026-08-13)
 - [ ] CI/CD badge or workflow file with passing runs
 - [ ] Link to product X profile
 - [ ] Demo video of the MVP
@@ -129,8 +129,8 @@ Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 
 | Blocker | Verified State |
 |:--|:--|
-| Suffra Preprod deployment | No deployment recorded |
-| Local deployment state | `.midnight-state.json` contains only the legacy Preview counter address `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748`, dated 2026-07-18 |
+| Suffra Preprod deployment | `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` deployed 2026-08-13; frontend smoke test pending |
+| Local deployment state | `.midnight-state.json` records the Suffra Preprod deployment and the legacy Preview counter address `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` (historical only) |
 | Product X profile | Pending |
 | Fresh Level 4 demo | Pending |
 | Frontend network | `VITE_MIDNIGHT_NETWORK` accepts `undeployed`, `preview`, or `preprod` and defaults to `preprod`; a real-wallet Preprod smoke test remains pending |
