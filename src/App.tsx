@@ -4,9 +4,11 @@ import { ShieldCheck, HeartHandshake, FileText, Compass, ExternalLink, Network }
 import { useMidnight } from './hooks/useMidnight';
 import { WalletConnect } from './components/WalletConnect';
 import { BallotBox } from './components/BallotBox';
+import { resolveDappNetwork } from './config/network';
 
 export const App: React.FC = () => {
   const midnight = useMidnight();
+  const networkName = resolveDappNetwork(import.meta.env.VITE_MIDNIGHT_NETWORK);
 
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
@@ -34,7 +36,7 @@ export const App: React.FC = () => {
             <span className="text-slate-300">|</span>
             <span className="flex items-center gap-1.5 text-indigo-700 bg-indigo-50 px-2 py-1 rounded-full border border-indigo-200">
               <Network className="w-3.5 h-3.5" />
-              Preview network
+              {networkName} network
             </span>
           </div>
         </div>
@@ -106,9 +108,9 @@ export const App: React.FC = () => {
               <HeartHandshake className="w-6 h-6" />
             </div>
             <div className="flex flex-col gap-1">
-              <h4 className="text-sm font-semibold text-slate-900">Pre-Level 4 hardening in progress</h4>
+              <h4 className="text-sm font-semibold text-slate-900">Preprod sealed-ballot deployment is live</h4>
               <p className="text-xs text-slate-500 max-w-xl leading-relaxed">
-                The counter demo has been replaced by a privacy-meaningful sealed ballot contract. Final Level 4 submission still needs approved idea confirmation, a deployed Suffra contract address, public product profile, and a recorded MVP demo.
+                Register a local voter secret, then cast one sealed ballot. Your secret, choice, and ballot salt remain private; the ledger receives only the commitments and nullifier needed for verification.
               </p>
             </div>
           </div>

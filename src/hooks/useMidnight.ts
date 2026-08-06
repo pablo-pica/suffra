@@ -103,8 +103,16 @@ function getOrCreateLocalHex(key: string): string {
   return created;
 }
 
+export function formatPrivateStoragePassword(secret: string): string {
+  // Midnight private state requires upper/lowercase, a digit, and a special
+  // character. Prefix the already random local secret without weakening it.
+  return `Suffra!${secret}`;
+}
+
 function getPrivateStoragePassword(accountId: string): string {
-  return getOrCreateLocalHex(`suffra_private_storage_password:${accountId}`);
+  return formatPrivateStoragePassword(
+    getOrCreateLocalHex(`suffra_private_storage_password:${accountId}`),
+  );
 }
 
 function getVoterSecret(accountId: string): Uint8Array {
