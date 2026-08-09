@@ -1,12 +1,13 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import {
   ArrowDown,
-  ArrowUpRight,
+  ArrowRight,
   CheckCircle2,
   ChevronDown,
   ExternalLink,
   Eye,
   Fingerprint,
+  Heart,
   LockKeyhole,
   Network,
   ShieldCheck,
@@ -23,122 +24,130 @@ interface LandingPageProps {
   midnight: UseMidnightResult;
 }
 
-const fadeInUp = {
+const reveal = {
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, amount: 0.2 },
   transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] as const },
 };
 
+function HeroArtwork() {
+  return (
+    <div className="relative isolate min-h-[430px] overflow-hidden rounded-[2rem] bg-hope-blue p-6 text-white shadow-hope sm:min-h-[520px] sm:p-10">
+      <div className="absolute -right-20 -top-12 size-72 rounded-full bg-hope-sky" />
+      <div className="absolute -bottom-28 -left-24 size-80 rounded-full bg-hope-coral" />
+      <div className="absolute bottom-10 right-8 size-24 rounded-full border-[18px] border-white/20" />
+      <div className="relative flex h-full min-h-[382px] flex-col justify-between sm:min-h-[440px]">
+        <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 text-xs font-bold backdrop-blur">
+          <Heart className="size-3.5 fill-current" /> Para sa kabataang Pilipino
+        </span>
+        <div className="max-w-sm">
+          <p className="font-headings text-4xl font-bold leading-none tracking-tight sm:text-5xl">A vote is a voice.</p>
+          <p className="mt-4 max-w-xs text-sm leading-6 text-white/80">Suffra protects the space between a young person and their choice.</p>
+        </div>
+        <div className="flex w-fit items-center gap-3 rounded-2xl bg-white px-4 py-3 text-hope-ink shadow-card">
+          <span className="grid size-9 place-items-center rounded-full bg-hope-mint"><ShieldCheck className="size-5 text-hope-blue" /></span>
+          <span><span className="block text-xs font-bold">Sealed ballot</span><span className="block text-[11px] text-slate-500">Private by design</span></span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function LandingPage({ midnight }: LandingPageProps) {
   const networkName = resolveDappNetwork(import.meta.env.VITE_MIDNIGHT_NETWORK);
   const shouldReduceMotion = useReducedMotion();
-  const reveal = shouldReduceMotion ? { initial: false, animate: { opacity: 1 } } : fadeInUp;
+  const animation = shouldReduceMotion ? { initial: false, animate: { opacity: 1 } } : reveal;
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-100">
-      <header className="sticky top-0 z-50 border-b border-slate-200 bg-slate-50/90 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-hope-cream text-hope-ink selection:bg-hope-mint">
+      <header className="sticky top-0 z-50 border-b border-hope-ink/10 bg-hope-cream/90 backdrop-blur">
+        <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between px-5 lg:px-8">
           <a className="flex items-center gap-2.5" href="#top" aria-label="Suffra home">
-            <span className="grid size-9 place-items-center rounded-lg bg-navy-950 text-white"><ShieldCheck className="size-5" /></span>
+            <span className="grid size-9 place-items-center rounded-full bg-hope-blue text-white"><ShieldCheck className="size-5" /></span>
             <span className="font-headings text-lg font-bold tracking-tight">Suffra</span>
           </a>
-          <nav className="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex" aria-label="Main navigation">
-            <a className="hover:text-slate-950" href="#how-it-works">How it works</a>
-            <a className="hover:text-slate-950" href="#progress">Development</a>
-            <a className="hover:text-slate-950" href="#faqs">FAQs</a>
+          <nav className="hidden items-center gap-7 text-sm font-semibold text-hope-ink/70 md:flex" aria-label="Main navigation">
+            <a className="hover:text-hope-blue" href="#how-it-works">How it works</a>
+            <a className="hover:text-hope-blue" href="#progress">Our progress</a>
+            <a className="hover:text-hope-blue" href="#faqs">FAQs</a>
           </nav>
-          <a className="inline-flex min-h-10 items-center gap-1.5 rounded-lg bg-navy-950 px-3 text-sm font-semibold text-white hover:bg-navy-800" href="#try-suffra">
-            Try the MVP <ArrowDown className="size-4" />
+          <a className="inline-flex min-h-10 items-center gap-2 rounded-full bg-hope-ink px-4 text-sm font-bold text-white transition-colors hover:bg-hope-blue" href="#try-suffra">
+            Try the MVP <ArrowRight className="size-4" />
           </a>
         </div>
       </header>
 
       <main id="top">
-        <section className="border-b border-slate-200 bg-white">
-          <div className="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:py-24">
-            <motion.div {...reveal}>
-              <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-800">
+        <section className="overflow-hidden">
+          <div className="mx-auto grid max-w-7xl gap-10 px-5 pb-16 pt-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:px-8 lg:pb-24 lg:pt-20">
+            <motion.div {...animation}>
+              <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-hope-blue/15 bg-white px-3 py-1.5 text-xs font-bold text-hope-blue">
                 <Sparkles className="size-3.5" /> Private voting prototype for Filipino youth
               </p>
-              <h1 className="max-w-3xl font-headings text-4xl font-bold leading-tight tracking-tight text-navy-950 sm:text-5xl">
-                Your vote should be yours alone. <span className="text-accent-blue">Boto mo, lihim mo.</span>
+              <h1 className="max-w-2xl font-headings text-5xl font-bold leading-[0.98] tracking-[-0.055em] text-hope-ink sm:text-6xl lg:text-7xl">
+                Your vote should be <span className="text-hope-blue">yours alone.</span>
               </h1>
-              <p className="mt-6 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
-                Suffra is building a safer foundation for SK elections: a way to prove one sealed ballot was cast without placing a young voter&apos;s choice on a public ledger.
+              <p className="mt-6 max-w-xl text-lg leading-8 text-hope-ink/70">
+                <span className="font-semibold text-hope-ink">Boto mo, lihim mo.</span> Suffra is building a safer foundation for SK elections—one sealed ballot, without putting a young voter&apos;s choice on a public ledger.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <a className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-accent-blue px-5 text-sm font-semibold text-white hover:bg-indigo-600" href="#try-suffra">
+                <a className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-hope-coral px-6 text-sm font-bold text-hope-ink transition-transform hover:-translate-y-0.5" href="#try-suffra">
                   Explore the Preprod MVP <ArrowDown className="size-4" />
                 </a>
-                <a className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 text-sm font-semibold text-slate-700 hover:bg-slate-50" href="#how-it-works">
-                  See how privacy works <ArrowDown className="size-4" />
+                <a className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-hope-ink/15 bg-white px-6 text-sm font-bold text-hope-ink hover:border-hope-blue/40" href="#how-it-works">
+                  How your choice stays private <ArrowRight className="size-4" />
                 </a>
               </div>
-              <p className="mt-4 text-xs leading-5 text-slate-500">Prototype only — not for an official election. Eligibility verification and final tally are still future work.</p>
+              <p className="mt-5 text-xs leading-5 text-hope-ink/55">Prototype only—not for an official election. Eligibility verification and final tally are future work.</p>
             </motion.div>
-            <motion.aside {...reveal} transition={shouldReduceMotion ? { duration: 0 } : { ...fadeInUp.transition, delay: 0.12 }} className="border-l-4 border-accent-blue bg-slate-50 p-6 sm:p-8">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">A civic problem, not a crypto gimmick</p>
-              <p className="mt-4 font-headings text-xl font-semibold leading-8 text-navy-950">When a community is small, pressure around a ballot can feel very personal.</p>
-              <p className="mt-4 text-sm leading-6 text-slate-600">Suffra explores whether privacy-preserving technology can give Katipunan ng Kabataan members more confidence that their choice stays theirs.</p>
-              <a href="#context" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-blue hover:text-indigo-700">Read the context <ArrowDown className="size-4" /></a>
-            </motion.aside>
+            <motion.div {...animation} transition={shouldReduceMotion ? { duration: 0 } : { ...reveal.transition, delay: 0.12 }}>
+              <HeroArtwork />
+            </motion.div>
           </div>
         </section>
 
-        <section id="how-it-works" className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-          <motion.div {...reveal} className="max-w-2xl">
-            <p className="text-sm font-bold uppercase tracking-[0.14em] text-accent-blue">Privacy by design</p>
-            <h2 className="mt-3 font-headings text-3xl font-bold tracking-tight text-navy-950">What Suffra protects — and what it proves</h2>
-          </motion.div>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {[
-              { icon: LockKeyhole, title: 'Keep your choice private', copy: 'Your voter secret, vote choice, and ballot salt are private inputs. They are not written to the public ledger.' },
-              { icon: Fingerprint, title: 'Prevent duplicate ballots', copy: 'A one-use nullifier lets the prototype prove that the same registered secret cannot vote twice.' },
-              { icon: Eye, title: 'Make the process inspectable', copy: 'Public commitments and counts allow observers to audit activity without learning a voter’s raw choice.' },
-            ].map(({ icon: Icon, title, copy }) => (
-              <motion.article {...reveal} key={title} className="border border-slate-200 bg-white p-6 shadow-card">
-                <span className="grid size-10 place-items-center rounded-lg bg-blue-50 text-accent-blue"><Icon className="size-5" /></span>
-                <h3 className="mt-5 font-headings text-lg font-bold">{title}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-600">{copy}</p>
-              </motion.article>
-            ))}
-          </div>
-        </section>
-
-        <section id="context" className="border-y border-slate-200 bg-navy-950 text-white">
-          <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-            <motion.div {...reveal} className="max-w-2xl"><p className="text-sm font-bold uppercase tracking-[0.14em] text-blue-300">Why this matters</p><h2 className="mt-3 font-headings text-3xl font-bold tracking-tight">A future where a young person can vote without needing to prove their choice to anyone.</h2></motion.div>
-            <div className="mt-10 grid gap-4 md:grid-cols-3">
-              {sourceContext.map(({ statistic, label, source, href }) => (
-                <article key={statistic} className="border border-navy-700 bg-navy-900 p-6">
-                  <p className="font-headings text-3xl font-bold text-blue-300">{statistic}</p><p className="mt-3 text-sm leading-6 text-slate-200">{label}</p>
-                  <a className="mt-5 inline-flex items-center gap-1 text-xs font-semibold text-blue-300 hover:text-white" href={href} target="_blank" rel="noreferrer">Source: {source} <ExternalLink className="size-3" /></a>
-                </article>
+        <section id="how-it-works" className="bg-white py-20 lg:py-28">
+          <div className="mx-auto max-w-7xl px-5 lg:px-8">
+            <motion.div {...animation} className="grid gap-5 lg:grid-cols-[0.75fr_1fr] lg:items-end"><div><p className="text-sm font-bold uppercase tracking-[0.14em] text-hope-blue">A safer kind of proof</p><h2 className="mt-3 max-w-md font-headings text-4xl font-bold leading-tight tracking-tight">Your ballot can be private and accountable.</h2></div><p className="max-w-xl text-base leading-7 text-hope-ink/65">Suffra uses privacy-preserving commitments so the public can inspect the process without receiving the raw details that make a voter vulnerable.</p></motion.div>
+            <div className="mt-12 grid gap-5 md:grid-cols-3">
+              {[
+                { icon: LockKeyhole, eyebrow: 'Private', title: 'Your choice stays yours', copy: 'The voter secret, vote choice, and ballot salt are private inputs. They are never written to the public ledger.' },
+                { icon: Fingerprint, eyebrow: 'Proved', title: 'One secret, one ballot', copy: 'A one-use nullifier prevents the same registered secret from submitting another sealed vote.' },
+                { icon: Eye, eyebrow: 'Visible', title: 'The process stays inspectable', copy: 'Public commitments and counts make activity auditable without revealing a young voter’s raw choice.' },
+              ].map(({ icon: Icon, eyebrow, title, copy }, index) => (
+                <motion.article {...animation} key={title} className={`rounded-3xl p-7 ${index === 1 ? 'bg-hope-mint' : 'bg-hope-cream'}`}>
+                  <span className="grid size-11 place-items-center rounded-full bg-white text-hope-blue"><Icon className="size-5" /></span><p className="mt-7 text-xs font-bold uppercase tracking-[0.14em] text-hope-blue">{eyebrow}</p><h3 className="mt-2 font-headings text-xl font-bold">{title}</h3><p className="mt-3 text-sm leading-6 text-hope-ink/65">{copy}</p>
+                </motion.article>
               ))}
             </div>
           </div>
         </section>
 
-        <section id="progress" className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-          <motion.div {...reveal} className="flex max-w-3xl flex-col gap-3"><p className="text-sm font-bold uppercase tracking-[0.14em] text-accent-blue">Honest progress</p><h2 className="font-headings text-3xl font-bold tracking-tight text-navy-950">We will not call an MVP an election system.</h2><p className="text-slate-600">Suffra is a development prototype. Here is what is available now and what needs more work before it can support people&apos;s democratic rights.</p></motion.div>
-          <div className="mt-8 space-y-4">{developmentMilestones.map(({ state, title, detail }, index) => <motion.article {...reveal} key={title} className="grid gap-4 border border-slate-200 bg-white p-5 sm:grid-cols-[9rem_1fr] sm:items-start"><span className={`w-fit rounded-full px-3 py-1 text-xs font-bold ${index === 2 ? 'bg-amber-50 text-amber-800' : 'bg-green-50 text-green-800'}`}>{state}</span><div><h3 className="font-headings text-lg font-bold">{title}</h3><p className="mt-1 text-sm leading-6 text-slate-600">{detail}</p></div></motion.article>)}</div>
-        </section>
-
-        <section id="try-suffra" className="border-y border-blue-100 bg-blue-50/60">
-          <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-            <motion.div {...reveal} className="max-w-3xl"><p className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.14em] text-accent-blue"><Network className="size-4" /> {networkName} test environment</p><h2 className="mt-3 font-headings text-3xl font-bold tracking-tight text-navy-950">Try the sealed-ballot prototype</h2><p className="mt-3 text-slate-600">For testers with Lace Wallet (Midnight edition). This area keeps the existing wallet and contract flow intact; it is clearly separated from Suffra&apos;s public product story.</p></motion.div>
-            <div className="mt-8 grid items-start gap-6 lg:grid-cols-12"><div className="lg:col-span-5"><WalletConnect midnight={midnight} /></div><div className="lg:col-span-7"><BallotBox midnight={midnight} /></div></div>
+        <section id="context" className="bg-hope-blue py-20 text-white lg:py-28">
+          <div className="mx-auto max-w-7xl px-5 lg:px-8"><motion.div {...animation} className="max-w-2xl"><p className="text-sm font-bold uppercase tracking-[0.14em] text-hope-mint">Why this matters</p><h2 className="mt-3 font-headings text-4xl font-bold leading-tight tracking-tight">A future where young people can vote without proving their choice to anyone.</h2></motion.div>
+            <div className="mt-12 grid gap-px overflow-hidden rounded-3xl bg-white/20 md:grid-cols-3">{sourceContext.map(({ statistic, label, source, href }) => <article key={statistic} className="bg-hope-blue p-7"><p className="font-headings text-4xl font-bold text-hope-coral">{statistic}</p><p className="mt-4 min-h-14 text-sm leading-6 text-white/80">{label}</p><a className="mt-7 inline-flex items-center gap-1 text-xs font-bold text-hope-mint hover:text-white" href={href} target="_blank" rel="noreferrer">Source: {source} <ExternalLink className="size-3" /></a></article>)}</div>
           </div>
         </section>
 
-        <section id="faqs" className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-          <motion.div {...reveal} className="text-center"><p className="text-sm font-bold uppercase tracking-[0.14em] text-accent-blue">Questions, answered</p><h2 className="mt-3 font-headings text-3xl font-bold tracking-tight text-navy-950">FAQs</h2></motion.div>
-          <div className="mt-8 divide-y divide-slate-200 border-y border-slate-200">{faqs.map(({ question, answer }) => <details key={question} className="group py-5"><summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-headings text-base font-bold text-slate-900">{question}<ChevronDown className="size-5 shrink-0 text-slate-500 transition-transform group-open:rotate-180" /></summary><p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">{answer}</p></details>)}</div>
+        <section id="progress" className="py-20 lg:py-28">
+          <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.7fr_1fr] lg:px-8"><motion.div {...animation}><p className="text-sm font-bold uppercase tracking-[0.14em] text-hope-blue">Honest progress</p><h2 className="mt-3 font-headings text-4xl font-bold leading-tight tracking-tight">We will not call an MVP an election system.</h2><p className="mt-5 max-w-md leading-7 text-hope-ink/65">Suffra is a development prototype. The work ahead matters because democratic rights deserve more than a polished interface.</p></motion.div>
+            <div className="space-y-4">{developmentMilestones.map(({ state, title, detail }, index) => <motion.article {...animation} key={title} className="grid gap-4 rounded-2xl bg-white p-6 shadow-card sm:grid-cols-[7.5rem_1fr]"><span className={`w-fit rounded-full px-3 py-1.5 text-xs font-bold ${index === 2 ? 'bg-hope-coral/45 text-hope-ink' : 'bg-hope-mint text-hope-blue'}`}>{state}</span><div><h3 className="font-headings text-lg font-bold">{title}</h3><p className="mt-1.5 text-sm leading-6 text-hope-ink/65">{detail}</p></div></motion.article>)}</div>
+          </div>
+        </section>
+
+        <section id="try-suffra" className="bg-hope-mint py-20 lg:py-28">
+          <div className="mx-auto max-w-7xl px-5 lg:px-8"><motion.div {...animation} className="max-w-3xl"><p className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.14em] text-hope-blue"><Network className="size-4" /> {networkName} test environment</p><h2 className="mt-3 font-headings text-4xl font-bold leading-tight tracking-tight">Try the sealed-ballot prototype</h2><p className="mt-4 text-hope-ink/65">For testers with Lace Wallet (Midnight edition). This working area is separate from the public product story—and it retains the existing wallet and contract flow.</p></motion.div>
+            <div className="mt-10 grid items-start gap-6 lg:grid-cols-12"><div className="lg:col-span-5"><WalletConnect midnight={midnight} /></div><div className="lg:col-span-7"><BallotBox midnight={midnight} /></div></div>
+          </div>
+        </section>
+
+        <section id="faqs" className="bg-white py-20 lg:py-28">
+          <div className="mx-auto max-w-3xl px-5"><motion.div {...animation} className="text-center"><p className="text-sm font-bold uppercase tracking-[0.14em] text-hope-blue">Questions, answered</p><h2 className="mt-3 font-headings text-4xl font-bold tracking-tight">FAQs</h2></motion.div><div className="mt-10 divide-y divide-hope-ink/10 border-y border-hope-ink/10">{faqs.map(({ question, answer }) => <details key={question} className="group py-6"><summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-headings text-base font-bold"><span>{question}</span><ChevronDown className="size-5 shrink-0 text-hope-blue transition-transform group-open:rotate-180" /></summary><p className="mt-3 max-w-2xl text-sm leading-6 text-hope-ink/65">{answer}</p></details>)}</div></div>
         </section>
       </main>
 
-      <footer className="border-t border-navy-800 bg-navy-950 text-slate-300"><div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 text-sm sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8"><p>© 2026 Suffra · Building private voting infrastructure with care.</p><div className="flex gap-5"><a className="hover:text-white" href="https://midnight.network" target="_blank" rel="noreferrer">Midnight Network</a><a className="hover:text-white" href="https://lace.io" target="_blank" rel="noreferrer">Lace Wallet</a></div></div></footer>
+      <footer className="bg-hope-ink text-white"><div className="mx-auto flex max-w-7xl flex-col gap-5 px-5 py-10 sm:flex-row sm:items-center sm:justify-between lg:px-8"><div><p className="font-headings text-lg font-bold">Suffra</p><p className="mt-1 text-sm text-white/60">Private voting infrastructure, built with care.</p></div><div className="flex gap-5 text-sm font-semibold text-white/70"><a className="hover:text-white" href="https://midnight.network" target="_blank" rel="noreferrer">Midnight Network</a><a className="hover:text-white" href="https://lace.io" target="_blank" rel="noreferrer">Lace Wallet</a></div></div></footer>
     </div>
   );
 }
