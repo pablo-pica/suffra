@@ -58,6 +58,9 @@ export function LandingPage({ midnight }: LandingPageProps) {
   const networkName = resolveDappNetwork(import.meta.env.VITE_MIDNIGHT_NETWORK);
   const shouldReduceMotion = useReducedMotion();
   const animation = shouldReduceMotion ? { initial: false, animate: { opacity: 1 } } : reveal;
+  const cardAnimation = (index: number) => shouldReduceMotion
+    ? animation
+    : { ...reveal, transition: { ...reveal.transition, delay: index * 0.08 } };
 
   return (
     <div className="min-h-screen bg-hope-cream text-hope-ink selection:bg-hope-mint">
@@ -72,9 +75,9 @@ export function LandingPage({ midnight }: LandingPageProps) {
             <a className="hover:text-hope-blue" href="#progress">Our progress</a>
             <a className="hover:text-hope-blue" href="#faqs">FAQs</a>
           </nav>
-          <a className="inline-flex min-h-10 items-center gap-2 rounded-full bg-hope-ink px-4 text-sm font-bold text-white transition-colors hover:bg-hope-blue" href="#try-suffra">
+          <motion.a whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} className="inline-flex min-h-10 items-center gap-2 rounded-full bg-hope-red px-4 text-sm font-bold text-white transition-colors hover:bg-hope-ink" href="#try-suffra">
             Try the MVP <ArrowRight className="size-4" />
-          </a>
+          </motion.a>
         </div>
       </header>
 
@@ -92,12 +95,12 @@ export function LandingPage({ midnight }: LandingPageProps) {
                 <span className="font-semibold text-hope-ink">Boto mo, lihim mo.</span> Suffra is building a safer foundation for SK elections—one sealed ballot, without putting a young voter&apos;s choice on a public ledger.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <a className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-hope-coral px-6 text-sm font-bold text-hope-ink transition-transform hover:-translate-y-0.5" href="#try-suffra">
+                <motion.a whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-hope-red px-6 text-sm font-bold text-white transition-colors hover:bg-hope-ink" href="#try-suffra">
                   Explore the Preprod MVP <ArrowDown className="size-4" />
-                </a>
-                <a className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-hope-ink/15 bg-white px-6 text-sm font-bold text-hope-ink hover:border-hope-blue/40" href="#how-it-works">
+                </motion.a>
+                <motion.a whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-hope-ink/15 bg-white px-6 text-sm font-bold text-hope-ink transition-colors hover:border-hope-red hover:text-hope-red" href="#how-it-works">
                   How your choice stays private <ArrowRight className="size-4" />
-                </a>
+                </motion.a>
               </div>
               <p className="mt-5 text-xs leading-5 text-hope-ink/55">Prototype only—not for an official election. Eligibility verification and final tally are future work.</p>
             </motion.div>
@@ -116,7 +119,7 @@ export function LandingPage({ midnight }: LandingPageProps) {
                 { icon: Fingerprint, eyebrow: 'Proved', title: 'One secret, one ballot', copy: 'A one-use nullifier prevents the same registered secret from submitting another sealed vote.' },
                 { icon: Eye, eyebrow: 'Visible', title: 'The process stays inspectable', copy: 'Public commitments and counts make activity auditable without revealing a young voter’s raw choice.' },
               ].map(({ icon: Icon, eyebrow, title, copy }, index) => (
-                <motion.article {...animation} key={title} className={`rounded-3xl p-7 ${index === 1 ? 'bg-hope-mint' : 'bg-hope-cream'}`}>
+                <motion.article {...cardAnimation(index)} whileHover={shouldReduceMotion ? undefined : { y: -4 }} key={title} className={`rounded-3xl p-7 transition-shadow hover:shadow-card ${index === 1 ? 'bg-hope-mint' : 'bg-hope-cream'}`}>
                   <span className="grid size-11 place-items-center rounded-full bg-white text-hope-blue"><Icon className="size-5" /></span><p className="mt-7 text-xs font-bold uppercase tracking-[0.14em] text-hope-blue">{eyebrow}</p><h3 className="mt-2 font-headings text-xl font-bold">{title}</h3><p className="mt-3 text-sm leading-6 text-hope-ink/65">{copy}</p>
                 </motion.article>
               ))}
@@ -126,13 +129,13 @@ export function LandingPage({ midnight }: LandingPageProps) {
 
         <section id="context" className="bg-hope-blue py-20 text-white lg:py-28">
           <div className="mx-auto max-w-7xl px-5 lg:px-8"><motion.div {...animation} className="max-w-2xl"><p className="text-sm font-bold uppercase tracking-[0.14em] text-hope-mint">Why this matters</p><h2 className="mt-3 font-headings text-4xl font-bold leading-tight tracking-tight">A future where young people can vote without proving their choice to anyone.</h2></motion.div>
-            <div className="mt-12 grid gap-px overflow-hidden rounded-3xl bg-white/20 md:grid-cols-3">{sourceContext.map(({ statistic, label, source, href }) => <article key={statistic} className="bg-hope-blue p-7"><p className="font-headings text-4xl font-bold text-hope-coral">{statistic}</p><p className="mt-4 min-h-14 text-sm leading-6 text-white/80">{label}</p><a className="mt-7 inline-flex items-center gap-1 text-xs font-bold text-hope-mint hover:text-white" href={href} target="_blank" rel="noreferrer">Source: {source} <ExternalLink className="size-3" /></a></article>)}</div>
+            <div className="mt-12 grid gap-px overflow-hidden rounded-3xl bg-white/20 md:grid-cols-3">{sourceContext.map(({ statistic, label, source, href }, index) => <motion.article {...cardAnimation(index)} whileHover={shouldReduceMotion ? undefined : { y: -3 }} key={statistic} className="bg-hope-blue p-7"><p className="font-headings text-4xl font-bold text-hope-coral">{statistic}</p><p className="mt-4 min-h-14 text-sm leading-6 text-white/80">{label}</p><a className="mt-7 inline-flex items-center gap-1 text-xs font-bold text-hope-mint hover:text-white" href={href} target="_blank" rel="noreferrer">Source: {source} <ExternalLink className="size-3" /></a></motion.article>)}</div>
           </div>
         </section>
 
         <section id="progress" className="py-20 lg:py-28">
           <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.7fr_1fr] lg:px-8"><motion.div {...animation}><p className="text-sm font-bold uppercase tracking-[0.14em] text-hope-blue">Honest progress</p><h2 className="mt-3 font-headings text-4xl font-bold leading-tight tracking-tight">We will not call an MVP an election system.</h2><p className="mt-5 max-w-md leading-7 text-hope-ink/65">Suffra is a development prototype. The work ahead matters because democratic rights deserve more than a polished interface.</p></motion.div>
-            <div className="space-y-4">{developmentMilestones.map(({ state, title, detail }, index) => <motion.article {...animation} key={title} className="grid gap-4 rounded-2xl bg-white p-6 shadow-card sm:grid-cols-[7.5rem_1fr]"><span className={`w-fit rounded-full px-3 py-1.5 text-xs font-bold ${index === 2 ? 'bg-hope-coral/45 text-hope-ink' : 'bg-hope-mint text-hope-blue'}`}>{state}</span><div><h3 className="font-headings text-lg font-bold">{title}</h3><p className="mt-1.5 text-sm leading-6 text-hope-ink/65">{detail}</p></div></motion.article>)}</div>
+            <div className="space-y-4">{developmentMilestones.map(({ state, title, detail }, index) => <motion.article {...cardAnimation(index)} whileHover={shouldReduceMotion ? undefined : { y: -3 }} key={title} className="grid gap-4 rounded-2xl bg-white p-6 shadow-card transition-shadow hover:shadow-elevated sm:grid-cols-[7.5rem_1fr]"><span className={`w-fit rounded-full px-3 py-1.5 text-xs font-bold ${index === 2 ? 'bg-hope-coral/45 text-hope-ink' : 'bg-hope-mint text-hope-blue'}`}>{state}</span><div><h3 className="font-headings text-lg font-bold">{title}</h3><p className="mt-1.5 text-sm leading-6 text-hope-ink/65">{detail}</p></div></motion.article>)}</div>
           </div>
         </section>
 
