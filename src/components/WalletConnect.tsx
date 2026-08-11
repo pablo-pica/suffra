@@ -34,10 +34,10 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({ midnight }) => {
   };
 
   return (
-    <div className="w-full rounded-xl shadow-card p-6 bg-white border border-slate-200 hover:shadow-elevated transition-shadow duration-200">
+    <div className="w-full rounded-3xl border border-hope-ink/10 bg-white p-6 shadow-card transition-shadow duration-200 hover:shadow-elevated">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-semibold font-headings text-slate-900 flex items-center gap-2">
-          <Wallet className="w-5 h-5 text-accent-blue" />
+        <h2 className="text-xl font-semibold font-headings text-hope-ink flex items-center gap-2">
+          <Wallet className="w-5 h-5 text-hope-red" />
           Midnight Wallet Connection
         </h2>
         <AnimatePresence mode="wait">
@@ -47,9 +47,9 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({ midnight }) => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium bg-green-50 text-green-700 border border-green-200"
+              className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium bg-hope-mint text-hope-blue border border-hope-blue/15"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-hope-red animate-pulse" />
               Connected
             </motion.span>
           ) : (
@@ -58,9 +58,9 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({ midnight }) => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200"
+              className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium bg-hope-coral/15 text-hope-ink border border-hope-coral/50"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+              <span className="w-1.5 h-1.5 rounded-full bg-hope-coral" />
               Disconnected
             </motion.span>
           )}
@@ -99,7 +99,7 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({ midnight }) => {
               transition={spring}
               disabled={connecting}
               onClick={connect}
-              className="mt-2 w-full rounded-lg bg-accent-blue hover:bg-indigo-600 text-white font-medium px-4 py-2.5 transition-colors duration-200 min-h-[44px] flex items-center justify-center gap-2 disabled:bg-slate-300 disabled:cursor-not-allowed"
+              className="mt-2 w-full rounded-lg bg-hope-red hover:bg-hope-ink text-white font-medium px-4 py-2.5 transition-colors duration-200 min-h-[44px] flex items-center justify-center gap-2 disabled:bg-slate-300 disabled:cursor-not-allowed"
             >
               {connecting ? (
                 <>
@@ -127,7 +127,7 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({ midnight }) => {
             className="flex flex-col gap-5"
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 flex flex-col gap-1.5">
+              <div className="rounded-lg border border-hope-ink/10 bg-hope-cream/60 p-4 flex flex-col gap-1.5">
                 <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Unshielded Address</span>
                 <span className="text-sm font-mono text-slate-900 break-all select-all leading-tight">
                   {formatAddress(walletAddress)}
@@ -138,7 +138,7 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({ midnight }) => {
               </div>
 
               <div className="rounded-lg border border-indigo-100 bg-indigo-50/30 p-4 flex flex-col gap-1.5">
-                <span className="text-[10px] font-semibold text-indigo-500 uppercase tracking-wider flex items-center gap-1">
+                <span className="text-[10px] font-semibold text-hope-red uppercase tracking-wider flex items-center gap-1">
                   <ShieldCheck className="w-3.5 h-3.5" /> Shielded Address
                 </span>
                 <span className="text-sm font-mono text-indigo-950 break-all select-all leading-tight">
@@ -184,7 +184,7 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({ midnight }) => {
               whileTap="tap"
               transition={spring}
               onClick={disconnect}
-              className="mt-3 w-full rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-4 py-2.5 transition-colors duration-200 min-h-[44px] flex items-center justify-center gap-2"
+              className="mt-3 w-full rounded-lg bg-hope-cream hover:bg-hope-sky/40 text-hope-ink font-medium px-4 py-2.5 transition-colors duration-200 min-h-[44px] flex items-center justify-center gap-2"
             >
               <LogOut className="w-4 h-4" />
               Disconnect Wallet

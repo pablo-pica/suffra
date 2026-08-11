@@ -37,17 +37,17 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
   const disabled = loading || !contractReady || electionState?.votingOpen === false;
 
   return (
-    <div className="w-full rounded-xl shadow-card p-6 bg-white border border-slate-200 hover:shadow-elevated transition-shadow duration-200">
+    <div className="w-full rounded-3xl border border-hope-ink/10 bg-white p-6 shadow-card transition-shadow duration-200 hover:shadow-elevated">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-semibold font-headings text-slate-900 flex items-center gap-2">
-          <Vote className="w-5 h-5 text-indigo-500" />
+        <h2 className="text-xl font-semibold font-headings text-hope-ink flex items-center gap-2">
+          <Vote className="w-5 h-5 text-hope-red" />
           Sealed Ballot Box
         </h2>
         {connected && (
           <button
             onClick={refreshElection}
             disabled={loading}
-            className="p-2 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-colors"
+            className="p-2 text-slate-400 hover:text-slate-600 rounded-full hover:bg-hope-cream transition-colors"
             title="Refresh election state"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -66,13 +66,13 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
       ) : (
         <div className="flex flex-col gap-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-            <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
+            <div className="rounded-lg border border-hope-ink/10 bg-hope-cream/60 p-3">
               <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Voting</span>
               <p className="text-sm font-semibold text-slate-900 mt-1">
                 {electionState?.votingOpen === false ? 'Closed' : 'Open'}
               </p>
             </div>
-            <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
+            <div className="rounded-lg border border-hope-ink/10 bg-hope-cream/60 p-3">
               <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Registered</span>
               <p className="text-sm font-mono font-bold text-slate-900 mt-1">
                 {electionState?.registeredCount?.toString() ?? '0'}
@@ -114,9 +114,9 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
             </motion.div>
           )}
 
-          <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 flex flex-col gap-3">
+          <div className="rounded-lg border border-hope-ink/10 bg-hope-cream/60 p-4 flex flex-col gap-3">
             <div className="flex items-start gap-2">
-              <Lock className="w-4 h-4 text-indigo-500 mt-0.5 shrink-0" />
+              <Lock className="w-4 h-4 text-hope-red mt-0.5 shrink-0" />
               <div>
                 <p className="text-xs font-semibold text-slate-800">What the public ledger receives</p>
                 <p className="text-xs text-slate-500 leading-relaxed mt-1">
@@ -135,19 +135,19 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
               type="button"
               onClick={registerVoter}
               disabled={loading || !contractReady}
-              className="w-full rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-medium px-4 py-2.5 transition-colors duration-200 min-h-[44px] flex items-center justify-center gap-2 disabled:bg-slate-300 disabled:cursor-not-allowed"
+              className="w-full rounded-lg bg-hope-blue hover:bg-hope-ink text-white font-medium px-4 py-2.5 transition-colors duration-200 min-h-[44px] flex items-center justify-center gap-2 disabled:bg-slate-300 disabled:cursor-not-allowed"
             >
               <UserPlus className="w-4 h-4" />
               Register Local Voter Secret
             </motion.button>
 
-            <div className="grid grid-cols-2 gap-2 rounded-lg bg-slate-100 p-1">
+            <div className="grid grid-cols-2 gap-2 rounded-lg bg-hope-cream p-1">
               <button
                 type="button"
                 onClick={() => setChoice(1)}
                 disabled={loading}
                 className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                  choice === 1 ? 'bg-white text-slate-950 shadow-xs' : 'text-slate-500 hover:text-slate-800'
+                  choice === 1 ? 'bg-white text-hope-ink shadow-xs' : 'text-hope-ink/60 hover:text-hope-ink'
                 }`}
               >
                 For
@@ -157,7 +157,7 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
                 onClick={() => setChoice(0)}
                 disabled={loading}
                 className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                  choice === 0 ? 'bg-white text-slate-950 shadow-xs' : 'text-slate-500 hover:text-slate-800'
+                  choice === 0 ? 'bg-white text-hope-ink shadow-xs' : 'text-hope-ink/60 hover:text-hope-ink'
                 }`}
               >
                 Against
@@ -172,7 +172,7 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
               type="button"
               onClick={() => castVote(choice)}
               disabled={disabled}
-              className="w-full rounded-lg bg-accent-blue hover:bg-indigo-600 text-white font-medium px-4 py-2.5 transition-colors duration-200 min-h-[44px] flex items-center justify-center gap-2 disabled:bg-slate-300 disabled:cursor-not-allowed"
+              className="w-full rounded-lg bg-hope-red hover:bg-hope-ink text-white font-medium px-4 py-2.5 transition-colors duration-200 min-h-[44px] flex items-center justify-center gap-2 disabled:bg-slate-300 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <>
@@ -194,7 +194,7 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
               type="button"
               onClick={closeVoting}
               disabled={loading || !contractReady || electionState?.votingOpen === false}
-              className="w-full rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-medium px-4 py-2.5 transition-colors duration-200 min-h-[44px] flex items-center justify-center gap-2 disabled:bg-slate-50 disabled:text-slate-300 disabled:cursor-not-allowed"
+              className="w-full rounded-lg border border-hope-ink/15 bg-white hover:bg-hope-cream text-hope-ink font-medium px-4 py-2.5 transition-colors duration-200 min-h-[44px] flex items-center justify-center gap-2 disabled:bg-slate-50 disabled:text-slate-300 disabled:cursor-not-allowed"
             >
               <Ban className="w-4 h-4" />
               Close Ballot Box
@@ -211,7 +211,7 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
                 className="mt-2 rounded-lg border border-indigo-100 bg-indigo-50/20 p-4 flex flex-col gap-3"
               >
                 <div className="flex items-center gap-2 text-sm font-semibold text-indigo-900">
-                  <CheckCircle2 className="w-5 h-5 text-indigo-500" />
+                  <CheckCircle2 className="w-5 h-5 text-hope-red" />
                   <span>Transaction Submitted</span>
                 </div>
                 <span className="text-xs font-mono text-slate-800 break-all select-all leading-tight">
@@ -222,7 +222,7 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
                     href={explorerUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs text-accent-blue hover:text-indigo-600 transition-colors font-medium"
+                    className="inline-flex items-center gap-1 text-xs text-hope-red hover:text-indigo-600 transition-colors font-medium"
                   >
                     Open in Explorer <ExternalLink className="w-3 h-3" />
                   </a>

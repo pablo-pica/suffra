@@ -52,6 +52,36 @@ summary:focus-visible {
   }
 }
 
+/* The connected app is part of the same civic experience, not a separate legacy UI. */
+#try-suffra .text-slate-900,
+#try-suffra .text-slate-800,
+#try-suffra .text-slate-700,
+#try-suffra .text-indigo-950,
+#try-suffra .text-indigo-900 {
+  color: var(--color-hope-ink);
+}
+
+#try-suffra .text-slate-500,
+#try-suffra .text-slate-400,
+#try-suffra .text-indigo-600,
+#try-suffra .text-indigo-500 {
+  color: color-mix(in srgb, var(--color-hope-ink) 65%, transparent);
+}
+
+#try-suffra .bg-slate-50,
+#try-suffra .bg-slate-50\/80,
+#try-suffra .bg-indigo-50\/30,
+#try-suffra .bg-indigo-50\/50,
+#try-suffra .bg-indigo-50\/60 {
+  background-color: color-mix(in srgb, var(--color-hope-cream) 70%, white);
+}
+
+#try-suffra .border-slate-200,
+#try-suffra .border-slate-100,
+#try-suffra .border-indigo-100 {
+  border-color: color-mix(in srgb, var(--color-hope-ink) 14%, transparent);
+}
+
 /* Custom shadows */
 .shadow-card {
   box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);

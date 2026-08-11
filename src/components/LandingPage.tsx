@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { useState } from 'react';
 import {
   ArrowDown,
   ArrowRight,
@@ -30,6 +31,39 @@ const reveal = {
   viewport: { once: true, amount: 0.2 },
   transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] as const },
 };
+
+function FaqItem({ question, answer }: { question: string; answer: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="border-b border-hope-ink/10 py-1 last:border-b-0">
+      <button
+        type="button"
+        className="flex min-h-16 w-full items-center justify-between gap-6 py-4 text-left font-headings text-base font-bold text-hope-ink"
+        onClick={() => setIsOpen((open) => !open)}
+        aria-expanded={isOpen}
+      >
+        <span>{question}</span>
+        <motion.span animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2 }} className="shrink-0 text-hope-red">
+          <ChevronDown className="size-5" />
+        </motion.span>
+      </button>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
+            className="overflow-hidden"
+          >
+            <p className="max-w-2xl pb-5 text-sm leading-6 text-hope-ink/65">{answer}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 function HeroArtwork() {
   return (
@@ -135,18 +169,28 @@ export function LandingPage({ midnight }: LandingPageProps) {
 
         <section id="progress" className="py-20 lg:py-28">
           <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.7fr_1fr] lg:px-8"><motion.div {...animation}><p className="text-sm font-bold uppercase tracking-[0.14em] text-hope-blue">Honest progress</p><h2 className="mt-3 font-headings text-4xl font-bold leading-tight tracking-tight">We will not call an MVP an election system.</h2><p className="mt-5 max-w-md leading-7 text-hope-ink/65">Suffra is a development prototype. The work ahead matters because democratic rights deserve more than a polished interface.</p></motion.div>
-            <div className="space-y-4">{developmentMilestones.map(({ state, title, detail }, index) => <motion.article {...cardAnimation(index)} whileHover={shouldReduceMotion ? undefined : { y: -3 }} key={title} className="grid gap-4 rounded-2xl bg-white p-6 shadow-card transition-shadow hover:shadow-elevated sm:grid-cols-[7.5rem_1fr]"><span className={`w-fit rounded-full px-3 py-1.5 text-xs font-bold ${index === 2 ? 'bg-hope-coral/45 text-hope-ink' : 'bg-hope-mint text-hope-blue'}`}>{state}</span><div><h3 className="font-headings text-lg font-bold">{title}</h3><p className="mt-1.5 text-sm leading-6 text-hope-ink/65">{detail}</p></div></motion.article>)}</div>
+            <div className="space-y-4">
+              {developmentMilestones.map(({ state, title, detail }, index) => (
+                <motion.article {...cardAnimation(index)} whileHover={shouldReduceMotion ? undefined : { y: -3 }} key={title} className="rounded-2xl border border-hope-ink/10 bg-white p-6 shadow-card transition-shadow hover:shadow-elevated">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                    <span className={`rounded-full px-3 py-1 text-xs font-bold ${index === 2 ? 'bg-hope-coral/35 text-hope-ink' : 'bg-hope-mint text-hope-blue'}`}>{state}</span>
+                    <h3 className="font-headings text-lg font-bold">{title}</h3>
+                  </div>
+                  <p className="mt-3 text-sm leading-6 text-hope-ink/65">{detail}</p>
+                </motion.article>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section id="try-suffra" className="bg-hope-mint py-20 lg:py-28">
+        <section id="try-suffra" className="border-y border-hope-ink/10 bg-white py-20 lg:py-28">
           <div className="mx-auto max-w-7xl px-5 lg:px-8"><motion.div {...animation} className="max-w-3xl"><p className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.14em] text-hope-blue"><Network className="size-4" /> {networkName} test environment</p><h2 className="mt-3 font-headings text-4xl font-bold leading-tight tracking-tight">Try the sealed-ballot prototype</h2><p className="mt-4 text-hope-ink/65">For testers with Lace Wallet (Midnight edition). This working area is separate from the public product story—and it retains the existing wallet and contract flow.</p></motion.div>
             <div className="mt-10 grid items-start gap-6 lg:grid-cols-12"><div className="lg:col-span-5"><WalletConnect midnight={midnight} /></div><div className="lg:col-span-7"><BallotBox midnight={midnight} /></div></div>
           </div>
         </section>
 
         <section id="faqs" className="bg-white py-20 lg:py-28">
-          <div className="mx-auto max-w-3xl px-5"><motion.div {...animation} className="text-center"><p className="text-sm font-bold uppercase tracking-[0.14em] text-hope-blue">Questions, answered</p><h2 className="mt-3 font-headings text-4xl font-bold tracking-tight">FAQs</h2></motion.div><div className="mt-10 divide-y divide-hope-ink/10 border-y border-hope-ink/10">{faqs.map(({ question, answer }) => <details key={question} className="group py-6"><summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-headings text-base font-bold"><span>{question}</span><ChevronDown className="size-5 shrink-0 text-hope-blue transition-transform group-open:rotate-180" /></summary><p className="mt-3 max-w-2xl text-sm leading-6 text-hope-ink/65">{answer}</p></details>)}</div></div>
+          <div className="mx-auto max-w-3xl px-5"><motion.div {...animation} className="text-center"><p className="text-sm font-bold uppercase tracking-[0.14em] text-hope-blue">Questions, answered</p><h2 className="mt-3 font-headings text-4xl font-bold tracking-tight">FAQs</h2></motion.div><div className="mt-10 border-y border-hope-ink/10">{faqs.map(({ question, answer }) => <FaqItem key={question} question={question} answer={answer} />)}</div></div>
         </section>
       </main>
 
