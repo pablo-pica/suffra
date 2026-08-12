@@ -6,15 +6,16 @@ import { FetchZkConfigProvider } from '@midnight-ntwrk/midnight-js-fetch-zk-conf
 import { indexerPublicDataProvider } from '@midnight-ntwrk/midnight-js-indexer-public-data-provider';
 import { levelPrivateStateProvider } from '@midnight-ntwrk/midnight-js-level-private-state-provider';
 import { findDeployedContract } from '@midnight-ntwrk/midnight-js-contracts';
-import { createProofProvider } from '@midnight-ntwrk/midnight-js-types';
+import { httpClientProofProvider } from '@midnight-ntwrk/midnight-js-http-client-proof-provider';
 import { toHex, fromHex, parseCoinPublicKeyToHex, parseEncPublicKeyToHex } from '@midnight-ntwrk/midnight-js-utils';
 import { CompiledContract } from '@midnight-ntwrk/midnight-js-protocol/compact-js';
 import { setNetworkId } from '@midnight-ntwrk/midnight-js-network-id';
 import * as Suffra from '../../managed/suffra/contract/index.js';
-import { resolveDappNetwork } from '../config/network';
+import { resolveDappNetwork, resolveProofServerUrl } from '../config/network';
 
 const CONTRACT_ADDRESS = (import.meta.env.VITE_SUFFRA_CONTRACT_ADDRESS || '').trim();
 const NETWORK_ID = resolveDappNetwork(import.meta.env.VITE_MIDNIGHT_NETWORK);
+const PROOF_SERVER_URL = resolveProofServerUrl(import.meta.env.VITE_PROOF_SERVER_URL);
 const PRIVATE_STATE_ID = 'suffraPrivateState';
 
 export interface ElectionState {
@@ -117,6 +118,25 @@ function getPrivateStoragePassword(accountId: string): string {
 
 function getVoterSecret(accountId: string): Uint8Array {
   return hexStringToBytes(getOrCreateLocalHex(`suffra_voter_secret:${accountId}`));
+}
+
+async function ensureLocalProofServer(): Promise<void> {
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 5000);
+
+  try {
+    const response = await window.fetch(PROOF_SERVER_URL, { signal: controller.signal });
+    if (!response.ok) {
+      throw new Error(`received HTTP ${response.status}`);
+    }
+  } catch (error) {
+    const detail = error instanceof Error && error.message ? ` (${error.message})` : '';
+    throw new Error(
+      `Local proof server is unavailable at ${PROOF_SERVER_URL}${detail}. Run \`npm run proof-server:start\`, then retry.`,
+    );
+  } finally {
+    window.clearTimeout(timeout);
+  }
 }
 
 function contractAddressIsConfigured(): boolean {
@@ -229,8 +249,7 @@ export function useMidnight(): UseMidnightResult {
       });
 
       const publicDataProvider = indexerPublicDataProvider(config.indexerUri, config.indexerWsUri);
-      const provingProvider = await api.getProvingProvider(zkConfigProvider);
-      const proofProvider = createProofProvider(provingProvider);
+      const proofProvider = httpClientProofProvider(PROOF_SERVER_URL, zkConfigProvider);
 
       let lastBalancedTxHex: string | null = null;
       const coinPublicKeyHex = parseCoinPublicKeyToHex(shieldedInfo.shieldedCoinPublicKey, NETWORK_ID);
@@ -345,6 +364,7 @@ export function useMidnight(): UseMidnightResult {
     setTxId(null);
 
     try {
+      await ensureLocalProofServer();
       setNetworkId(NETWORK_ID);
       const tx = await operation();
       const resolvedTxHash = (tx?.public as any)?.txHash || tx?.public?.txId || lastTxHash;

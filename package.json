@@ -15,7 +15,7 @@
     "cli": "npx tsx src/cli.ts",
     "check-balance": "npx tsx src/check-balance.ts",
     "network": "npx tsx src/network.ts",
-    "proof-server:start": "docker compose up -d",
+    "proof-server:start": "docker compose up -d proof-server",
     "proof-server:stop": "docker compose down",
     "clean": "rm -rf .midnight-state.json .midnight-wallet-state",
     "test": "vitest run",
