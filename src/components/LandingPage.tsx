@@ -190,7 +190,7 @@ export function LandingPage({ midnight }: LandingPageProps) {
         </section>
 
         <section id="faqs" className="bg-white py-20 lg:py-28">
-          <div className="mx-auto max-w-3xl px-5"><motion.div {...animation} className="text-center"><p className="text-sm font-bold uppercase tracking-[0.14em] text-hope-blue">Questions, answered</p><h2 className="mt-3 font-headings text-4xl font-bold tracking-tight">FAQs</h2></motion.div><div className="mt-10 border-y border-hope-ink/10">{faqs.map(({ question, answer }) => <FaqItem key={question} question={question} answer={answer} />)}</div></div>
+          <div className="mx-auto max-w-3xl px-5"><motion.div {...animation} className="text-center"><p className="text-sm font-bold uppercase tracking-[0.14em] text-hope-blue">Have some questions? See below for our FAQs!</p><h2 className="mt-3 font-headings text-4xl font-bold tracking-tight">FAQs</h2></motion.div><div className="mt-10 border-y border-hope-ink/10">{faqs.map(({ question, answer }) => <FaqItem key={question} question={question} answer={answer} />)}</div></div>
         </section>
       </main>
 
