@@ -67,7 +67,7 @@ The current sealed-ballot contract proves only that a local voter secret was reg
 - Node.js v22+
 - Docker for the local proof server
 - Lace Wallet, Midnight edition
-- Midnight proof server reachable on port `6300`
+- Local Midnight proof server reachable on `127.0.0.1:6300` for register/vote proof generation
 - Compact compiler installed locally
 
 ## ⚡ Setup & Run Locally
@@ -81,7 +81,7 @@ VITE_SUFFRA_CONTRACT_ADDRESS=<64-char-contract-address> \
 npm run dev
 ```
 
-The frontend validates `VITE_MIDNIGHT_NETWORK` and defaults to `preprod`. A real Preprod contract address and a successful wallet smoke test are still required before claiming a live Preprod demo.
+The frontend validates `VITE_MIDNIGHT_NETWORK` and defaults to `preprod`. The deployed dApp uses a local proof server at `http://127.0.0.1:6300` by default, so start it with `npm run proof-server:start` before registering or voting. Lace is still responsible for transaction approval and Preprod submission. A real Preprod contract address and a successful wallet smoke test are still required before claiming a live Preprod demo.
 
 ## 🧪 Run Tests
 

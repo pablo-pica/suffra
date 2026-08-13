@@ -30,7 +30,7 @@ npm run proof-server:start
 npm run proof-server:stop
 ```
 
-The configured local proof server endpoint in `src/network.ts` is `http://127.0.0.1:6300` for `undeployed`, `preview`, and `preprod`.
+CLI deployments use the `src/network.ts` local proof server endpoint, `http://127.0.0.1:6300`, for `undeployed`, `preview`, and `preprod`. The browser dApp uses the same loopback endpoint by default and rejects non-loopback proof-server URLs so private proof inputs do not leave the tester's machine.
 
 ## 3. Network Commands
 
@@ -69,6 +69,8 @@ When the deploy flow prints a wallet address, fund that wallet from the Preprod 
 ```bash
 VITE_MIDNIGHT_NETWORK=preprod
 VITE_SUFFRA_CONTRACT_ADDRESS=<64-char-contract-address>
+# Optional; defaults to http://127.0.0.1:6300 and must remain loopback.
+VITE_PROOF_SERVER_URL=http://127.0.0.1:6300
 ```
 
 `VITE_MIDNIGHT_NETWORK` accepts `undeployed`, `preview`, or `preprod`; it defaults to `preprod`. Do **not** use the stale `VITE_CONTRACT_ADDRESS`; the hook does not read it.
@@ -81,7 +83,7 @@ VITE_SUFFRA_CONTRACT_ADDRESS=<64-char-contract-address> \
 npm run dev
 ```
 
-Before claiming a working Preprod frontend, connect Lace on Preprod and complete the smoke test against the deployed Suffra address.
+Before claiming a working Preprod frontend, start the local proof server on the browser's machine, connect Lace on Preprod, and complete the smoke test against the deployed Suffra address. This is a developer-demo prerequisite; a zero-setup prover is future product infrastructure, not a Level 4 claim.
 
 ## 6. Frontend Deployment
 
@@ -97,7 +99,7 @@ For Vercel, configure:
 - Framework: Vite
 - Build command: `npm run build`
 - Output directory: `dist`
-- Environment variables: `VITE_MIDNIGHT_NETWORK=preprod` and `VITE_SUFFRA_CONTRACT_ADDRESS=<verified Suffra Preprod address>`
+- Environment variables: `VITE_MIDNIGHT_NETWORK=preprod` and `VITE_SUFFRA_CONTRACT_ADDRESS=<verified Suffra Preprod address>`; leave `VITE_PROOF_SERVER_URL` unset unless overriding it with another local loopback address.
 
 Keep the Product X profile, fresh Level 4 demo URL, and Preprod address as pending placeholders until verified.
 

@@ -4,19 +4,20 @@
 
 - Lace Wallet, Midnight edition
 - Test network funds and DUST for transaction fees
+- Docker, with the local Midnight proof server started using `npm run proof-server:start`
 - A browser pointed at the live Suffra dApp
 - A deployed Suffra contract address configured by the frontend
 
 ## Step-by-Step Guide
 
-1. Open the Suffra dApp.
-2. Connect Lace Wallet.
-3. Confirm Lace is on Midnight Preprod, the network configured through `VITE_MIDNIGHT_NETWORK` for the Level 4 deployment.
-4. Select **Register Local Voter Secret**.
-5. Approve the transaction in Lace.
-6. Choose **For** or **Against**.
-7. Select **Cast Sealed Vote**.
-8. Approve the proof and transaction flow in Lace.
+1. On the same machine as your browser, run `npm run proof-server:start` and wait for Docker to report the proof server is healthy on `127.0.0.1:6300`.
+2. Open the Suffra dApp.
+3. Connect Lace Wallet.
+4. Confirm Lace is on Midnight Preprod, the network configured through `VITE_MIDNIGHT_NETWORK` for the Level 4 deployment.
+5. Select **Register Local Voter Secret**. The local proof server constructs the proof; this keeps proof inputs on your machine.
+6. Approve the transaction in Lace when it appears.
+7. Choose **For** or **Against**.
+8. Select **Cast Sealed Vote** and approve in Lace.
 9. Wait for the transaction ID and refreshed ballot box counts.
 
 ## What Gets Proved
@@ -34,5 +35,6 @@ The public ledger does not receive the raw voter secret, raw vote choice, or bal
 - **Lace not detected:** unlock Lace, enable site access for the dApp domain, and refresh.
 - **Wrong network:** switch Lace to the network used by the deployed Suffra contract.
 - **No DUST:** fund the wallet and wait for DUST generation before submitting transactions.
+- **Local proof server unavailable:** run `npm run proof-server:start` on the browser's machine. The hosted Preprod proof server is not used by Suffra's browser flow.
 - **Contract not ready:** deploy `contracts/suffra.compact`, then set `VITE_SUFFRA_CONTRACT_ADDRESS` for the frontend.
 - **Already registered or already voted:** the same local voter secret has already been used for that action.
