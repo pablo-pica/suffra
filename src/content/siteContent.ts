@@ -19,6 +19,44 @@ export const sourceContext = [
   },
 ] as const;
 
+export const demoElection = {
+  title: 'San Isidro Youth Council',
+  office: 'SK Chairperson',
+  district: 'Barangay San Isidro',
+  date: '18 October 2026',
+  note: 'Fictional names, place, date, and platforms for product demonstration only.',
+  candidates: [
+    {
+      name: 'Althea Manalo',
+      initials: 'AM',
+      platform: 'Community learning hubs',
+      detail: 'A study space and peer tutoring network after school.',
+      accent: 'bg-hope-mint',
+    },
+    {
+      name: 'Iñigo Valdez',
+      initials: 'IV',
+      platform: 'Safer routes home',
+      detail: 'Youth-led lighting and neighborhood safety walks.',
+      accent: 'bg-hope-sky/45',
+    },
+    {
+      name: 'Soraya Banzon',
+      initials: 'SB',
+      platform: 'Greener shared spaces',
+      detail: 'Small gardens and shaded places for youth activities.',
+      accent: 'bg-hope-coral/25',
+    },
+    {
+      name: 'Tavio Reyes',
+      initials: 'TR',
+      platform: 'Health and wellbeing',
+      detail: 'Accessible sports, arts, and peer support sessions.',
+      accent: 'bg-hope-blue/10',
+    },
+  ],
+} as const;
+
 export const developmentMilestones = [
   {
     state: 'Built today',
@@ -28,7 +66,7 @@ export const developmentMilestones = [
   {
     state: 'On Preprod',
     title: 'Wallet-connected prototype',
-    detail: 'The interface is wired for Lace Wallet on Midnight Preprod. A real-wallet smoke test is pending while the Preprod prover server is unavailable.',
+    detail: 'The interface is wired for Lace Wallet on Midnight Preprod. With the local Docker prover, the smoke test verified registration, one sealed vote, and duplicate-vote rejection; eligibility and tally work remain future steps.',
   },
   {
     state: 'Next',

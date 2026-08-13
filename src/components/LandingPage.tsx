@@ -19,6 +19,7 @@ import { type UseMidnightResult } from '../hooks/useMidnight';
 import { resolveDappNetwork } from '../config/network';
 import { developmentMilestones, faqs, sourceContext } from '../content/siteContent';
 import { BallotBox } from './BallotBox';
+import { ElectionSimulation } from './ElectionSimulation';
 import { WalletConnect } from './WalletConnect';
 
 interface LandingPageProps {
@@ -106,6 +107,7 @@ export function LandingPage({ midnight }: LandingPageProps) {
           </a>
           <nav className="hidden items-center gap-7 text-sm font-semibold text-hope-ink/70 md:flex" aria-label="Main navigation">
             <a className="hover:text-hope-blue" href="#how-it-works">How it works</a>
+            <a className="hover:text-hope-blue" href="#demo-election">Example election</a>
             <a className="hover:text-hope-blue" href="#progress">Our progress</a>
             <a className="hover:text-hope-blue" href="#faqs">FAQs</a>
           </nav>
@@ -129,11 +131,11 @@ export function LandingPage({ midnight }: LandingPageProps) {
                 <span className="font-semibold text-hope-ink">Boto mo, lihim mo.</span> Suffra is building a safer foundation for SK elections—one sealed ballot, without putting a young voter&apos;s choice on a public ledger.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <motion.a whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-hope-red px-6 text-sm font-bold text-white transition-colors hover:bg-hope-ink" href="#try-suffra">
-                  Explore the Preprod MVP <ArrowDown className="size-4" />
+                <motion.a whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-hope-red px-6 text-sm font-bold text-white transition-colors hover:bg-hope-ink" href="#demo-election">
+                  See the election example <ArrowDown className="size-4" />
                 </motion.a>
-                <motion.a whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-hope-ink/15 bg-white px-6 text-sm font-bold text-hope-ink transition-colors hover:border-hope-red hover:text-hope-red" href="#how-it-works">
-                  How your choice stays private <ArrowRight className="size-4" />
+                <motion.a whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-hope-ink/15 bg-white px-6 text-sm font-bold text-hope-ink transition-colors hover:border-hope-red hover:text-hope-red" href="#try-suffra">
+                  Open the live privacy test <ArrowRight className="size-4" />
                 </motion.a>
               </div>
               <p className="mt-5 text-xs leading-5 text-hope-ink/55">Prototype only—not for an official election. Eligibility verification and final tally are future work.</p>
@@ -161,6 +163,10 @@ export function LandingPage({ midnight }: LandingPageProps) {
           </div>
         </section>
 
+        <section id="demo-election" className="bg-hope-cream/55 py-20 lg:py-28">
+          <ElectionSimulation />
+        </section>
+
         <section id="context" className="bg-hope-blue py-20 text-white lg:py-28">
           <div className="mx-auto max-w-7xl px-5 lg:px-8"><motion.div {...animation} className="max-w-2xl"><p className="text-sm font-bold uppercase tracking-[0.14em] text-hope-mint">Why this matters</p><h2 className="mt-3 font-headings text-4xl font-bold leading-tight tracking-tight">A future where young people can vote without proving their choice to anyone.</h2></motion.div>
             <div className="mt-12 grid gap-px overflow-hidden rounded-3xl bg-white/20 md:grid-cols-3">{sourceContext.map(({ statistic, label, source, href }, index) => <motion.article {...cardAnimation(index)} whileHover={shouldReduceMotion ? undefined : { y: -3 }} key={statistic} className="bg-hope-blue p-7"><p className="font-headings text-4xl font-bold text-hope-coral">{statistic}</p><p className="mt-4 min-h-14 text-sm leading-6 text-white/80">{label}</p><a className="mt-7 inline-flex items-center gap-1 text-xs font-bold text-hope-mint hover:text-white" href={href} target="_blank" rel="noreferrer">Source: {source} <ExternalLink className="size-3" /></a></motion.article>)}</div>
@@ -184,7 +190,7 @@ export function LandingPage({ midnight }: LandingPageProps) {
         </section>
 
         <section id="try-suffra" className="border-y border-hope-ink/10 bg-white py-20 lg:py-28">
-          <div className="mx-auto max-w-7xl px-5 lg:px-8"><motion.div {...animation} className="max-w-3xl"><p className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.14em] text-hope-blue"><Network className="size-4" /> {networkName} test environment</p><h2 className="mt-3 font-headings text-4xl font-bold leading-tight tracking-tight">Try the sealed-ballot prototype</h2><p className="mt-4 text-hope-ink/65">For testers with Lace Wallet (Midnight edition). This working area is separate from the public product story—and it retains the existing wallet and contract flow.</p></motion.div>
+          <div className="mx-auto max-w-7xl px-5 lg:px-8"><motion.div {...animation} className="max-w-3xl"><p className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.14em] text-hope-blue"><Network className="size-4" /> {networkName} test environment</p><h2 className="mt-3 font-headings text-4xl font-bold leading-tight tracking-tight">Try the live privacy test</h2><p className="mt-4 text-hope-ink/65">The election preview above is a fictional product simulation. This working area is the real Preprod privacy test for Lace Wallet (Midnight edition), using the current sealed For/Against contract flow.</p></motion.div>
             <div className="mt-10 grid items-start gap-6 lg:grid-cols-12"><div className="lg:col-span-5"><WalletConnect midnight={midnight} /></div><div className="lg:col-span-7"><BallotBox midnight={midnight} /></div></div>
           </div>
         </section>
