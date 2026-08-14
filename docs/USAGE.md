@@ -8,6 +8,12 @@
 - A browser pointed at the live Suffra dApp
 - A deployed Suffra contract address configured by the frontend
 
+## Fictional election preview
+
+The landing page includes a **San Isidro Youth Council** SK election preview with fictional candidates Althea Manalo, Iñigo Valdez, Soraya Banzon, and Tavio Reyes. Selecting a candidate and sealing the demo ballot only exercises local interface state: it does not connect Lace, generate a proof, submit a transaction, or change the Preprod contract.
+
+The real privacy test below the preview currently uses the contract's binary **For/Against** choice. Multiple candidates and a safe final tally are future protocol work, not features of the current contract.
+
 ## Step-by-Step Guide
 
 1. On the same machine as your browser, run `npm run proof-server:start` and wait for Docker to report the proof server is healthy on `127.0.0.1:6300`.

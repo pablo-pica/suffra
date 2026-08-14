@@ -2,12 +2,12 @@
 
 ## Current Status
 - **Active Level**: Level 4 — Waxing Gibbous (MVP Goes Live)
-- **Active Step**: Step 3 — frontend Preprod configuration and validation
+- **Active Step**: Step 6 — usage, README, and launch assets
 - **Idea/The Turn**: Approved; approval date not recorded in repo, so no date is claimed
 - **Internal Level 4 Target**: August 24, 2026
 - **Official Month-End Deadline**: August 31, 2026
 - **Contingency Buffer**: August 25-31, 2026 for deploy/review/submission fixes only
-- **Known Blockers**: no Product X profile, no fresh Level 4 demo video, and no real-wallet Preprod frontend smoke test
+- **Known Blockers**: no Product X profile and no fresh Level 4 demo video
 
 ---
 
@@ -33,9 +33,9 @@
 |:--|:--|:--|:--|:--|
 | 1 | Aug 12 | Step 1 — file structure / baseline | Completed | [x] Required paths confirmed [x] Stale Preview/counter references recorded as blockers, not Suffra deployment evidence |
 | 2 | Aug 13 | Step 2 — privacy core first | Completed; tally deferred to Level 5 | [x] `npm run compile` [x] `npm run test` [x] Public/private boundary audited [x] Tally decision recorded |
-| 3 | Aug 14-16 | Step 3 — frontend | In progress; code configuration is complete but not yet proven with Lace on Preprod | [x] Replace the Preview hardcode with `VITE_MIDNIGHT_NETWORK` [x] Use `VITE_SUFFRA_CONTRACT_ADDRESS` consistently [x] Run `npm run build` [ ] Verify loading and error states with a Preprod wallet |
+| 3 | Aug 14-16 | Step 3 — frontend | Completed with local browser proof server and Lace smoke test | [x] Replace the Preview hardcode with `VITE_MIDNIGHT_NETWORK` [x] Use `VITE_SUFFRA_CONTRACT_ADDRESS` consistently [x] Run `npm run build` [x] Verify loading and error states with a Preprod wallet |
 | 4 | Aug 17 | Step 4 — CI/CD | Existing workflow must be re-audited against Level 4 | [ ] Verify install, compile, test, and build jobs [ ] Confirm the README badge points to the workflow [ ] Confirm a passing run |
-| 5 | Aug 18-19 | Step 5 — deploy to Preprod | Suffra deployed at `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` on 2026-08-13 | [x] Run the repo Preprod deploy command [x] Record the exact Suffra address in README [ ] Smoke-test the deployed contract and frontend |
+| 5 | Aug 18-19 | Step 5 — deploy to Preprod | Suffra deployed at `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` on 2026-08-13; Lace smoke test verified 2026-08-19 | [x] Run the repo Preprod deploy command [x] Record the exact Suffra address in README [x] Smoke-test the deployed contract and frontend |
 | 6 | Aug 20-21 | Steps 6-8 — usage, README, X | Public launch assets pending | [ ] Verify `docs/USAGE.md` [ ] Update README with verified Preprod/demo/X links [ ] Create the Product X profile [ ] Prepare and publish launch posts |
 | 7 | Aug 22 | Step 9 — final evidence audit | Submission package review | [ ] Record the fresh Level 4 demo [ ] Audit README and links [ ] Confirm the 15-commit minimum [ ] Run the checker workflow |
 | 8 | Aug 23-24 | Fixes and submission | Internal cutoff | [ ] Resolve checker findings [ ] Re-run affected checks [ ] Submit the public repository on Rise In |
@@ -193,4 +193,6 @@
 - [2026-08-13] [BUILDER] Investigated slow initial Preprod wallet synchronization. Indexer/RPC and proof server were healthy, but fresh shielded and DUST wallets require a full historical scan. Added one-minute atomic SDK-state checkpoints during deploy sync so an interrupted run resumes from `.midnight-wallet-state/preprod/` instead of starting over.
 - [2026-08-13] [BUILDER] Deployed Suffra to Preprod at `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6`. Deployment wallet funding and DUST registration completed; frontend configuration and Lace smoke test remain pending.
 - [2026-08-13] [BUILDER] Fixed the first Preprod frontend smoke-test blockers: private-state storage now derives a stable password that satisfies the SDK policy, and the interface renders the configured network name instead of a stale Preview label.
-- [2026-08-19] [BUILDER] Diagnosed hosted Preprod proof requests returning HTTP 403 before Lace signing. Switched browser proofs to the local Docker proof server at `127.0.0.1:6300`, confined proof-server configuration to loopback addresses, and documented the developer-demo prerequisite. Local proof-server health and Vercel-origin CORS preflight passed; a real Lace transaction smoke test remains pending after frontend redeployment.
+- [2026-08-19] [BUILDER] Diagnosed hosted Preprod proof requests returning HTTP 403 before Lace signing. Switched browser proofs to the local Docker proof server at `127.0.0.1:6300`, confined proof-server configuration to loopback addresses, and documented the developer-demo prerequisite. Local proof-server health and Vercel-origin CORS preflight passed.
+- [2026-08-19] [BUILDER] Completed the deployed Lace smoke test with local proving: registration finalized, one sealed vote finalized (`Sealed Votes: 1`, `Nullifiers: 1`), and the second vote was rejected with `Voter has already cast a ballot`. The registration transaction was `2cee273e818c4d988e9669c3ac7edaed247221e5340da9c0d33a5ba72849639d`; the vote transaction ID was not recoverable from the Lace activity pane.
+- [2026-08-20] [BUILDER] Added a fictional San Isidro SK election simulation with fictional candidate names and platforms. The preview is explicitly local-only and separate from the live Preprod For/Against privacy test.

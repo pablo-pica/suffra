@@ -10,13 +10,13 @@
 - **Active level:** Level 4 — MVP Goes Live.
 - **Internal Level 4 target:** August 24, 2026.
 - **Official deadline:** August 31, 2026, with August 25-31 reserved as contingency buffer.
-- **Verified Preprod deployment:** Suffra was deployed on 2026-08-13. Product X profile, frontend smoke test, and fresh Level 4 demo video remain pending.
+- **Verified Preprod deployment:** Suffra was deployed on 2026-08-13. The Lace smoke test is complete; Product X profile and a fresh Level 4 demo video remain pending.
 
 ## 🌐 Live Demo
 
 [suffra-pica.vercel.app](https://suffra-pica.vercel.app)
 
-The repository currently lists this public demo URL, but it is not Level 4 evidence yet. Record a fresh demo after the Suffra contract is deployed to Preprod and the frontend is wired to the verified address.
+The public demo includes a fictional SK election preview that shows the intended finished-product experience. The live privacy test below it is wired to the verified Preprod contract. Record a fresh video for final Level 4 submission evidence.
 
 ### 📌 Submission Resources & Links
 
@@ -33,7 +33,7 @@ The repository currently lists this public demo URL, but it is not Level 4 evide
 
 | Network | Contract | Address | Status |
 | :--- | :--- | :--- | :--- |
-| Preprod | Suffra sealed ballot | `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` | Deployed 2026-08-13; frontend smoke test pending |
+| Preprod | Suffra sealed ballot | `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` | Deployed 2026-08-13; Lace smoke test verified 2026-08-19 |
 | Preview | Legacy counter demo | `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` | Historical Level 1 evidence only; not a Suffra Preprod deployment |
 
 ## ✨ What This Product Does
@@ -41,6 +41,8 @@ The repository currently lists this public demo URL, but it is not Level 4 evide
 Suffra implements the approved Midnight challenge idea: **Private Voting**, initially focused on Sangguniang Kabataan elections. The product goal is to let an eligible voter cast exactly one ballot without exposing their choice on-chain. Broader governance uses such as DAOs, cooperatives, and community associations remain secondary applications of the same pattern.
 
 The current sealed-ballot contract proves only that a local voter secret was registered and has not voted before. It records voter commitments, one-use nullifiers, sealed ballot commitments, and public counts. It does not yet prove real-world eligibility or produce a final tally.
+
+The landing page also includes a fictional San Isidro SK election preview with fictional candidates and platforms. It is a local interface simulation—no wallet, proof, or transaction is used—and exists to show how a finished Suffra election could feel.
 
 ## 🔒 Privacy Model
 
@@ -81,7 +83,7 @@ VITE_SUFFRA_CONTRACT_ADDRESS=<64-char-contract-address> \
 npm run dev
 ```
 
-The frontend validates `VITE_MIDNIGHT_NETWORK` and defaults to `preprod`. The deployed dApp uses a local proof server at `http://127.0.0.1:6300` by default, so start it with `npm run proof-server:start` before registering or voting. Lace is still responsible for transaction approval and Preprod submission. A real Preprod contract address and a successful wallet smoke test are still required before claiming a live Preprod demo.
+The frontend validates `VITE_MIDNIGHT_NETWORK` and defaults to `preprod`. The deployed dApp uses a local proof server at `http://127.0.0.1:6300` by default, so start it with `npm run proof-server:start` before registering or voting. Lace is still responsible for transaction approval and Preprod submission. The verified Preprod contract address and Lace smoke-test evidence are recorded above. The browser still needs the local proof server for register/vote proof generation; Lace approves and submits the resulting Preprod transactions.
 
 ## 🧪 Run Tests
 
