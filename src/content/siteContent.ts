@@ -72,7 +72,7 @@ export const developmentMilestones = [
   {
     state: 'On Preprod',
     title: 'Wallet-connected prototype',
-    detail: 'The interface is wired for Lace Wallet on Midnight Preprod. With the local Docker prover, the smoke test verified registration, one sealed vote, and duplicate-vote rejection; eligibility and tally work remain future steps.',
+    detail: 'The original binary flow was smoke-tested with Lace. Candidate-ballot V2 is now deployed for a fresh four-candidate smoke test; eligibility and tally work remain future steps.',
   },
   {
     state: 'Next',
