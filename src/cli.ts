@@ -17,6 +17,7 @@ import { NodeZkConfigProvider } from '@midnight-ntwrk/midnight-js-node-zk-config
 import { resolveNetwork, getOrCreateSeed, getDeployment } from './network';
 import { createWallet, persistWalletState, unshieldedToken, type WalletContext } from './wallet';
 import { CompiledContract } from '@midnight-ntwrk/midnight-js-protocol/compact-js';
+import { demoElection } from './content/siteContent';
 
 // @ts-expect-error Required for wallet sync
 globalThis.WebSocket = WebSocket;
@@ -153,7 +154,7 @@ async function main() {
     while (running) {
       console.log('Menu');
       console.log('  1. Register local voter secret');
-      console.log('  2. Cast sealed vote');
+      console.log('  2. Cast sealed candidate ballot');
       console.log('  3. Read ballot box state');
       console.log('  4. Check wallet balance');
       console.log('  5. Exit\n');
@@ -173,17 +174,18 @@ async function main() {
         }
 
         case '2': {
-          const rawVote = await rl.question('  Vote 1 for For, 0 for Against: ');
-          const vote = rawVote.trim() === '1' ? 1n : rawVote.trim() === '0' ? 0n : null;
-          if (vote === null) {
-            console.log('\n  Invalid vote. Enter 1 or 0.\n');
+          const candidateOptions = demoElection.candidates.map(({ id, name }) => `${id}: ${name}`).join(' | ');
+          const rawCandidate = await rl.question(`  Candidate ID (${candidateOptions}): `);
+          const candidateId = Number(rawCandidate.trim());
+          if (!Number.isInteger(candidateId) || candidateId < 0 || candidateId > 3) {
+            console.log('\n  Invalid candidate. Enter an ID from 0 to 3.\n');
             break;
           }
 
-          console.log('\n  Casting sealed vote...');
+          console.log(`\n  Casting sealed ballot for ${demoElection.candidates[candidateId].name}...`);
           try {
-            const tx = await deployed.callTx.castVote(vote, getOrCreateVoterSecret(), crypto.randomBytes(32));
-            console.log(`  Vote sealed. Transaction ID: ${tx.public.txId}\n`);
+            const tx = await deployed.callTx.castVote(BigInt(candidateId), getOrCreateVoterSecret(), crypto.randomBytes(32));
+            console.log(`  Candidate ballot sealed. Transaction ID: ${tx.public.txId}\n`);
           } catch (error) {
             console.error('  Failed:', error instanceof Error ? error.message : error);
           }

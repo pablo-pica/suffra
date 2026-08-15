@@ -2,15 +2,15 @@ pragma language_version >= 0.23;
 
 import CompactStandardLibrary;
 
-// Suffra privacy model:
+// Suffra candidate-election privacy model (V2 deployment):
 // - PUBLIC ledger state: registered voter commitments, used nullifiers, sealed ballot commitments,
 //   registration count, sealed ballot count, and voting status.
-// - PRIVATE inputs: voter secret, vote choice, and ballot salt.
-// - Deliberate disclosure: only commitments and nullifiers are written to public state. The vote
-//   choice is committed with fresh salt so observers cannot recover it from a low-domain guess.
-// - This is a sealed-ballot MVP: it proves prior self-registration and one-ballot-per-registered-secret
-//   without exposing each ballot choice. Public tally reveal is intentionally not implemented because
-//   per-transaction tally deltas would reveal individual choices.
+// - PRIVATE inputs: voter secret, candidate ID, and ballot salt.
+// - Deliberate disclosure: only commitments and nullifiers are written to public state. The
+//   candidate ID is committed with fresh salt so observers cannot recover the selection.
+// - This is a four-candidate sealed-ballot MVP: it proves prior self-registration and
+//   one-ballot-per-registered-secret without exposing the selected candidate. Public tally reveal is
+//   intentionally not implemented because per-transaction tally deltas would reveal selections.
 
 export ledger votingOpen: Boolean;
 export ledger registeredVoters: Set<Bytes<32>>;
@@ -32,9 +32,12 @@ export circuit registerVoter(voterSecret: Bytes<32>): [] {
   registeredCount.increment(1);
 }
 
-export circuit castVote(choice: Field, voterSecret: Bytes<32>, ballotSalt: Bytes<32>): [] {
+export circuit castVote(candidateId: Field, voterSecret: Bytes<32>, ballotSalt: Bytes<32>): [] {
   assert(votingOpen, "Voting is closed");
-  assert(choice == 0 || choice == 1, "Choice must be 0 for Against or 1 for For");
+  assert(
+    candidateId == 0 || candidateId == 1 || candidateId == 2 || candidateId == 3,
+    "Candidate ID must be between 0 and 3"
+  );
 
   const commitment = voterCommitment(voterSecret);
   assert(registeredVoters.member(commitment), "Voter is not registered");
@@ -42,7 +45,7 @@ export circuit castVote(choice: Field, voterSecret: Bytes<32>, ballotSalt: Bytes
   const nul = voteNullifier(voterSecret);
   assert(!usedNullifiers.member(nul), "Voter has already cast a ballot");
 
-  const sealedBallot = ballotCommitment(choice, ballotSalt);
+  const sealedBallot = ballotCommitment(candidateId, ballotSalt);
   usedNullifiers.insert(disclose(nul));
   sealedBallots.insert(disclose(sealedBallot));
   ballotCount.increment(1);
@@ -60,10 +63,10 @@ circuit voteNullifier(voterSecret: Bytes<32>): Bytes<32> {
   return disclose(persistentHash<Vector<2, Bytes<32>>>([pad(32, "suffra:nullifier:"), voterSecret]));
 }
 
-circuit ballotCommitment(choice: Field, ballotSalt: Bytes<32>): Bytes<32> {
+circuit ballotCommitment(candidateId: Field, ballotSalt: Bytes<32>): Bytes<32> {
   return disclose(persistentHash<Vector<3, Bytes<32>>>([
-    pad(32, "suffra:ballot:"),
-    choice as Bytes<32>,
+    pad(32, "suffra:ballot:v2:"),
+    candidateId as Bytes<32>,
     ballotSalt,
   ]));
 }

@@ -106,7 +106,7 @@ export class Contract {
           throw new __compactRuntime.CompactError(`castVote: expected 4 arguments (as invoked from Typescript), received ${args_1.length}`);
         }
         const contextOrig_0 = args_1[0];
-        const choice_0 = args_1[1];
+        const candidateId_0 = args_1[1];
         const voterSecret_0 = args_1[2];
         const ballotSalt_0 = args_1[3];
         if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.currentQueryContext != undefined)) {
@@ -116,12 +116,12 @@ export class Contract {
                                      'CircuitContext',
                                      contextOrig_0)
         }
-        if (!(typeof(choice_0) === 'bigint' && choice_0 >= 0 && choice_0 <= __compactRuntime.MAX_FIELD)) {
+        if (!(typeof(candidateId_0) === 'bigint' && candidateId_0 >= 0 && candidateId_0 <= __compactRuntime.MAX_FIELD)) {
           __compactRuntime.typeError('castVote',
                                      'argument 1 (argument 2 as invoked from Typescript)',
                                      'suffra.compact line 35 char 1',
                                      'Field',
-                                     choice_0)
+                                     candidateId_0)
         }
         if (!(voterSecret_0.buffer instanceof ArrayBuffer && voterSecret_0.BYTES_PER_ELEMENT === 1 && voterSecret_0.length === 32)) {
           __compactRuntime.typeError('castVote',
@@ -140,7 +140,7 @@ export class Contract {
         const context = { ...contextOrig_0, gasCost: __compactRuntime.emptyRunningCost() };
         const partialProofData = {
           input: {
-            value: _descriptor_1.toValue(choice_0).concat(_descriptor_0.toValue(voterSecret_0).concat(_descriptor_0.toValue(ballotSalt_0))),
+            value: _descriptor_1.toValue(candidateId_0).concat(_descriptor_0.toValue(voterSecret_0).concat(_descriptor_0.toValue(ballotSalt_0))),
             alignment: _descriptor_1.alignment().concat(_descriptor_0.alignment().concat(_descriptor_0.alignment()))
           },
           output: undefined,
@@ -149,7 +149,7 @@ export class Contract {
         };
         const result_0 = this._castVote_0(context,
                                           partialProofData,
-                                          choice_0,
+                                          candidateId_0,
                                           voterSecret_0,
                                           ballotSalt_0);
         partialProofData.output = { value: [], alignment: [] };
@@ -163,7 +163,7 @@ export class Contract {
         if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.currentQueryContext != undefined)) {
           __compactRuntime.typeError('closeVoting',
                                      'argument 1 (as invoked from Typescript)',
-                                     'suffra.compact line 51 char 1',
+                                     'suffra.compact line 54 char 1',
                                      'CircuitContext',
                                      contextOrig_0)
         }
@@ -364,7 +364,11 @@ export class Contract {
                                        { ins: { cached: true, n: 1 } }]);
     return [];
   }
-  _castVote_0(context, partialProofData, choice_0, voterSecret_0, ballotSalt_0)
+  _castVote_0(context,
+              partialProofData,
+              candidateId_0,
+              voterSecret_0,
+              ballotSalt_0)
   {
     __compactRuntime.assert(_descriptor_2.fromValue(__compactRuntime.queryLedgerState(context,
                                                                                       partialProofData,
@@ -379,8 +383,12 @@ export class Contract {
                                                                                        { popeq: { cached: false,
                                                                                                   result: undefined } }]).value),
                             'Voting is closed');
-    __compactRuntime.assert(choice_0 === 0n || choice_0 === 1n,
-                            'Choice must be 0 for Against or 1 for For');
+    __compactRuntime.assert(candidateId_0 === 0n || candidateId_0 === 1n
+                            ||
+                            candidateId_0 === 2n
+                            ||
+                            candidateId_0 === 3n,
+                            'Candidate ID must be between 0 and 3');
     const commitment_0 = this._voterCommitment_0(voterSecret_0);
     __compactRuntime.assert(_descriptor_2.fromValue(__compactRuntime.queryLedgerState(context,
                                                                                       partialProofData,
@@ -417,7 +425,7 @@ export class Contract {
                                                                                         { popeq: { cached: true,
                                                                                                    result: undefined } }]).value),
                             'Voter has already cast a ballot');
-    const sealedBallot_0 = this._ballotCommitment_0(choice_0, ballotSalt_0);
+    const sealedBallot_0 = this._ballotCommitment_0(candidateId_0, ballotSalt_0);
     __compactRuntime.queryLedgerState(context,
                                       partialProofData,
                                       [
@@ -489,11 +497,11 @@ export class Contract {
     return this._persistentHash_0([new Uint8Array([115, 117, 102, 102, 114, 97, 58, 110, 117, 108, 108, 105, 102, 105, 101, 114, 58, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
                                    voterSecret_0]);
   }
-  _ballotCommitment_0(choice_0, ballotSalt_0) {
-    return this._persistentHash_1([new Uint8Array([115, 117, 102, 102, 114, 97, 58, 98, 97, 108, 108, 111, 116, 58, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
+  _ballotCommitment_0(candidateId_0, ballotSalt_0) {
+    return this._persistentHash_1([new Uint8Array([115, 117, 102, 102, 114, 97, 58, 98, 97, 108, 108, 111, 116, 58, 118, 50, 58, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
                                    __compactRuntime.convertFieldToBytes(32,
-                                                                        choice_0,
-                                                                        'suffra.compact line 66 char 5'),
+                                                                        candidateId_0,
+                                                                        'suffra.compact line 69 char 5'),
                                    ballotSalt_0]);
   }
 }

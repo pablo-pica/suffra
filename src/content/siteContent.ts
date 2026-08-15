@@ -19,6 +19,8 @@ export const sourceContext = [
   },
 ] as const;
 
+export type DemoCandidateId = 0 | 1 | 2 | 3;
+
 export const demoElection = {
   title: 'San Isidro Youth Council',
   office: 'SK Chairperson',
@@ -27,6 +29,7 @@ export const demoElection = {
   note: 'Fictional names, place, date, and platforms for product demonstration only.',
   candidates: [
     {
+      id: 0 as DemoCandidateId,
       name: 'Althea Manalo',
       initials: 'AM',
       platform: 'Community learning hubs',
@@ -34,6 +37,7 @@ export const demoElection = {
       accent: 'bg-hope-mint',
     },
     {
+      id: 1 as DemoCandidateId,
       name: 'Iñigo Valdez',
       initials: 'IV',
       platform: 'Safer routes home',
@@ -41,6 +45,7 @@ export const demoElection = {
       accent: 'bg-hope-sky/45',
     },
     {
+      id: 2 as DemoCandidateId,
       name: 'Soraya Banzon',
       initials: 'SB',
       platform: 'Greener shared spaces',
@@ -48,6 +53,7 @@ export const demoElection = {
       accent: 'bg-hope-coral/25',
     },
     {
+      id: 3 as DemoCandidateId,
       name: 'Tavio Reyes',
       initials: 'TR',
       platform: 'Health and wellbeing',

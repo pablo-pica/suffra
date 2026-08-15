@@ -28,7 +28,7 @@ const createContext = (state: compactRuntime.ContractState) =>
     {},
   );
 
-describe('Suffra sealed ballot contract', () => {
+describe('Suffra candidate sealed ballot contract', () => {
   it('initializes an open sealed ballot box with empty public state', () => {
     const { state } = createInitialState();
     const ledger = suffraContract.ledger(state.data);
@@ -54,7 +54,7 @@ describe('Suffra sealed ballot contract', () => {
     expect(sameBytes(registeredCommitments[0], voterSecret)).toBe(false);
   });
 
-  it('casts one sealed vote without writing the choice, secret, or salt to public ledger state', () => {
+  it('casts one sealed candidate ballot without writing the selection, secret, or salt to public ledger state', () => {
     const { contract, state } = createInitialState();
     const voterSecret = bytes32(11);
     const ballotSalt = bytes32(23);
@@ -62,7 +62,7 @@ describe('Suffra sealed ballot contract', () => {
     const registered = contract.circuits.registerVoter(createContext(state), voterSecret);
     const cast = contract.circuits.castVote(
       createContext(registered.context.currentQueryContext.state),
-      1n,
+      2n,
       voterSecret,
       ballotSalt,
     );
@@ -79,9 +79,25 @@ describe('Suffra sealed ballot contract', () => {
     expect(sameBytes(sealedBallots[0], ballotSalt)).toBe(false);
     expect(sameBytes(sealedBallots[0], voterSecret)).toBe(false);
     expect(sameBytes(usedNullifiers[0], voterSecret)).toBe(false);
-    expect(Object.keys(ledger)).not.toContain('choice');
+    expect(Object.keys(ledger)).not.toContain('candidateId');
     expect(Object.keys(ledger)).not.toContain('voterSecret');
     expect(Object.keys(ledger)).not.toContain('ballotSalt');
+  });
+
+  it('rejects candidate IDs outside the fictional four-candidate slate', () => {
+    const { contract, state } = createInitialState();
+    const voterSecret = bytes32(15);
+
+    const registered = contract.circuits.registerVoter(createContext(state), voterSecret);
+
+    expect(() =>
+      contract.circuits.castVote(
+        createContext(registered.context.currentQueryContext.state),
+        4n,
+        voterSecret,
+        bytes32(17),
+      ),
+    ).toThrow(/between 0 and 3/i);
   });
 
   it('rejects duplicate voting with the same voter secret', () => {
@@ -116,7 +132,7 @@ describe('Suffra sealed ballot contract', () => {
     expect(() =>
       contract.circuits.castVote(
         createContext(closed.context.currentQueryContext.state),
-        1n,
+        3n,
         voterSecret,
         bytes32(43),
       ),

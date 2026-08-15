@@ -28,7 +28,7 @@
       "proof": true,
       "arguments": [
         {
-          "name": "choice",
+          "name": "candidateId",
           "type": {
             "type-name": "Field"
           }

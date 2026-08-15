@@ -22,6 +22,7 @@ describe('public site content', () => {
     expect(demoElection.office).toBe('SK Chairperson');
     expect(demoElection.note.toLowerCase()).toContain('fictional');
     expect(demoElection.candidates).toHaveLength(4);
+    expect(demoElection.candidates.map(({ id }) => id)).toEqual([0, 1, 2, 3]);
     expect(demoElection.candidates.every(({ name, platform }) => name.length > 0 && platform.length > 0)).toBe(true);
   });
 

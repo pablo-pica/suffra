@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Vote, Shield, RefreshCw, CheckCircle2, AlertTriangle, ExternalLink, UserPlus, Lock, Ban } from 'lucide-react';
 import { explorerTransactionUrl, resolveDappNetwork } from '../config/network';
+import { demoElection, type DemoCandidateId } from '../content/siteContent';
 import { type UseMidnightResult } from '../hooks/useMidnight';
 
 interface BallotBoxProps {
@@ -23,7 +24,7 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
     refreshElection,
   } = midnight;
 
-  const [choice, setChoice] = useState<0 | 1>(1);
+  const [candidateId, setCandidateId] = useState<DemoCandidateId | null>(null);
   const explorerUrl = txId
     ? explorerTransactionUrl(resolveDappNetwork(import.meta.env.VITE_MIDNIGHT_NETWORK), txId)
     : null;
@@ -34,14 +35,17 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
     tap: { scale: 0.98 },
   };
 
-  const disabled = loading || !contractReady || electionState?.votingOpen === false;
+  const disabled = loading || !contractReady || electionState?.votingOpen === false || candidateId === null;
 
   return (
     <div className="w-full rounded-3xl border border-hope-ink/10 bg-white p-6 shadow-card transition-shadow duration-200 hover:shadow-elevated">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-semibold font-headings text-hope-ink flex items-center gap-2">
           <Vote className="w-5 h-5 text-hope-red" />
-          Sealed Ballot Box
+          <span>
+            <span className="block">Live Candidate Ballot</span>
+            <span className="mt-1 block text-xs font-normal text-hope-ink/55">{demoElection.title} · {demoElection.office}</span>
+          </span>
         </h2>
         {connected && (
           <button
@@ -120,7 +124,7 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
               <div>
                 <p className="text-xs font-semibold text-slate-800">What the public ledger receives</p>
                 <p className="text-xs text-slate-500 leading-relaxed mt-1">
-                  A voter commitment, a one-use nullifier, and a salted ballot commitment. It does not receive your raw voter secret, choice, or ballot salt.
+                  A voter commitment, a one-use nullifier, and a salted candidate-ballot commitment. It does not receive your raw voter secret, candidate selection, or ballot salt.
                 </p>
               </div>
             </div>
@@ -141,27 +145,40 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
               Register Local Voter Secret
             </motion.button>
 
-            <div className="grid grid-cols-2 gap-2 rounded-lg bg-hope-cream p-1">
-              <button
-                type="button"
-                onClick={() => setChoice(1)}
-                disabled={loading}
-                className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                  choice === 1 ? 'bg-white text-hope-ink shadow-xs' : 'text-hope-ink/60 hover:text-hope-ink'
-                }`}
-              >
-                For
-              </button>
-              <button
-                type="button"
-                onClick={() => setChoice(0)}
-                disabled={loading}
-                className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                  choice === 0 ? 'bg-white text-hope-ink shadow-xs' : 'text-hope-ink/60 hover:text-hope-ink'
-                }`}
-              >
-                Against
-              </button>
+            <div>
+              <div className="mb-2 flex items-center justify-between gap-3">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-hope-ink/55">Choose one candidate</span>
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-hope-red">Private selection</span>
+              </div>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {demoElection.candidates.map((candidate) => {
+                  const selected = candidateId === candidate.id;
+                  return (
+                    <button
+                      key={candidate.id}
+                      type="button"
+                      onClick={() => setCandidateId(candidate.id)}
+                      disabled={loading}
+                      aria-pressed={selected}
+                      className={`rounded-xl border p-3 text-left transition-colors ${
+                        selected
+                          ? 'border-hope-blue bg-hope-blue text-white shadow-card'
+                          : 'border-hope-ink/10 bg-hope-cream/35 text-hope-ink hover:border-hope-blue/40 hover:bg-hope-cream/70'
+                      } disabled:cursor-not-allowed disabled:opacity-60`}
+                    >
+                      <span className="flex items-center gap-2.5">
+                        <span className={`grid size-9 shrink-0 place-items-center rounded-lg text-xs font-bold ${selected ? 'bg-white/15 text-white' : `${candidate.accent} text-hope-ink`}`}>
+                          {candidate.initials}
+                        </span>
+                        <span className="min-w-0">
+                          <span className="block truncate text-sm font-semibold">{candidate.name}</span>
+                          <span className={`mt-0.5 block truncate text-[11px] ${selected ? 'text-hope-mint' : 'text-hope-red'}`}>{candidate.platform}</span>
+                        </span>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             <motion.button
@@ -170,7 +187,9 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
               whileTap="tap"
               transition={spring}
               type="button"
-              onClick={() => castVote(choice)}
+              onClick={() => {
+                if (candidateId !== null) castVote(candidateId);
+              }}
               disabled={disabled}
               className="w-full rounded-lg bg-hope-red hover:bg-hope-ink text-white font-medium px-4 py-2.5 transition-colors duration-200 min-h-[44px] flex items-center justify-center gap-2 disabled:bg-slate-300 disabled:cursor-not-allowed"
             >

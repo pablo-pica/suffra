@@ -7,7 +7,7 @@ export type ImpureCircuits<PS> = {
   registerVoter(context: __compactRuntime.CircuitContext<PS>,
                 voterSecret_0: Uint8Array): __compactRuntime.CircuitResults<PS, []>;
   castVote(context: __compactRuntime.CircuitContext<PS>,
-           choice_0: bigint,
+           candidateId_0: bigint,
            voterSecret_0: Uint8Array,
            ballotSalt_0: Uint8Array): __compactRuntime.CircuitResults<PS, []>;
   closeVoting(context: __compactRuntime.CircuitContext<PS>): __compactRuntime.CircuitResults<PS, []>;
@@ -17,7 +17,7 @@ export type ProvableCircuits<PS> = {
   registerVoter(context: __compactRuntime.CircuitContext<PS>,
                 voterSecret_0: Uint8Array): __compactRuntime.CircuitResults<PS, []>;
   castVote(context: __compactRuntime.CircuitContext<PS>,
-           choice_0: bigint,
+           candidateId_0: bigint,
            voterSecret_0: Uint8Array,
            ballotSalt_0: Uint8Array): __compactRuntime.CircuitResults<PS, []>;
   closeVoting(context: __compactRuntime.CircuitContext<PS>): __compactRuntime.CircuitResults<PS, []>;
@@ -30,7 +30,7 @@ export type Circuits<PS> = {
   registerVoter(context: __compactRuntime.CircuitContext<PS>,
                 voterSecret_0: Uint8Array): __compactRuntime.CircuitResults<PS, []>;
   castVote(context: __compactRuntime.CircuitContext<PS>,
-           choice_0: bigint,
+           candidateId_0: bigint,
            voterSecret_0: Uint8Array,
            ballotSalt_0: Uint8Array): __compactRuntime.CircuitResults<PS, []>;
   closeVoting(context: __compactRuntime.CircuitContext<PS>): __compactRuntime.CircuitResults<PS, []>;

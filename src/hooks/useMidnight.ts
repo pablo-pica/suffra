@@ -12,6 +12,7 @@ import { CompiledContract } from '@midnight-ntwrk/midnight-js-protocol/compact-j
 import { setNetworkId } from '@midnight-ntwrk/midnight-js-network-id';
 import * as Suffra from '../../managed/suffra/contract/index.js';
 import { resolveDappNetwork, resolveProofServerUrl } from '../config/network';
+import { type DemoCandidateId } from '../content/siteContent';
 
 const CONTRACT_ADDRESS = (import.meta.env.VITE_SUFFRA_CONTRACT_ADDRESS || '').trim();
 const NETWORK_ID = resolveDappNetwork(import.meta.env.VITE_MIDNIGHT_NETWORK);
@@ -44,7 +45,7 @@ export interface UseMidnightResult {
   connect: () => Promise<void>;
   disconnect: () => Promise<void>;
   registerVoter: () => Promise<void>;
-  castVote: (choice: 0 | 1) => Promise<void>;
+  castVote: (candidateId: DemoCandidateId) => Promise<void>;
   closeVoting: () => Promise<void>;
   refreshElection: () => Promise<void>;
 }
@@ -389,12 +390,12 @@ export function useMidnight(): UseMidnightResult {
     }
   };
 
-  const castVote = async (choice: 0 | 1) => {
+  const castVote = async (candidateId: DemoCandidateId) => {
     try {
       ensureContract();
       const secret = getVoterSecret(walletAddress || 'anonymous');
       const ballotSalt = randomBytes32();
-      await runTransaction(() => contract.callTx.castVote(BigInt(choice), secret, ballotSalt));
+      await runTransaction(() => contract.callTx.castVote(BigInt(candidateId), secret, ballotSalt));
     } catch (err: any) {
       setError(err.message || String(err));
     }
