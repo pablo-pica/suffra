@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { type ConnectedAPI } from '@midnight-ntwrk/dapp-connector-api';
 import { type MidnightProviders, type WalletProvider, type MidnightProvider, type UnboundTransaction } from '@midnight-ntwrk/midnight-js-types';
 import { type FinalizedTransaction, Transaction } from '@midnight-ntwrk/midnight-js-protocol/ledger';
@@ -171,6 +171,7 @@ export function useMidnight(): UseMidnightResult {
   const [walletApi, setWalletApi] = useState<ConnectedAPI | null>(null);
   const [providers, setProviders] = useState<MidnightProviders | null>(null);
   const [contract, setContract] = useState<any>(null);
+  const connectInFlight = useRef(false);
 
   const contractReady = Boolean(contract && contractAddressIsConfigured());
 
@@ -202,6 +203,8 @@ export function useMidnight(): UseMidnightResult {
   }, [providers, refreshElection]);
 
   const connect = async () => {
+    if (connectInFlight.current) return;
+    connectInFlight.current = true;
     setError(null);
     setDeploymentNotice(null);
     setConnecting(true);
@@ -323,8 +326,13 @@ export function useMidnight(): UseMidnightResult {
     } catch (err: any) {
       setError(err.message || 'An unknown error occurred during wallet connection.');
       setConnected(false);
+      setWalletApi(null);
+      setProviders(null);
+      setContract(null);
+      localStorage.removeItem('midnight_wallet_connected');
     } finally {
       setConnecting(false);
+      connectInFlight.current = false;
     }
   };
 

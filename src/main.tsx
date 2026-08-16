@@ -4,9 +4,9 @@ import App from './App';
 import './index.css';
 import { setNetworkId } from '@midnight-ntwrk/midnight-js-network-id';
 
-// Configure global Midnight Network ID to preview
+// Configure the browser SDK for the deployed Preprod dApp.
 try {
-  setNetworkId('preview');
+  setNetworkId('preprod');
 } catch {
   // The hook sets the network again before wallet operations.
 }
