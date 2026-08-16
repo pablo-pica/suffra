@@ -10,13 +10,13 @@
 - **Active level:** Level 4 — MVP Goes Live.
 - **Internal Level 4 target:** August 24, 2026.
 - **Official deadline:** August 31, 2026, with August 25-31 reserved as contingency buffer.
-- **Verified Preprod deployment:** Suffra was deployed on 2026-08-13. The Lace smoke test is complete; Product X profile and a fresh Level 4 demo video remain pending.
+- **Verified Preprod deployments:** V1 was deployed on 2026-08-13 and smoke-tested. Candidate-ballot V2 was deployed on 2026-08-20; the V2 frontend configuration and Lace smoke test are the active handoff. Product X profile and a fresh Level 4 demo video remain pending.
 
 ## 🌐 Live Demo
 
 [suffra-pica.vercel.app](https://suffra-pica.vercel.app)
 
-The public demo includes a fictional SK election preview that shows the intended finished-product experience. The live privacy test below it is wired to the verified Preprod contract. Record a fresh video for final Level 4 submission evidence.
+The public demo includes a fictional SK election preview and a live candidate-ballot flow. The live flow is designed for Candidate-ballot V2 on Preprod; update the Vercel `VITE_SUFFRA_CONTRACT_ADDRESS` value to the V2 address below before the next smoke test. Record a fresh video for final Level 4 submission evidence.
 
 ### 📌 Submission Resources & Links
 
@@ -33,22 +33,23 @@ The public demo includes a fictional SK election preview that shows the intended
 
 | Network | Contract | Address | Status |
 | :--- | :--- | :--- | :--- |
-| Preprod | Suffra sealed ballot | `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` | Deployed 2026-08-13; Lace smoke test verified 2026-08-19 |
+| Preprod | Suffra candidate sealed ballot V2 | `4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a` | Deployed 2026-08-20; V2 Lace smoke test pending |
+| Preprod | Suffra sealed ballot V1 | `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` | Historical Level 4 evidence; Lace smoke test verified 2026-08-19 |
 | Preview | Legacy counter demo | `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` | Historical Level 1 evidence only; not a Suffra Preprod deployment |
 
 ## ✨ What This Product Does
 
 Suffra implements the approved Midnight challenge idea: **Private Voting**, initially focused on Sangguniang Kabataan elections. The product goal is to let an eligible voter cast exactly one ballot without exposing their choice on-chain. Broader governance uses such as DAOs, cooperatives, and community associations remain secondary applications of the same pattern.
 
-The current sealed-ballot contract proves only that a local voter secret was registered and has not voted before. It records voter commitments, one-use nullifiers, sealed ballot commitments, and public counts. It does not yet prove real-world eligibility or produce a final tally.
+Candidate-ballot V2 proves that a local voter secret was registered, the selected candidate ID is one of four valid options, and the voter has not voted before. It records voter commitments, one-use nullifiers, sealed candidate-ballot commitments, and public counts. It does not yet prove real-world eligibility or produce a final tally.
 
-The landing page also includes a fictional San Isidro SK election preview with fictional candidates and platforms. It is a local interface simulation—no wallet, proof, or transaction is used—and exists to show how a finished Suffra election could feel.
+The landing page includes a fictional San Isidro SK election preview with fictional candidates and platforms. The preview is local-only, while the live ballot box below it uses the same four-candidate slate against the V2 Preprod contract.
 
 ## 🔒 Privacy Model
 
 - **PUBLIC:** voting status, registered voter commitments, used nullifiers, sealed ballot commitments, registered count, and sealed ballot count.
-- **PRIVATE:** voter secret, ballot choice, ballot salt, and the link between a real-world voter and their local voting secret.
-- **PROVED without revealing:** the voter registered, the choice is valid, the same voter secret has not voted before, and the ballot commitment came from the private choice plus salt.
+- **PRIVATE:** voter secret, candidate selection, ballot salt, and the link between a real-world voter and their local voting secret.
+- **PROVED without revealing:** the voter registered, the candidate ID is valid, the same voter secret has not voted before, and the ballot commitment came from the private selection plus salt.
 
 ## 🗺️ Level 4-6 Roadmap
 
@@ -83,7 +84,7 @@ VITE_SUFFRA_CONTRACT_ADDRESS=<64-char-contract-address> \
 npm run dev
 ```
 
-The frontend validates `VITE_MIDNIGHT_NETWORK` and defaults to `preprod`. The deployed dApp uses a local proof server at `http://127.0.0.1:6300` by default, so start it with `npm run proof-server:start` before registering or voting. Lace is still responsible for transaction approval and Preprod submission. The verified Preprod contract address and Lace smoke-test evidence are recorded above. The browser still needs the local proof server for register/vote proof generation; Lace approves and submits the resulting Preprod transactions.
+The frontend validates `VITE_MIDNIGHT_NETWORK` and defaults to `preprod`. For the live candidate-ballot flow, set `VITE_SUFFRA_CONTRACT_ADDRESS` to the V2 address in the table above. The deployed dApp uses a local proof server at `http://127.0.0.1:6300` by default, so start it with `npm run proof-server:start` before registering or voting. Lace is still responsible for transaction approval and Preprod submission. V2 starts with fresh counts, so register the local voter secret again after switching from V1.
 
 ## 🧪 Run Tests
 

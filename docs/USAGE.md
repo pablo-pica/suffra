@@ -12,7 +12,7 @@
 
 The landing page includes a **San Isidro Youth Council** SK election preview with fictional candidates Althea Manalo, Iñigo Valdez, Soraya Banzon, and Tavio Reyes. Selecting a candidate and sealing the demo ballot only exercises local interface state: it does not connect Lace, generate a proof, submit a transaction, or change the Preprod contract.
 
-The real privacy test below the preview currently uses the contract's binary **For/Against** choice. Multiple candidates and a safe final tally are future protocol work, not features of the current contract.
+The real privacy test below the preview uses Candidate-ballot V2 on Preprod. It accepts one private selection from the four fictional candidates and proves that the selection is valid without writing the candidate ID to the ledger. A safe final tally remains future protocol work, not a feature of the current contract.
 
 ## Step-by-Step Guide
 
@@ -22,19 +22,19 @@ The real privacy test below the preview currently uses the contract's binary **F
 4. Confirm Lace is on Midnight Preprod, the network configured through `VITE_MIDNIGHT_NETWORK` for the Level 4 deployment.
 5. Select **Register Local Voter Secret**. The local proof server constructs the proof; this keeps proof inputs on your machine.
 6. Approve the transaction in Lace when it appears.
-7. Choose **For** or **Against**.
-8. Select **Cast Sealed Vote** and approve in Lace.
+7. Choose one fictional candidate in the live candidate ballot.
+8. Select **Cast Sealed Candidate Ballot** and approve in Lace.
 9. Wait for the transaction ID and refreshed ballot box counts.
 
 ## What Gets Proved
 
-Suffra proves that the local voter secret was registered, the vote choice is valid, and the same voter secret has not already cast a ballot.
+Suffra proves that the local voter secret was registered, the candidate ID is one of the four valid options, and the same voter secret has not already cast a ballot.
 
 In this MVP, the browser generates and stores the local voter secret by wallet account. That is enough to demonstrate the privacy circuit and nullifier flow, but production eligibility should use an approved registry or membership proof.
 
 ## What Stays Private
 
-The public ledger does not receive the raw voter secret, raw vote choice, or ballot salt. It receives only commitment/nullifier values and public counts.
+The public ledger does not receive the raw voter secret, candidate selection, or ballot salt. It receives only commitment/nullifier values and public counts.
 
 ## Troubleshooting
 
@@ -42,5 +42,5 @@ The public ledger does not receive the raw voter secret, raw vote choice, or bal
 - **Wrong network:** switch Lace to the network used by the deployed Suffra contract.
 - **No DUST:** fund the wallet and wait for DUST generation before submitting transactions.
 - **Local proof server unavailable:** run `npm run proof-server:start` on the browser's machine. The hosted Preprod proof server is not used by Suffra's browser flow.
-- **Contract not ready:** deploy `contracts/suffra.compact`, then set `VITE_SUFFRA_CONTRACT_ADDRESS` for the frontend.
+- **Contract not ready:** set Vercel or local `VITE_SUFFRA_CONTRACT_ADDRESS` to Candidate-ballot V2 (`4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a`) and reload the frontend.
 - **Already registered or already voted:** the same local voter secret has already been used for that action.

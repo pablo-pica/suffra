@@ -2,9 +2,10 @@
 
 ## Current Deployment Status
 
-- Suffra is deployed to Preprod at `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` (2026-08-13).
-- Local `.midnight-state.json` also contains the legacy Preview counter address `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` from 2026-07-18; do not use it as Suffra Preprod evidence.
-- `src/config/network.ts` validates `VITE_MIDNIGHT_NETWORK` as `undeployed`, `preview`, or `preprod`, and defaults the frontend to `preprod`. A real-wallet Preprod smoke test is still required.
+- Candidate-ballot V2 is deployed to Preprod at `4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a` (2026-08-20).
+- The original binary Suffra V1 remains deployed at `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` (2026-08-13) as historical fallback evidence.
+- Local `.midnight-state.json` records the latest V2 deployment; the legacy Preview counter address `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` is not Suffra Preprod evidence.
+- `src/config/network.ts` validates `VITE_MIDNIGHT_NETWORK` as `undeployed`, `preview`, or `preprod`, and defaults the frontend to `preprod`. The Vercel contract-address variable must be updated to V2 before the candidate-ballot smoke test.
 
 ## Prerequisites
 
@@ -83,7 +84,7 @@ VITE_SUFFRA_CONTRACT_ADDRESS=<64-char-contract-address> \
 npm run dev
 ```
 
-Before claiming a working Preprod frontend, start the local proof server on the browser's machine, connect Lace on Preprod, and complete the smoke test against the deployed Suffra address. This is a developer-demo prerequisite; a zero-setup prover is future product infrastructure, not a Level 4 claim.
+Before claiming a working V2 Preprod frontend, set `VITE_SUFFRA_CONTRACT_ADDRESS` to `4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a`, start the local proof server on the browser's machine, connect Lace on Preprod, and complete the candidate selection smoke test. This is a developer-demo prerequisite; a zero-setup prover is future product infrastructure, not a Level 4 claim.
 
 ## 6. Frontend Deployment
 
@@ -99,7 +100,7 @@ For Vercel, configure:
 - Framework: Vite
 - Build command: `npm run build`
 - Output directory: `dist`
-- Environment variables: `VITE_MIDNIGHT_NETWORK=preprod` and `VITE_SUFFRA_CONTRACT_ADDRESS=<verified Suffra Preprod address>`; leave `VITE_PROOF_SERVER_URL` unset unless overriding it with another local loopback address.
+- Environment variables: `VITE_MIDNIGHT_NETWORK=preprod` and `VITE_SUFFRA_CONTRACT_ADDRESS=4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a`; leave `VITE_PROOF_SERVER_URL` unset unless overriding it with another local loopback address.
 
 Keep the Product X profile, fresh Level 4 demo URL, and Preprod address as pending placeholders until verified.
 

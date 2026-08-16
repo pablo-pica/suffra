@@ -7,7 +7,7 @@
 - **Internal Level 4 Target**: August 24, 2026
 - **Official Month-End Deadline**: August 31, 2026
 - **Contingency Buffer**: August 25-31, 2026 for deploy/review/submission fixes only
-- **Known Blockers**: no Product X profile and no fresh Level 4 demo video
+- **Known Blockers**: update Vercel to Candidate-ballot V2, complete the V2 Lace smoke test, create the Product X profile, and record a fresh Level 4 demo video
 
 ---
 
@@ -35,8 +35,8 @@
 | 2 | Aug 13 | Step 2 — privacy core first | Completed; tally deferred to Level 5 | [x] `npm run compile` [x] `npm run test` [x] Public/private boundary audited [x] Tally decision recorded |
 | 3 | Aug 14-16 | Step 3 — frontend | Completed with local browser proof server and Lace smoke test | [x] Replace the Preview hardcode with `VITE_MIDNIGHT_NETWORK` [x] Use `VITE_SUFFRA_CONTRACT_ADDRESS` consistently [x] Run `npm run build` [x] Verify loading and error states with a Preprod wallet |
 | 4 | Aug 17 | Step 4 — CI/CD | Existing workflow must be re-audited against Level 4 | [ ] Verify install, compile, test, and build jobs [ ] Confirm the README badge points to the workflow [ ] Confirm a passing run |
-| 5 | Aug 18-19 | Step 5 — deploy to Preprod | Suffra deployed at `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` on 2026-08-13; Lace smoke test verified 2026-08-19 | [x] Run the repo Preprod deploy command [x] Record the exact Suffra address in README [x] Smoke-test the deployed contract and frontend |
-| 6 | Aug 20-21 | Steps 6-8 — usage, README, X | Public launch assets pending | [ ] Verify `docs/USAGE.md` [ ] Update README with verified Preprod/demo/X links [ ] Create the Product X profile [ ] Prepare and publish launch posts |
+| 5 | Aug 18-19 | Step 5 — deploy to Preprod | V1 deployed and smoke-tested; Candidate-ballot V2 deployed at `4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a` on 2026-08-20 | [x] Run the repo Preprod deploy command [x] Record the exact Suffra addresses in README [x] Smoke-test the V1 contract/frontend [ ] Smoke-test the V2 candidate flow |
+| 6 | Aug 20-21 | Steps 6-8 — usage, README, X | Candidate-ballot V2 docs updated; launch assets pending | [x] Verify `docs/USAGE.md` [x] Update README with V2 Preprod address [ ] Update Vercel environment and redeploy [ ] Create the Product X profile [ ] Prepare and publish launch posts |
 | 7 | Aug 22 | Step 9 — final evidence audit | Submission package review | [ ] Record the fresh Level 4 demo [ ] Audit README and links [ ] Confirm the 15-commit minimum [ ] Run the checker workflow |
 | 8 | Aug 23-24 | Fixes and submission | Internal cutoff | [ ] Resolve checker findings [ ] Re-run affected checks [ ] Submit the public repository on Rise In |
 | Buffer | Aug 25-31 | Contingency | Use only for fixes, redeploys, or submission evidence gaps | [ ] Do not expand scope |
@@ -195,4 +195,5 @@
 - [2026-08-13] [BUILDER] Fixed the first Preprod frontend smoke-test blockers: private-state storage now derives a stable password that satisfies the SDK policy, and the interface renders the configured network name instead of a stale Preview label.
 - [2026-08-19] [BUILDER] Diagnosed hosted Preprod proof requests returning HTTP 403 before Lace signing. Switched browser proofs to the local Docker proof server at `127.0.0.1:6300`, confined proof-server configuration to loopback addresses, and documented the developer-demo prerequisite. Local proof-server health and Vercel-origin CORS preflight passed.
 - [2026-08-19] [BUILDER] Completed the deployed Lace smoke test with local proving: registration finalized, one sealed vote finalized (`Sealed Votes: 1`, `Nullifiers: 1`), and the second vote was rejected with `Voter has already cast a ballot`. The registration transaction was `2cee273e818c4d988e9669c3ac7edaed247221e5340da9c0d33a5ba72849639d`; the vote transaction ID was not recoverable from the Lace activity pane.
-- [2026-08-20] [BUILDER] Added a fictional San Isidro SK election simulation with fictional candidate names and platforms. The preview is explicitly local-only and separate from the live Preprod For/Against privacy test.
+- [2026-08-20] [BUILDER] Added a fictional San Isidro SK election simulation with fictional candidate names and platforms. The preview is explicitly local-only and separate from the live Preprod privacy test.
+- [2026-08-20] [BUILDER] Evolved `contracts/suffra.compact` to validate four private candidate IDs, regenerated proof artifacts, updated the live ballot UI and CLI, and deployed Candidate-ballot V2 to Preprod at `4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a`. The first deploy attempt found the local prover stopped; restarting `npm run proof-server:start` resolved it. V2 Vercel configuration and Lace smoke test remain pending.
