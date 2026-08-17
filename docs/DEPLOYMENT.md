@@ -5,7 +5,7 @@
 - Candidate-ballot V2 is deployed to Preprod at `4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a` (2026-08-20).
 - The original binary Suffra V1 remains deployed at `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` (2026-08-13) as historical fallback evidence.
 - Local `.midnight-state.json` records the latest V2 deployment; the legacy Preview counter address `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` is not Suffra Preprod evidence.
-- `src/config/network.ts` validates `VITE_MIDNIGHT_NETWORK` as `undeployed`, `preview`, or `preprod`, and defaults the frontend to `preprod`. The Vercel contract-address variable must be updated to V2 before the candidate-ballot smoke test.
+- `src/config/network.ts` validates `VITE_MIDNIGHT_NETWORK` as `undeployed`, `preview`, or `preprod`, and defaults the frontend to `preprod`. Vercel is configured for V2, and the Lace smoke test completed on 2026-08-20.
 
 ## Prerequisites
 
@@ -49,7 +49,7 @@ npm run network preprod
 | `preview` | `https://indexer.preview.midnight.network/api/v4/graphql` | `wss://indexer.preview.midnight.network/api/v4/graphql/ws` | `https://rpc.preview.midnight.network` | `https://midnight-tmnight-preview.nethermind.dev` |
 | `preprod` | `https://indexer.preprod.midnight.network/api/v4/graphql` | `wss://indexer.preprod.midnight.network/api/v4/graphql/ws` | `https://rpc.preprod.midnight.network` | `https://midnight-tmnight-preprod.nethermind.dev` |
 
-No explorer URLs are defined in this repo.
+Verified V2 smoke-test explorer URLs are recorded in the README contract evidence section.
 
 ## 4. Deploy Suffra to Preprod
 
@@ -84,7 +84,7 @@ VITE_SUFFRA_CONTRACT_ADDRESS=<64-char-contract-address> \
 npm run dev
 ```
 
-Before claiming a working V2 Preprod frontend, set `VITE_SUFFRA_CONTRACT_ADDRESS` to `4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a`, start the local proof server on the browser's machine, connect Lace on Preprod, and complete the candidate selection smoke test. This is a developer-demo prerequisite; a zero-setup prover is future product infrastructure, not a Level 4 claim.
+The V2 Preprod frontend was verified on 2026-08-20 with the local proof server and Lace. Registration, a sealed fictional-candidate ballot, and ballot closure all finalized; explorer links are recorded in `README.md`. The local prover remains a developer-demo prerequisite because the hosted Preprod prover is not used by the browser flow.
 
 ## 6. Frontend Deployment
 

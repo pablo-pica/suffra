@@ -98,28 +98,28 @@ Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 *Prize: $60 per winner × 25 winners = $1,500 total. Active target: August 24, 2026; August 25-31 contingency buffer.*
 
 ### Requirements to Pass
-- [ ] Working MVP live on Preprod with a verifiable Suffra contract address
-- [ ] Documentation: README, setup, and `docs/USAGE.md`
+- [x] Working MVP live on Preprod with a verifiable Suffra contract address
+- [x] Documentation: README, setup, and `docs/USAGE.md`
 - [ ] CI/CD pipeline running on the product repo
 - [ ] Public product X profile created and linked in README
 - [ ] Minimum 15 meaningful commits
 
 ### Prompt-Step and Project-Gate Checklist
-- [ ] Step 1 — structure/baseline: verify required paths before new work
-- [ ] Step 2 — privacy core: compile `contracts/suffra.compact`, run tests, confirm public/private boundary
+- [x] Step 1 — structure/baseline: verify required paths before new work
+- [x] Step 2 — privacy core: compile `contracts/suffra.compact`, run tests, confirm public/private boundary
 - [x] Project gate — tally: deferred to Level 5 because the current contract stores commitments only; no safe tally protocol fits the Level 4 deadline
-- [ ] Step 3 — frontend: wallet connect, circuit calls, loading states, error states, `npm run build` with zero errors
+- [x] Step 3 — frontend: wallet connect, circuit calls, loading states, error states, `npm run build` with zero errors
 - [ ] Step 4 — CI/CD: install, compile, test, build; README badge or workflow file
-- [ ] Step 5 — deploy to Preprod: stop for deploy address, then update README immediately
-- [ ] Step 6 — `docs/USAGE.md`: user-facing setup/use/privacy/troubleshooting
-- [ ] Step 7 — README: live Preprod demo URL, mandatory Preprod address, privacy model, setup, tests, CI/CD, usage guide, X profile placeholder/link
+- [x] Step 5 — deploy to Preprod: stop for deploy address, then update README immediately
+- [x] Step 6 — `docs/USAGE.md`: user-facing setup/use/privacy/troubleshooting
+- [x] Step 7 — README: live Preprod demo URL, mandatory Preprod address, privacy model, setup, tests, CI/CD, usage guide, X profile placeholder/link
 - [ ] Step 8 — X launch posts/profile
 - [ ] Step 9 — final checklist and submission
 
 ### Submission Checklist
 - [ ] Public GitHub repository with full documentation
 - [ ] Live Preprod demo link
-- [x] Verified Suffra Preprod contract address: `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` (deployed 2026-08-13)
+- [x] Verified Suffra Preprod contract address: Candidate-ballot V2 `4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a` (deployed 2026-08-20); V1 remains historical evidence
 - [ ] CI/CD badge or workflow file with passing runs
 - [ ] Link to product X profile
 - [ ] Demo video of the MVP
@@ -129,11 +129,11 @@ Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 
 | Blocker | Verified State |
 |:--|:--|
-| Suffra Preprod deployment | `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` deployed 2026-08-13; frontend smoke test pending |
+| Suffra Preprod deployment | Candidate-ballot V2 `4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a` deployed and Lace-smoke-tested 2026-08-20; registration, sealed ballot, and closure transactions recorded in README |
 | Local deployment state | `.midnight-state.json` records the Suffra Preprod deployment and the legacy Preview counter address `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` (historical only) |
 | Product X profile | Pending |
 | Fresh Level 4 demo | Pending |
-| Frontend network | `VITE_MIDNIGHT_NETWORK` accepts `undeployed`, `preview`, or `preprod` and defaults to `preprod`; a real-wallet Preprod smoke test remains pending |
+| Frontend network | `VITE_MIDNIGHT_NETWORK` accepts `undeployed`, `preview`, or `preprod` and defaults to `preprod`; V2 real-wallet smoke test completed 2026-08-20 |
 
 ---
 

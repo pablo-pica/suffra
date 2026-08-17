@@ -28,8 +28,8 @@ describe('public site content', () => {
 
   it('keeps the public Preprod status aligned with the verified smoke test', () => {
     const preprodMilestone = developmentMilestones.find(({ state }) => state === 'On Preprod');
-    expect(preprodMilestone?.detail).toContain('smoke-tested');
-    expect(preprodMilestone?.detail).toContain('Candidate-ballot V2 is now deployed');
+    expect(preprodMilestone?.detail).toContain('smoke-tested with Lace on Preprod');
+    expect(preprodMilestone?.detail).toContain('ballot closure all finalized');
     expect(preprodMilestone?.detail).not.toContain('pending');
   });
 });

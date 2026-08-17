@@ -26,6 +26,16 @@ The real privacy test below the preview uses Candidate-ballot V2 on Preprod. It 
 8. Select **Cast Sealed Candidate Ballot** and approve in Lace.
 9. Wait for the transaction ID and refreshed ballot box counts.
 
+## Verified V2 demo lifecycle
+
+The live V2 demo completed registration, selected fictional candidate **Iñigo Valdez**, cast a sealed candidate ballot, and closed the ballot box on Preprod. Explorer evidence:
+
+- Registration: `12e4b07ff5c25b8a947a53e8ce186eba056c3d906e2a1f0861315fb76bb785db`
+- Sealed candidate ballot: `8f2cb58abc28f5c30d0add15aa4313c7466b5271d4dd9f228fc2c468d73b8070`
+- Close ballot box: `5537a11722c05b37f642d9fb1f765907fba5d0a4837a925e385b0b05135f9a34`
+
+The V2 ballot box is now closed. These transactions prove the lifecycle, not a final candidate tally.
+
 ## What Gets Proved
 
 Suffra proves that the local voter secret was registered, the candidate ID is one of the four valid options, and the same voter secret has not already cast a ballot.

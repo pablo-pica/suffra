@@ -72,7 +72,7 @@ export const developmentMilestones = [
   {
     state: 'On Preprod',
     title: 'Wallet-connected prototype',
-    detail: 'The original binary flow was smoke-tested with Lace. Candidate-ballot V2 is now deployed for a fresh four-candidate smoke test; eligibility and tally work remain future steps.',
+    detail: 'Candidate-ballot V2 is deployed and smoke-tested with Lace on Preprod: registration, one sealed fictional-candidate ballot, and ballot closure all finalized. Eligibility and tally work remain future steps.'
   },
   {
     state: 'Next',
