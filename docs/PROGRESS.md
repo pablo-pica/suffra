@@ -7,7 +7,7 @@
 - **Internal Level 4 Target**: August 24, 2026
 - **Official Month-End Deadline**: August 31, 2026
 - **Contingency Buffer**: August 25-31, 2026 for deploy/review/submission fixes only
-- **Known Blockers**: create the Product X profile and record a fresh Level 4 demo video
+- **Known Blockers**: record and publish a fresh Level 4 demo video; X launch posts still require manual publication
 
 ---
 
@@ -34,9 +34,9 @@
 | 1 | Aug 12 | Step 1 — file structure / baseline | Completed | [x] Required paths confirmed [x] Stale Preview/counter references recorded as blockers, not Suffra deployment evidence |
 | 2 | Aug 13 | Step 2 — privacy core first | Completed; tally deferred to Level 5 | [x] `npm run compile` [x] `npm run test` [x] Public/private boundary audited [x] Tally decision recorded |
 | 3 | Aug 14-16 | Step 3 — frontend | Completed with local browser proof server and Lace smoke test | [x] Replace the Preview hardcode with `VITE_MIDNIGHT_NETWORK` [x] Use `VITE_SUFFRA_CONTRACT_ADDRESS` consistently [x] Run `npm run build` [x] Verify loading and error states with a Preprod wallet |
-| 4 | Aug 17 | Step 4 — CI/CD | Existing workflow must be re-audited against Level 4 | [ ] Verify install, compile, test, and build jobs [ ] Confirm the README badge points to the workflow [ ] Confirm a passing run |
+| 4 | Aug 17 | Step 4 — CI/CD | Workflow passes on push to `main`; final post-evidence run will be recorded after this docs commit | [x] Verify install, compile, test, and build jobs [x] Confirm the README badge points to the workflow [x] Confirm a passing run |
 | 5 | Aug 18-19 | Step 5 — deploy to Preprod | V1 deployed and smoke-tested; V2 evidence instance smoke-tested and fresh open V2 demo instance deployed at `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` on 2026-08-20 | [x] Run the repo Preprod deploy command [x] Record the exact Suffra addresses in README [x] Smoke-test the V1 contract/frontend [x] Smoke-test the V2 candidate flow [x] Deploy a fresh open instance for judge interaction |
-| 6 | Aug 20-21 | Steps 6-8 — usage, README, X | Candidate-ballot V2 docs and current open Vercel deployment verified; launch assets pending | [x] Verify `docs/USAGE.md` [x] Update README with current open V2 Preprod address [x] Update Vercel environment and redeploy [ ] Create the Product X profile [ ] Prepare and publish launch posts |
+| 6 | Aug 20-21 | Steps 6-8 — usage, README, X | Candidate-ballot V2 docs, current open Vercel deployment, and X profile verified; launch publication pending | [x] Verify `docs/USAGE.md` [x] Update README with current open V2 Preprod address [x] Update Vercel environment and redeploy [x] Create and link the Product X profile [x] Prepare launch posts in `docs/X-LAUNCH-POSTS.md` [ ] Publish launch posts manually |
 | 7 | Aug 22 | Step 9 — final evidence audit | Submission package review | [ ] Record the fresh Level 4 demo [ ] Audit README and links [ ] Confirm the 15-commit minimum [ ] Run the checker workflow |
 | 8 | Aug 23-24 | Fixes and submission | Internal cutoff | [ ] Resolve checker findings [ ] Re-run affected checks [ ] Submit the public repository on Rise In |
 | Buffer | Aug 25-31 | Contingency | Use only for fixes, redeploys, or submission evidence gaps | [ ] Do not expand scope |
@@ -199,3 +199,4 @@
 - [2026-08-20] [BUILDER] Evolved `contracts/suffra.compact` to validate four private candidate IDs, regenerated proof artifacts, updated the live ballot UI and CLI, and deployed Candidate-ballot V2 to Preprod at `4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a`. The first deploy attempt found the local prover stopped; restarting `npm run proof-server:start` resolved it.
 - [2026-08-20] [BUILDER] Verified the V2 frontend with Lace and the local prover. Registration finalized in `12e4b07ff5c25b8a947a53e8ce186eba056c3d906e2a1f0861315fb76bb785db`, a sealed ballot for fictional candidate Iñigo Valdez finalized in `8f2cb58abc28f5c30d0add15aa4313c7466b5271d4dd9f228fc2c468d73b8070`, and ballot closure finalized in `5537a11722c05b37f642d9fb1f765907fba5d0a4837a925e385b0b05135f9a34`. The evidence V2 ballot box is intentionally closed; no final tally is claimed.
 - [2026-08-20] [BUILDER] Deployed a fresh open V2 instance at `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597`, updated the live `suffra` Vercel Production variables, and redeployed `https://suffra-pica.vercel.app`. Verified the production bundle contains the fresh address and no longer contains the closed evidence address.
+- [2026-08-20] [BUILDER] Recorded the supplied Product X profile `https://x.com/SuffraPrivVote`, linked it in README, and added three ready-to-post launch messages in `docs/X-LAUNCH-POSTS.md`. Publishing the posts and recording the fresh Level 4 video remain manual submission assets.

@@ -10,7 +10,7 @@
 - **Active level:** Level 4 — MVP Goes Live.
 - **Internal Level 4 target:** August 24, 2026.
 - **Official deadline:** August 31, 2026, with August 25-31 reserved as contingency buffer.
-- **Verified Preprod deployments:** V1 was deployed and smoke-tested on 2026-08-13. Candidate-ballot V2 was deployed, configured, and smoke-tested with Lace on 2026-08-20. A fresh open V2 instance now powers the public demo. Product X profile and a fresh Level 4 demo video remain pending.
+- **Verified Preprod deployments:** V1 was deployed and smoke-tested on 2026-08-13. Candidate-ballot V2 was deployed, configured, and smoke-tested with Lace on 2026-08-20. A fresh open V2 instance now powers the public demo. Product X profile is live; a fresh Level 4 demo video remains pending.
 
 ## 🌐 Live Demo
 
@@ -28,6 +28,7 @@ The public demo includes a fictional SK election preview and a live candidate-ba
 | **Usage Guide** | [docs/USAGE.md](docs/USAGE.md) |
 | **CI/CD Workflow** | [.github/workflows/ci.yml](.github/workflows/ci.yml) |
 | **Level Progress Tracker** | [docs/PROGRESS.md](docs/PROGRESS.md) |
+| **X Launch Posts** | [docs/X-LAUNCH-POSTS.md](docs/X-LAUNCH-POSTS.md) |
 
 ## 📍 Contract Address
 
@@ -119,4 +120,6 @@ See [PROPOSAL.md](PROPOSAL.md).
 
 ## 📣 Product X Profile
 
-Pending. Create the public Suffra product profile during Level 4 and add the link here.
+[SuffraPrivVote](https://x.com/SuffraPrivVote)
+
+Three ready-to-post launch messages are documented in [docs/X-LAUNCH-POSTS.md](docs/X-LAUNCH-POSTS.md).

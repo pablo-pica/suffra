@@ -100,30 +100,30 @@ Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 ### Requirements to Pass
 - [x] Working MVP live on Preprod with a verifiable Suffra contract address
 - [x] Documentation: README, setup, and `docs/USAGE.md`
-- [ ] CI/CD pipeline running on the product repo
-- [ ] Public product X profile created and linked in README
-- [ ] Minimum 15 meaningful commits
+- [x] CI/CD pipeline running on the product repo
+- [x] Public product X profile created and linked in README: https://x.com/SuffraPrivVote
+- [x] Minimum 15 meaningful commits
 
 ### Prompt-Step and Project-Gate Checklist
 - [x] Step 1 — structure/baseline: verify required paths before new work
 - [x] Step 2 — privacy core: compile `contracts/suffra.compact`, run tests, confirm public/private boundary
 - [x] Project gate — tally: deferred to Level 5 because the current contract stores commitments only; no safe tally protocol fits the Level 4 deadline
 - [x] Step 3 — frontend: wallet connect, circuit calls, loading states, error states, `npm run build` with zero errors
-- [ ] Step 4 — CI/CD: install, compile, test, build; README badge or workflow file
+- [x] Step 4 — CI/CD: install, compile, test, build; README badge or workflow file
 - [x] Step 5 — deploy to Preprod: stop for deploy address, then update README immediately
 - [x] Step 6 — `docs/USAGE.md`: user-facing setup/use/privacy/troubleshooting
 - [x] Step 7 — README: live Preprod demo URL, mandatory Preprod address, privacy model, setup, tests, CI/CD, usage guide, X profile placeholder/link
-- [ ] Step 8 — X launch posts/profile
+- [x] Step 8 — X launch posts/profile: profile linked and three ready-to-post messages documented in `docs/X-LAUNCH-POSTS.md`
 - [ ] Step 9 — final checklist and submission
 
 ### Submission Checklist
-- [ ] Public GitHub repository with full documentation
-- [ ] Live Preprod demo link
+- [x] Public GitHub repository with full documentation
+- [x] Live Preprod demo link
 - [x] Verified Suffra Preprod contract address: current open Candidate-ballot V2 `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` (deployed 2026-08-20); closed V2 evidence instance and V1 remain documented
-- [ ] CI/CD badge or workflow file with passing runs
-- [ ] Link to product X profile
+- [x] CI/CD badge or workflow file with passing runs
+- [x] Link to product X profile: https://x.com/SuffraPrivVote
 - [ ] Demo video of the MVP
-- [ ] Minimum 15 meaningful commits
+- [x] Minimum 15 meaningful commits
 
 ### Current Blockers
 
@@ -131,8 +131,8 @@ Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 |:--|:--|
 | Suffra Preprod deployment | Open Candidate-ballot V2 `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` deployed 2026-08-20; prior V2 instance was Lace-smoke-tested with registration, sealed ballot, and closure transactions recorded in README |
 | Local deployment state | `.midnight-state.json` records the Suffra Preprod deployment and the legacy Preview counter address `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` (historical only) |
-| Product X profile | Pending |
-| Fresh Level 4 demo | Pending |
+| Product X profile | Live at https://x.com/SuffraPrivVote; README link and ready-to-post launch copy added |
+| Fresh Level 4 demo | Pending manual recording/publication |
 | Frontend network | `VITE_MIDNIGHT_NETWORK` accepts `undeployed`, `preview`, or `preprod` and defaults to `preprod`; V2 real-wallet smoke test completed 2026-08-20 |
 
 ---
