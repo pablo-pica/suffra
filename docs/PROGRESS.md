@@ -37,7 +37,7 @@
 | 4 | Aug 17 | Step 4 — CI/CD | Workflow passes on push to `main`; final post-evidence run will be recorded after this docs commit | [x] Verify install, compile, test, and build jobs [x] Confirm the README badge points to the workflow [x] Confirm a passing run |
 | 5 | Aug 18-19 | Step 5 — deploy to Preprod | V1 deployed and smoke-tested; V2 evidence instance smoke-tested and fresh open V2 demo instance deployed at `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` on 2026-08-20 | [x] Run the repo Preprod deploy command [x] Record the exact Suffra addresses in README [x] Smoke-test the V1 contract/frontend [x] Smoke-test the V2 candidate flow [x] Deploy a fresh open instance for judge interaction |
 | 6 | Aug 20-21 | Steps 6-8 — usage, README, X | Candidate-ballot V2 docs, current open Vercel deployment, and X profile verified; launch publication pending | [x] Verify `docs/USAGE.md` [x] Update README with current open V2 Preprod address [x] Update Vercel environment and redeploy [x] Create and link the Product X profile [x] Prepare launch posts in `docs/X-LAUNCH-POSTS.md` [ ] Publish launch posts manually |
-| 7 | Aug 22 | Step 9 — final evidence audit | Submission package review | [ ] Record the fresh Level 4 demo [ ] Audit README and links [ ] Confirm the 15-commit minimum [ ] Run the checker workflow |
+| 7 | Aug 22 | Step 9 — final evidence audit | Repository and deployment audit passed; manual launch artifacts remain | [ ] Record the fresh Level 4 demo [x] Audit README and links [x] Confirm the 15-commit minimum [x] Run the checker workflow |
 | 8 | Aug 23-24 | Fixes and submission | Internal cutoff | [ ] Resolve checker findings [ ] Re-run affected checks [ ] Submit the public repository on Rise In |
 | Buffer | Aug 25-31 | Contingency | Use only for fixes, redeploys, or submission evidence gaps | [ ] Do not expand scope |
 
@@ -200,3 +200,19 @@
 - [2026-08-20] [BUILDER] Verified the V2 frontend with Lace and the local prover. Registration finalized in `12e4b07ff5c25b8a947a53e8ce186eba056c3d906e2a1f0861315fb76bb785db`, a sealed ballot for fictional candidate Iñigo Valdez finalized in `8f2cb58abc28f5c30d0add15aa4313c7466b5271d4dd9f228fc2c468d73b8070`, and ballot closure finalized in `5537a11722c05b37f642d9fb1f765907fba5d0a4837a925e385b0b05135f9a34`. The evidence V2 ballot box is intentionally closed; no final tally is claimed.
 - [2026-08-20] [BUILDER] Deployed a fresh open V2 instance at `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597`, updated the live `suffra` Vercel Production variables, and redeployed `https://suffra-pica.vercel.app`. Verified the production bundle contains the fresh address and no longer contains the closed evidence address.
 - [2026-08-20] [BUILDER] Recorded the supplied Product X profile `https://x.com/SuffraPrivVote`, linked it in README, and added three ready-to-post launch messages in `docs/X-LAUNCH-POSTS.md`. Publishing the posts and recording the fresh Level 4 video remain manual submission assets.
+
+### Level 4 — Final Evidence Audit
+
+- **Audit date:** 2026-08-20
+- **Status:** Conditional pass — all repository, contract, frontend, deployment, CI, and profile-link checks pass. Submission remains blocked only by the fresh Level 4 video and manual X post publication.
+
+| Checklist item | Evidence |
+|:--|:--|
+| Contract compile and tests | `npm run compile`; `npm run test` — 31/31 passed |
+| Production build | `npm run build` passed with zero TypeScript/Vite errors |
+| Preprod deployment | Current open V2: `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` |
+| Live frontend | `https://suffra-pica.vercel.app`, production bundle verified against current open V2 address |
+| CI/CD | [GitHub Actions run 32375422044](https://github.com/pablo-pica/suffra/actions/runs/32375422044) passed on `56034ea` |
+| Commit minimum | 77 total commits; 76 conventional commits; minimum is 15 |
+| Product X profile | [SuffraPrivVote](https://x.com/SuffraPrivVote) linked in README |
+| Remaining manual evidence | Fresh Level 4 demo video and publication of the three X launch posts |

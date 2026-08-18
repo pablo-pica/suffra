@@ -133,6 +133,7 @@ Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 | Local deployment state | `.midnight-state.json` records the Suffra Preprod deployment and the legacy Preview counter address `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` (historical only) |
 | Product X profile | Live at https://x.com/SuffraPrivVote; README link and ready-to-post launch copy added |
 | Fresh Level 4 demo | Pending manual recording/publication |
+| X launch posts | Three posts ready in `docs/X-LAUNCH-POSTS.md`; publication remains manual |
 | Frontend network | `VITE_MIDNIGHT_NETWORK` accepts `undeployed`, `preview`, or `preprod` and defaults to `preprod`; V2 real-wallet smoke test completed 2026-08-20 |
 
 ---
