@@ -119,7 +119,7 @@ Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 ### Submission Checklist
 - [ ] Public GitHub repository with full documentation
 - [ ] Live Preprod demo link
-- [x] Verified Suffra Preprod contract address: Candidate-ballot V2 `4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a` (deployed 2026-08-20); V1 remains historical evidence
+- [x] Verified Suffra Preprod contract address: current open Candidate-ballot V2 `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` (deployed 2026-08-20); closed V2 evidence instance and V1 remain documented
 - [ ] CI/CD badge or workflow file with passing runs
 - [ ] Link to product X profile
 - [ ] Demo video of the MVP
@@ -129,7 +129,7 @@ Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 
 | Blocker | Verified State |
 |:--|:--|
-| Suffra Preprod deployment | Candidate-ballot V2 `4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a` deployed and Lace-smoke-tested 2026-08-20; registration, sealed ballot, and closure transactions recorded in README |
+| Suffra Preprod deployment | Open Candidate-ballot V2 `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` deployed 2026-08-20; prior V2 instance was Lace-smoke-tested with registration, sealed ballot, and closure transactions recorded in README |
 | Local deployment state | `.midnight-state.json` records the Suffra Preprod deployment and the legacy Preview counter address `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` (historical only) |
 | Product X profile | Pending |
 | Fresh Level 4 demo | Pending |

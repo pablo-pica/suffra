@@ -34,7 +34,7 @@ The live V2 demo completed registration, selected fictional candidate **Iñigo V
 - Sealed candidate ballot: `8f2cb58abc28f5c30d0add15aa4313c7466b5271d4dd9f228fc2c468d73b8070`
 - Close ballot box: `5537a11722c05b37f642d9fb1f765907fba5d0a4837a925e385b0b05135f9a34`
 
-The V2 ballot box is now closed. These transactions prove the lifecycle, not a final candidate tally.
+The evidence V2 ballot box is now closed. These transactions prove the lifecycle, not a final candidate tally. The public demo now targets a fresh open V2 instance at `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` so judges can run the flow.
 
 ## What Gets Proved
 
@@ -52,5 +52,5 @@ The public ledger does not receive the raw voter secret, candidate selection, or
 - **Wrong network:** switch Lace to the network used by the deployed Suffra contract.
 - **No DUST:** fund the wallet and wait for DUST generation before submitting transactions.
 - **Local proof server unavailable:** run `npm run proof-server:start` on the browser's machine. The hosted Preprod proof server is not used by Suffra's browser flow.
-- **Contract not ready:** set Vercel or local `VITE_SUFFRA_CONTRACT_ADDRESS` to Candidate-ballot V2 (`4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a`) and reload the frontend.
+- **Contract not ready:** set Vercel or local `VITE_SUFFRA_CONTRACT_ADDRESS` to the current open Candidate-ballot V2 instance (`eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597`) and reload the frontend.
 - **Already registered or already voted:** the same local voter secret has already been used for that action.

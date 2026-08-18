@@ -2,10 +2,11 @@
 
 ## Current Deployment Status
 
-- Candidate-ballot V2 is deployed to Preprod at `4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a` (2026-08-20).
+- The current open Candidate-ballot V2 demo instance is deployed to Preprod at `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` (2026-08-20).
+- The previous Candidate-ballot V2 evidence instance is deployed at `4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a` (2026-08-20) and is intentionally closed after smoke testing.
 - The original binary Suffra V1 remains deployed at `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` (2026-08-13) as historical fallback evidence.
 - Local `.midnight-state.json` records the latest V2 deployment; the legacy Preview counter address `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` is not Suffra Preprod evidence.
-- `src/config/network.ts` validates `VITE_MIDNIGHT_NETWORK` as `undeployed`, `preview`, or `preprod`, and defaults the frontend to `preprod`. Vercel is configured for V2, and the Lace smoke test completed on 2026-08-20.
+- `src/config/network.ts` validates `VITE_MIDNIGHT_NETWORK` as `undeployed`, `preview`, or `preprod`, and defaults the frontend to `preprod`. Vercel Production is configured with the current open V2 address; the evidence instance's Lace smoke test completed on 2026-08-20.
 
 ## Prerequisites
 
@@ -84,7 +85,7 @@ VITE_SUFFRA_CONTRACT_ADDRESS=<64-char-contract-address> \
 npm run dev
 ```
 
-The V2 Preprod frontend was verified on 2026-08-20 with the local proof server and Lace. Registration, a sealed fictional-candidate ballot, and ballot closure all finalized; explorer links are recorded in `README.md`. The local prover remains a developer-demo prerequisite because the hosted Preprod prover is not used by the browser flow.
+The previous V2 Preprod frontend was verified on 2026-08-20 with the local proof server and Lace. Registration, a sealed fictional-candidate ballot, and ballot closure all finalized; explorer links are recorded in `README.md`. The current open V2 instance is deployed for judge interaction. The local prover remains a developer-demo prerequisite because the hosted Preprod prover is not used by the browser flow.
 
 ## 6. Frontend Deployment
 
@@ -100,7 +101,7 @@ For Vercel, configure:
 - Framework: Vite
 - Build command: `npm run build`
 - Output directory: `dist`
-- Environment variables: `VITE_MIDNIGHT_NETWORK=preprod` and `VITE_SUFFRA_CONTRACT_ADDRESS=4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a`; leave `VITE_PROOF_SERVER_URL` unset unless overriding it with another local loopback address.
+- Environment variables: `VITE_MIDNIGHT_NETWORK=preprod` and `VITE_SUFFRA_CONTRACT_ADDRESS=eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597`; leave `VITE_PROOF_SERVER_URL` unset unless overriding it with another local loopback address.
 
 Keep the Product X profile, fresh Level 4 demo URL, and Preprod address as pending placeholders until verified.
 
