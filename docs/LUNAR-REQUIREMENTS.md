@@ -113,7 +113,7 @@ Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 - [x] Step 5 — deploy to Preprod: stop for deploy address, then update README immediately
 - [x] Step 6 — `docs/USAGE.md`: user-facing setup/use/privacy/troubleshooting
 - [x] Step 7 — README: live Preprod demo URL, mandatory Preprod address, privacy model, setup, tests, CI/CD, usage guide, X profile placeholder/link
-- [x] Step 8 — X launch posts/profile: profile linked and three ready-to-post messages documented in `docs/X-LAUNCH-POSTS.md`
+- [x] Step 8 — X launch posts/profile: profile linked; three launch posts documented in `docs/X-LAUNCH-POSTS.md` and published on X (maintainer confirmation)
 - [ ] Step 9 — final checklist and submission
 
 ### Submission Checklist
@@ -122,7 +122,7 @@ Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 - [x] Verified Suffra Preprod contract address: current open Candidate-ballot V2 `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` (deployed 2026-08-20); closed V2 evidence instance and V1 remain documented
 - [x] CI/CD badge or workflow file with passing runs
 - [x] Link to product X profile: https://x.com/SuffraPrivVote
-- [ ] Demo video of the MVP
+- [x] Demo video of the MVP: https://youtu.be/lxYipwonU5Y- (maintainer-confirmed Level 4 recording)
 - [x] Minimum 15 meaningful commits
 
 ### Current Blockers
@@ -131,9 +131,10 @@ Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 |:--|:--|
 | Suffra Preprod deployment | Open Candidate-ballot V2 `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` deployed 2026-08-20; prior V2 instance was Lace-smoke-tested with registration, sealed ballot, and closure transactions recorded in README |
 | Local deployment state | `.midnight-state.json` records the Suffra Preprod deployment and the legacy Preview counter address `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` (historical only) |
-| Product X profile | Live at https://x.com/SuffraPrivVote; README link and ready-to-post launch copy added |
-| Fresh Level 4 demo | Pending manual recording/publication |
-| X launch posts | Three posts ready in `docs/X-LAUNCH-POSTS.md`; publication remains manual |
+| Product X profile | Live at https://x.com/SuffraPrivVote; README link present |
+| Fresh Level 4 demo | Published: https://youtu.be/lxYipwonU5Y- (maintainer confirmation) |
+| X launch posts | Three posts in `docs/X-LAUNCH-POSTS.md` have been published (maintainer confirmation) |
+| Current V3 deployment documentation | Pending: the repository still identifies V2 as the current open demo contract; record the new V3 Preprod address and update the frontend/README evidence before submission |
 | Frontend network | `VITE_MIDNIGHT_NETWORK` accepts `undeployed`, `preview`, or `preprod` and defaults to `preprod`; V2 real-wallet smoke test completed 2026-08-20 |
 
 ---

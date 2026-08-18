@@ -2,12 +2,12 @@
 
 ## Current Status
 - **Active Level**: Level 4 — Waxing Gibbous (MVP Goes Live)
-- **Active Step**: Step 6 — usage, README, and launch assets
+- **Active Step**: Step 9 — final checklist and submission
 - **Idea/The Turn**: Approved; approval date not recorded in repo, so no date is claimed
 - **Internal Level 4 Target**: August 24, 2026
 - **Official Month-End Deadline**: August 31, 2026
 - **Contingency Buffer**: August 25-31, 2026 for deploy/review/submission fixes only
-- **Known Blockers**: record and publish a fresh Level 4 demo video; X launch posts still require manual publication
+- **Known Blockers**: update the repository and live frontend evidence from V2 to the newly deployed V3 contract, then submit Level 4
 
 ---
 
@@ -36,9 +36,9 @@
 | 3 | Aug 14-16 | Step 3 — frontend | Completed with local browser proof server and Lace smoke test | [x] Replace the Preview hardcode with `VITE_MIDNIGHT_NETWORK` [x] Use `VITE_SUFFRA_CONTRACT_ADDRESS` consistently [x] Run `npm run build` [x] Verify loading and error states with a Preprod wallet |
 | 4 | Aug 17 | Step 4 — CI/CD | Workflow passes on push to `main`; final post-evidence run will be recorded after this docs commit | [x] Verify install, compile, test, and build jobs [x] Confirm the README badge points to the workflow [x] Confirm a passing run |
 | 5 | Aug 18-19 | Step 5 — deploy to Preprod | V1 deployed and smoke-tested; V2 evidence instance smoke-tested and fresh open V2 demo instance deployed at `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` on 2026-08-20 | [x] Run the repo Preprod deploy command [x] Record the exact Suffra addresses in README [x] Smoke-test the V1 contract/frontend [x] Smoke-test the V2 candidate flow [x] Deploy a fresh open instance for judge interaction |
-| 6 | Aug 20-21 | Steps 6-8 — usage, README, X | Candidate-ballot V2 docs, current open Vercel deployment, and X profile verified; launch publication pending | [x] Verify `docs/USAGE.md` [x] Update README with current open V2 Preprod address [x] Update Vercel environment and redeploy [x] Create and link the Product X profile [x] Prepare launch posts in `docs/X-LAUNCH-POSTS.md` [ ] Publish launch posts manually |
-| 7 | Aug 22 | Step 9 — final evidence audit | Repository and deployment audit passed; manual launch artifacts remain | [ ] Record the fresh Level 4 demo [x] Audit README and links [x] Confirm the 15-commit minimum [x] Run the checker workflow |
-| 8 | Aug 23-24 | Fixes and submission | Internal cutoff | [ ] Resolve checker findings [ ] Re-run affected checks [ ] Submit the public repository on Rise In |
+| 6 | Aug 20-21 | Steps 6-8 — usage, README, X | X profile verified and all three launch posts published; repository deployment references still name V2 | [x] Verify `docs/USAGE.md` [x] Update README with the then-current V2 Preprod address [x] Update Vercel environment and redeploy [x] Create and link the Product X profile [x] Prepare and publish three launch posts |
+| 7 | Aug 22 | Step 9 — final evidence audit | Demo video published; V3 deployment documentation and final re-audit remain | [x] Record and publish the fresh Level 4 demo: https://youtu.be/lxYipwonU5Y- [x] Audit README and links [x] Confirm the 15-commit minimum [x] Run the checker workflow |
+| 8 | Aug 23-24 | Fixes and submission | Internal cutoff | [ ] Record V3 address in README/docs and configure the live frontend [ ] Re-run affected checks and checker audit [ ] Submit the public repository on Rise In |
 | Buffer | Aug 25-31 | Contingency | Use only for fixes, redeploys, or submission evidence gaps | [ ] Do not expand scope |
 
 ### Tally Feasibility Gate — Decision Recorded
