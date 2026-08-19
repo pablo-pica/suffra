@@ -10,20 +10,20 @@
 - **Active level:** Level 4 — MVP Goes Live.
 - **Internal Level 4 target:** August 24, 2026.
 - **Official deadline:** August 31, 2026, with August 25-31 reserved as contingency buffer.
-- **Verified Preprod deployments:** V1 was deployed and smoke-tested on 2026-08-13. Candidate-ballot V2 was deployed, configured, and smoke-tested with Lace on 2026-08-20. A fresh open V2 instance now powers the public demo. Product X profile is live; a fresh Level 4 demo video remains pending.
+- **Verified Preprod deployments:** V1 was deployed and smoke-tested on 2026-08-13. Candidate-ballot V2 was deployed, configured, and smoke-tested with Lace on 2026-08-20. A fresh open V2 instance powers the public demo. The Product X profile and Level 4 demo video are live.
 
 ## 🌐 Live Demo
 
 [suffra-pica.vercel.app](https://suffra-pica.vercel.app)
 
-The public demo includes a fictional SK election preview and a live candidate-ballot flow. The live flow is configured for Candidate-ballot V2 on Preprod. Record a fresh video for final Level 4 submission evidence.
+The public demo includes a fictional SK election preview and a live candidate-ballot flow. The live flow is configured for Candidate-ballot V2 on Preprod. The Level 4 demo records this deployed flow.
 
 ### 📌 Submission Resources & Links
 
 | Resource | Value / Link |
 | :--- | :--- |
 | **Live Demo dApp** | [suffra-pica.vercel.app](https://suffra-pica.vercel.app) |
-| **Demo Video** | Pending fresh Level 4 video; earlier Level 2/3 video: [youtu.be/G3Ppbny50tc](https://youtu.be/G3Ppbny50tc) |
+| **Demo Video** | [Level 4 MVP demo](https://youtu.be/lxYipwonU5Y-) · Earlier Level 2/3 video: [youtu.be/G3Ppbny50tc](https://youtu.be/G3Ppbny50tc) |
 | **Product Proposal** | [PROPOSAL.md](PROPOSAL.md) |
 | **Usage Guide** | [docs/USAGE.md](docs/USAGE.md) |
 | **CI/CD Workflow** | [.github/workflows/ci.yml](.github/workflows/ci.yml) |

@@ -114,7 +114,7 @@ Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 - [x] Step 6 — `docs/USAGE.md`: user-facing setup/use/privacy/troubleshooting
 - [x] Step 7 — README: live Preprod demo URL, mandatory Preprod address, privacy model, setup, tests, CI/CD, usage guide, X profile placeholder/link
 - [x] Step 8 — X launch posts/profile: profile linked; three launch posts documented in `docs/X-LAUNCH-POSTS.md` and published on X (maintainer confirmation)
-- [ ] Step 9 — final checklist and submission
+- [x] Step 9 — final checklist: evidence and checker audit complete; public Rise In submission remains a maintainer action
 
 ### Submission Checklist
 - [x] Public GitHub repository with full documentation
@@ -125,7 +125,7 @@ Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 - [x] Demo video of the MVP: https://youtu.be/lxYipwonU5Y- (maintainer-confirmed Level 4 recording)
 - [x] Minimum 15 meaningful commits
 
-### Current Blockers
+### Verification Record
 
 | Blocker | Verified State |
 |:--|:--|
@@ -134,8 +134,8 @@ Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 | Product X profile | Live at https://x.com/SuffraPrivVote; README link present |
 | Fresh Level 4 demo | Published: https://youtu.be/lxYipwonU5Y- (maintainer confirmation) |
 | X launch posts | Three posts in `docs/X-LAUNCH-POSTS.md` have been published (maintainer confirmation) |
-| Current V3 deployment documentation | Pending: the repository still identifies V2 as the current open demo contract; record the new V3 Preprod address and update the frontend/README evidence before submission |
-| Frontend network | `VITE_MIDNIGHT_NETWORK` accepts `undeployed`, `preview`, or `preprod` and defaults to `preprod`; V2 real-wallet smoke test completed 2026-08-20 |
+| Current deployment documentation | Verified: Candidate-ballot V2 (not V3) is the current open demo contract, `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597`; README and deployment/usage docs identify it consistently |
+| Frontend network | Verified: the Vercel production bundle embeds `VITE_MIDNIGHT_NETWORK=preprod` and the current V2 address; V2 real-wallet smoke test completed 2026-08-20 |
 
 ---
 

@@ -103,7 +103,7 @@ For Vercel, configure:
 - Output directory: `dist`
 - Environment variables: `VITE_MIDNIGHT_NETWORK=preprod` and `VITE_SUFFRA_CONTRACT_ADDRESS=eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597`; leave `VITE_PROOF_SERVER_URL` unset unless overriding it with another local loopback address.
 
-Keep the Product X profile, fresh Level 4 demo URL, and Preprod address as pending placeholders until verified.
+The Product X profile is [@SuffraPrivVote](https://x.com/SuffraPrivVote); the published Level 4 demo is [youtu.be/lxYipwonU5Y-](https://youtu.be/lxYipwonU5Y-). The current V2 Preprod address above is the verified production target.
 
 ## 7. Local Development
 

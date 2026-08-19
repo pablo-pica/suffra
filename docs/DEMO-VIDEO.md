@@ -2,9 +2,9 @@
 
 ## Purpose
 
-Use this guide for the next recorded demo after the Suffra contract is deployed and the frontend has `VITE_SUFFRA_CONTRACT_ADDRESS` configured.
+The Level 4 candidate-ballot V2 demo is published at [youtu.be/lxYipwonU5Y-](https://youtu.be/lxYipwonU5Y-). This guide records the flow it demonstrates.
 
-The old Level 2/3 video showed the counter-based learning demo. The new demo should show the privacy-meaningful sealed ballot flow.
+The old Level 2/3 video showed the counter-based learning demo. The Level 4 recording shows the privacy-meaningful candidate sealed-ballot flow.
 
 ## Tabs to Prepare
 
@@ -41,7 +41,7 @@ Narration:
 
 ### 4. Cast Sealed Vote
 
-Choose For or Against, then click **Cast Sealed Vote**.
+Choose a fictional candidate, then click **Cast Sealed Candidate Ballot**.
 
 Narration:
 
@@ -57,11 +57,11 @@ Narration:
 
 ## Pre-Recording Checklist
 
-- [ ] `npm run compile` completed.
-- [ ] `npm run test` passes.
-- [ ] `npm run build` passes.
-- [ ] Proof server is running.
-- [ ] Suffra contract is deployed.
-- [ ] `VITE_SUFFRA_CONTRACT_ADDRESS` is configured in the frontend deployment.
-- [ ] Lace Wallet has enough test funds and DUST.
-- [ ] README contract table has the deployed Suffra address.
+- [x] `npm run compile` completed.
+- [x] `npm run test` passes.
+- [x] `npm run build` passes.
+- [x] Proof server was running for the recorded flow.
+- [x] Candidate-ballot V2 is deployed to Preprod.
+- [x] Vercel is configured with `VITE_SUFFRA_CONTRACT_ADDRESS=eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597`.
+- [x] Lace Wallet had sufficient test funds and DUST.
+- [x] README contract table identifies the deployed address.
