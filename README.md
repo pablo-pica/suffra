@@ -122,4 +122,4 @@ See [PROPOSAL.md](PROPOSAL.md).
 
 [SuffraPrivVote](https://x.com/SuffraPrivVote)
 
-Three ready-to-post launch messages are documented in [docs/X-LAUNCH-POSTS.md](docs/X-LAUNCH-POSTS.md).
+Three launch messages documented in [docs/X-LAUNCH-POSTS.md](docs/X-LAUNCH-POSTS.md) have been published.
