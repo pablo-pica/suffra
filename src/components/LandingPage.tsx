@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { type UseMidnightResult } from '../hooks/useMidnight';
 import { resolveDappNetwork } from '../config/network';
+import { resolveFeedbackFormUrl } from '../config/feedback';
 import { developmentMilestones, faqs, sourceContext } from '../content/siteContent';
 import { BallotBox } from './BallotBox';
 import { ElectionSimulation } from './ElectionSimulation';
@@ -91,6 +92,7 @@ function HeroArtwork() {
 
 export function LandingPage({ midnight }: LandingPageProps) {
   const networkName = resolveDappNetwork(import.meta.env.VITE_MIDNIGHT_NETWORK);
+  const feedbackUrl = resolveFeedbackFormUrl(import.meta.env.VITE_FEEDBACK_FORM_URL);
   const shouldReduceMotion = useReducedMotion();
   const animation = shouldReduceMotion ? { initial: false, animate: { opacity: 1 } } : reveal;
   const cardAnimation = (index: number) => shouldReduceMotion
@@ -192,6 +194,26 @@ export function LandingPage({ midnight }: LandingPageProps) {
         <section id="try-suffra" className="border-y border-hope-ink/10 bg-white py-20 lg:py-28">
           <div className="mx-auto max-w-7xl px-5 lg:px-8"><motion.div {...animation} className="max-w-3xl"><p className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.14em] text-hope-blue"><Network className="size-4" /> {networkName} test environment</p><h2 className="mt-3 font-headings text-4xl font-bold leading-tight tracking-tight">Try the live privacy test</h2><p className="mt-4 text-hope-ink/65">The election preview above is a fictional product simulation. This working area is the real Preprod candidate-ballot test for Lace Wallet (Midnight edition), using four private candidate selections.</p></motion.div>
             <div className="mt-10 grid items-start gap-6 lg:grid-cols-12"><div className="lg:col-span-5"><WalletConnect midnight={midnight} /></div><div className="lg:col-span-7"><BallotBox midnight={midnight} /></div></div>
+            {feedbackUrl && (
+              <div className="mt-10 rounded-2xl border border-hope-ink/10 bg-hope-cream/60 p-5 sm:p-6">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="space-y-1">
+                    <p className="font-headings text-base font-bold text-hope-ink">Tested the prototype? Help us improve Suffra</p>
+                    <p className="text-xs leading-5 text-hope-ink/65">
+                      Your feedback must not include a ballot choice, secret, or other private voting data. Only your alias, consented Preprod wallet address, ratings, and feedback summary are collected.
+                    </p>
+                  </div>
+                  <a
+                    href={feedbackUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-hope-blue px-5 py-2.5 text-xs font-bold text-white transition-colors hover:bg-hope-ink"
+                  >
+                    Give feedback <ExternalLink className="size-3.5" />
+                  </a>
+                </div>
+              </div>
+            )}
           </div>
         </section>
 
