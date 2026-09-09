@@ -25,6 +25,7 @@ The real privacy test below the preview uses Candidate-ballot V2 on Preprod. It 
 7. Choose one fictional candidate in the live candidate ballot.
 8. Select **Cast Sealed Candidate Ballot** and approve in Lace.
 9. Wait for the transaction ID and refreshed ballot box counts.
+10. Click **Give feedback** in the dApp (or visit the public feedback form) to share your testing experience. **Warning:** Never submit private voting inputs (such as your local voter secret, candidate choice, ballot salt, or transaction ID) in the feedback form.
 
 ## Verified V2 demo lifecycle
 
