@@ -29,6 +29,8 @@ The public demo includes a fictional SK election preview and a live candidate-ba
 | **CI/CD Workflow** | [.github/workflows/ci.yml](.github/workflows/ci.yml) |
 | **Level Progress Tracker** | [docs/PROGRESS.md](docs/PROGRESS.md) |
 | **X Launch Posts** | [docs/X-LAUNCH-POSTS.md](docs/X-LAUNCH-POSTS.md) |
+| **Level 5 Feedback Log** | [docs/FEEDBACK.md](docs/FEEDBACK.md) |
+| **Level 5 User Evidence** | [USERS.md](USERS.md) |
 
 ## 📍 Contract Address
 
@@ -64,6 +66,14 @@ The landing page includes a fictional San Isidro SK election preview with fictio
 - **PUBLIC:** voting status, registered voter commitments, used nullifiers, sealed ballot commitments, registered count, and sealed ballot count.
 - **PRIVATE:** voter secret, candidate selection, ballot salt, and the link between a real-world voter and their local voting secret.
 - **PROVED without revealing:** the voter registered, the candidate ID is valid, the same voter secret has not voted before, and the ballot commitment came from the private selection plus salt.
+
+## 👥 Level 5 User Validation
+
+Feedback collection infrastructure and evidence templates are prepared for Level 5:
+
+- **Feedback Log & Themes:** [docs/FEEDBACK.md](docs/FEEDBACK.md)
+- **Consented User List:** [USERS.md](USERS.md) (Target: 50 Preprod users · Current count: 0 / 50)
+- **Collection Status:** Collection has not started. All evidence templates are prepared; no real user responses or unverified claims have been recorded yet.
 
 ## 🗺️ Level 4-6 Roadmap
 

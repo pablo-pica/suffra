@@ -66,14 +66,18 @@ When the deploy flow prints a wallet address, fund that wallet from the Preprod 
 
 ## 5. Frontend Environment
 
-`src/config/network.ts` and `src/hooks/useMidnight.ts` consume these Vite variables:
+`src/config/network.ts`, `src/hooks/useMidnight.ts`, and `src/config/feedback.ts` consume these Vite variables:
 
 ```bash
 VITE_MIDNIGHT_NETWORK=preprod
 VITE_SUFFRA_CONTRACT_ADDRESS=<64-char-contract-address>
 # Optional; defaults to http://127.0.0.1:6300 and must remain loopback.
 VITE_PROOF_SERVER_URL=http://127.0.0.1:6300
+# Optional; external feedback link. Permitted shape: HTTPS forms.gle or docs.google.com/forms.
+VITE_FEEDBACK_FORM_URL=https://forms.gle/QSgaRPbEE1W6UJST9
 ```
+
+`VITE_FEEDBACK_FORM_URL` enables an optional external feedback CTA. It requires an HTTPS Google Forms URL (`forms.gle` or `docs.google.com/forms`); missing, malformed, non-HTTPS, or non-Google-Forms URLs are safely ignored so no broken or insecure links are rendered. Deployment configuration is strictly human-owned. Suffra employs a reusable-form timestamp approach where the single form serves both Level 5 and Level 6, separating collection phases by a recorded timestamp cutoff rather than adding feedback-cycle or tester-tier fields to the form.
 
 `VITE_MIDNIGHT_NETWORK` accepts `undeployed`, `preview`, or `preprod`; it defaults to `preprod`. Do **not** use the stale `VITE_CONTRACT_ADDRESS`; the hook does not read it.
 
@@ -101,7 +105,7 @@ For Vercel, configure:
 - Framework: Vite
 - Build command: `npm run build`
 - Output directory: `dist`
-- Environment variables: `VITE_MIDNIGHT_NETWORK=preprod` and `VITE_SUFFRA_CONTRACT_ADDRESS=eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597`; leave `VITE_PROOF_SERVER_URL` unset unless overriding it with another local loopback address.
+- Environment variables (human-owned configuration in Vercel Preview and Production): `VITE_MIDNIGHT_NETWORK=preprod`, `VITE_SUFFRA_CONTRACT_ADDRESS=eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597`, and `VITE_FEEDBACK_FORM_URL=https://forms.gle/QSgaRPbEE1W6UJST9`; leave `VITE_PROOF_SERVER_URL` unset unless overriding it with another local loopback address.
 
 The Product X profile is [@SuffraPrivVote](https://x.com/SuffraPrivVote); the published Level 4 demo is [youtu.be/lxYipwonU5Y-](https://youtu.be/lxYipwonU5Y-). The current V2 Preprod address above is the verified production target.
 
