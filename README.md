@@ -7,7 +7,7 @@
 ## Current Status
 
 - **Idea/The Turn:** approved; approval date is not recorded.
-- **Active level:** Level 4 — MVP Goes Live.
+- **Active level:** Level 5 — Users & Feedback.
 - **Internal Level 4 target:** August 24, 2026.
 - **Official deadline:** August 31, 2026, with August 25-31 reserved as contingency buffer.
 - **Verified Preprod deployments:** V1 was deployed and smoke-tested on 2026-08-13. Candidate-ballot V2 was deployed, configured, and smoke-tested with Lace on 2026-08-20. A fresh open V2 instance powers the public demo. The Product X profile and Level 4 demo video are live.
@@ -69,11 +69,11 @@ The landing page includes a fictional San Isidro SK election preview with fictio
 
 ## 👥 Level 5 User Validation
 
-Feedback collection infrastructure and evidence templates are prepared for Level 5:
+Level 5 user feedback and consented wallet evidence have been imported and synthesized:
 
-- **Feedback Log & Themes:** [docs/FEEDBACK.md](docs/FEEDBACK.md)
-- **Consented User List:** [USERS.md](USERS.md) (Target: 50 Preprod users · Current count: 0 / 50)
-- **Collection Status:** Collection has not started. All evidence templates are prepared; no real user responses or unverified claims have been recorded yet.
+- **Feedback Log & Themes:** [docs/FEEDBACK.md](docs/FEEDBACK.md) (51 submissions; 3.88 clarity, 3.53 ease, 3.94 privacy confidence; recurring themes synthesized)
+- **Consented User List:** [USERS.md](USERS.md) (Target: 50 Preprod users · Current count: 51 / 50)
+- **Collection Status:** Concluded on 2026-09-13 with 51 consented records (51/50 target achieved).
 
 ## 🗺️ Level 4-6 Roadmap
 
