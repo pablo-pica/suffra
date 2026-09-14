@@ -1,8 +1,27 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Vote, Shield, RefreshCw, CheckCircle2, AlertTriangle, ExternalLink, UserPlus, Lock, Ban, Info, Sparkles, Check, Terminal } from 'lucide-react';
+import {
+  Vote,
+  Shield,
+  RefreshCw,
+  CheckCircle2,
+  AlertTriangle,
+  ExternalLink,
+  UserPlus,
+  Lock,
+  Ban,
+  Info,
+  Sparkles,
+  Check,
+  Terminal,
+} from 'lucide-react';
 import { explorerTransactionUrl, resolveDappNetwork, resolveProofServerUrl } from '../config/network';
-import { demoElection, demoDisclosures, type DemoCandidateId } from '../content/siteContent';
+import {
+  demoElection,
+  demoDisclosures,
+  privacyComparison,
+  type DemoCandidateId,
+} from '../content/siteContent';
 import { type UseMidnightResult } from '../hooks/useMidnight';
 import { formatProofServerError, getBallotActionState } from '../utils/ballot-flow';
 
@@ -312,16 +331,54 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
             )}
           </div>
 
-            <button
-              type="button"
-              onClick={closeVoting}
-              disabled={loading || !contractReady || electionState?.votingOpen === false}
-              className="w-full rounded-lg border border-hope-ink/15 bg-white hover:bg-hope-cream text-hope-ink font-medium px-4 py-2.5 transition-colors duration-200 min-h-[44px] flex items-center justify-center gap-2 disabled:bg-slate-50 disabled:text-slate-300 disabled:cursor-not-allowed"
-            >
-              <Ban className="w-4 h-4" />
-              Close Ballot Box
-            </button>
+          {/* R6: Compact Public vs. Private Comparison Adjacent to Ballot Action */}
+          <div className="rounded-xl border border-hope-ink/10 bg-hope-cream/40 p-4">
+            <div className="flex items-center gap-2 mb-2.5">
+              <Lock className="w-4 h-4 text-hope-red" />
+              <p className="text-xs font-semibold text-slate-800">
+                Privacy Model: Public Ledger vs. Off-Chain Private
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div className="rounded-lg bg-white p-3 border border-hope-ink/5 shadow-xs">
+                <span className="font-bold text-hope-blue text-[11px] uppercase tracking-wider block mb-1.5">
+                  Public on Ledger (Visible to Anyone)
+                </span>
+                <ul className="space-y-1 text-[11px] text-slate-600 leading-normal">
+                  {privacyComparison.publicLedger.map((item, i) => (
+                    <li key={i} className="flex items-start gap-1.5">
+                      <span className="text-hope-blue font-bold shrink-0">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-lg bg-white p-3 border border-hope-ink/5 shadow-xs">
+                <span className="font-bold text-hope-red text-[11px] uppercase tracking-wider block mb-1.5">
+                  Private Off-Chain (Never Published)
+                </span>
+                <ul className="space-y-1 text-[11px] text-slate-600 leading-normal">
+                  {privacyComparison.privateOffChain.map((item, i) => (
+                    <li key={i} className="flex items-start gap-1.5">
+                      <span className="text-hope-red font-bold shrink-0">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
+
+          {/* Contract close action */}
+          <button
+            type="button"
+            onClick={closeVoting}
+            disabled={loading || !contractReady || electionState?.votingOpen === false}
+            className="w-full rounded-lg border border-hope-ink/15 bg-white hover:bg-hope-cream text-hope-ink font-medium px-4 py-2.5 transition-colors duration-200 min-h-[44px] flex items-center justify-center gap-2 disabled:bg-slate-50 disabled:text-slate-300 disabled:cursor-not-allowed"
+          >
+            <Ban className="w-4 h-4" />
+            Close Ballot Box
+          </button>
 
           <AnimatePresence>
             {txId && (

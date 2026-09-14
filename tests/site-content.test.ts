@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { demoDisclosures, demoElection, developmentMilestones, faqs, preflightChecklist, sourceContext } from '../src/content/siteContent';
+import { demoDisclosures, demoElection, developmentMilestones, faqs, preflightChecklist, privacyComparison, sourceContext } from '../src/content/siteContent';
 
 describe('public site content', () => {
   it('describes the MVP without claiming unimplemented eligibility or tally features', () => {
@@ -45,6 +45,17 @@ describe('public site content', () => {
     expect(preflightText).toContain('Preprod');
     expect(preflightText).toContain('proof server');
 
+    // R6
+    expect(privacyComparison.publicLedger.some((t) => t.includes('commitment'))).toBe(true);
+    expect(privacyComparison.publicLedger.some((t) => t.includes('nullifier'))).toBe(true);
+    expect(privacyComparison.publicLedger.every((t) => !t.toLowerCase().includes('raw voter secret'))).toBe(true);
+    expect(privacyComparison.publicLedger.every((t) => !t.toLowerCase().includes('candidate selection'))).toBe(true);
+    expect(privacyComparison.publicLedger.every((t) => !t.toLowerCase().includes('ballot salt'))).toBe(true);
+    expect(privacyComparison.privateOffChain.some((t) => t.includes('voter secret'))).toBe(true);
+    expect(privacyComparison.privateOffChain.some((t) => t.includes('Candidate selection'))).toBe(true);
+    expect(privacyComparison.privateOffChain.some((t) => t.includes('Ballot salt'))).toBe(true);
+    expect(privacyComparison.privateOffChain.join(' ').toLowerCase()).not.toContain('never leaves browser storage');
+    expect(privacyComparison.privateOffChain.join(' ').toLowerCase()).not.toContain('never leaves local browser storage');
+    expect(privacyComparison.privateOffChain.some((t) => t.includes('local device'))).toBe(true);
   });
-
 });

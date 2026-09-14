@@ -1,10 +1,15 @@
 import { describe, expect, it, vi } from 'vitest';
-import { demoDisclosures, preflightChecklist } from '../src/content/siteContent';
+import {
+  demoDisclosures,
+  preflightChecklist,
+  privacyComparison,
+} from '../src/content/siteContent';
 import {
   executeRegistration,
   formatProofServerError,
   getBallotActionState,
 } from '../src/utils/ballot-flow';
+
 describe('Level 5 Feedback Improvements (R3–R6)', () => {
   describe('R3: Demo and Fictional Status Disclosures', () => {
     it('provides prominent Preprod prototype and fictional demo disclosures for the ballot area', () => {
@@ -175,4 +180,37 @@ describe('Level 5 Feedback Improvements (R3–R6)', () => {
     });
   });
 
+  describe('R6: Compact Public vs. Private Comparison', () => {
+    it('accurately distinguishes public ledger data from private off-chain data', () => {
+      const publicItems = privacyComparison.publicLedger.map((item) => item.toLowerCase());
+      const privateItems = privacyComparison.privateOffChain.map((item) => item.toLowerCase());
+
+      // Public items must include commitments and nullifiers
+      expect(publicItems.some((text) => text.includes('voter commitment'))).toBe(true);
+      expect(publicItems.some((text) => text.includes('nullifier'))).toBe(true);
+      expect(publicItems.some((text) => text.includes('ballot commitment'))).toBe(true);
+
+      // Public items must NEVER claim candidate selection, voter secret, or salt is public
+      expect(publicItems.some((text) => text.includes('raw voter secret'))).toBe(false);
+      expect(publicItems.some((text) => text.includes('candidate selection'))).toBe(false);
+      expect(publicItems.some((text) => text.includes('ballot salt'))).toBe(false);
+
+      // Private items MUST contain raw secret, candidate selection, and salt
+      expect(privateItems.some((text) => text.includes('secret'))).toBe(true);
+      expect(privateItems.some((text) => text.includes('candidate'))).toBe(true);
+      expect(privateItems.some((text) => text.includes('salt'))).toBe(true);
+    });
+
+    it('regression: accurately describes local-device storage boundary and does not claim secret never leaves browser storage', () => {
+      const rawText = privacyComparison.privateOffChain.join(' ').toLowerCase();
+
+      // Must NOT claim that it never leaves browser storage (since local proof server receives it via HTTP)
+      expect(rawText).not.toContain('never leaves browser storage');
+      expect(rawText).not.toContain('never leaves local browser storage');
+
+      // Must accurately specify that it remains on local device / proof server and is never published on-chain
+      expect(rawText).toContain('local device');
+      expect(rawText).toContain('never published on-chain');
+    });
+  });
 });

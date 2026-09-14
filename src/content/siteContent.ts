@@ -125,3 +125,18 @@ export const preflightChecklist = [
     description: 'Run the Midnight proof server locally on port 6300 (`npm run proof-server:start`) before proving.',
   },
 ] as const;
+
+export const privacyComparison = {
+  publicLedger: [
+    'Registered voter commitment (cryptographic hash of voter secret)',
+    'One-use nullifier (prevents double-voting without revealing identity)',
+    'Salted sealed ballot commitment (candidate ID + random salt)',
+    'Public registration & ballot counts (total activity auditable by anyone)',
+  ],
+  privateOffChain: [
+    'Raw voter secret (generated locally, remains on local device / proof server; never published on-chain)',
+    'Candidate selection / choice (proved in zero knowledge, never exposed)',
+    'Ballot salt (random 32-byte secret ensuring commitment confidentiality)',
+    'Link between wallet address and ballot selection (mathematically unlinked)',
+  ],
+} as const;
