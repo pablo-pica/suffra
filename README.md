@@ -8,8 +8,6 @@
 
 - **Idea/The Turn:** approved; approval date is not recorded.
 - **Active level:** Level 5 — Users & Feedback.
-- **Internal Level 4 target:** August 24, 2026.
-- **Official deadline:** August 31, 2026, with August 25-31 reserved as contingency buffer.
 - **Verified Preprod deployments:** V1 was deployed and smoke-tested on 2026-08-13. Candidate-ballot V2 was deployed, configured, and smoke-tested with Lace on 2026-08-20. A fresh open V2 instance powers the public demo. The Product X profile and Level 4 demo video are live.
 
 ## 🌐 Live Demo
