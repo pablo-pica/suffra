@@ -1,3 +1,4 @@
+import { formatProofServerError } from '../utils/ballot-flow';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { type ConnectedAPI } from '@midnight-ntwrk/dapp-connector-api';
 import { type MidnightProviders, type WalletProvider, type MidnightProvider, type UnboundTransaction } from '@midnight-ntwrk/midnight-js-types';
@@ -381,8 +382,8 @@ export function useMidnight(): UseMidnightResult {
       await refreshBalances();
       await refreshElection();
     } catch (err: any) {
-      const detailMsg = err?.cause?.message || err?.message || String(err);
-      setError(detailMsg);
+      const diagnostics = formatProofServerError(err, PROOF_SERVER_URL);
+      setError(diagnostics.formattedMessage);
     } finally {
       setLoading(false);
     }
@@ -394,7 +395,8 @@ export function useMidnight(): UseMidnightResult {
       const secret = getVoterSecret(walletAddress || 'anonymous');
       await runTransaction(() => contract.callTx.registerVoter(secret));
     } catch (err: any) {
-      setError(err.message || String(err));
+      const diagnostics = formatProofServerError(err, PROOF_SERVER_URL);
+      setError(diagnostics.formattedMessage);
     }
   };
 
@@ -405,7 +407,8 @@ export function useMidnight(): UseMidnightResult {
       const ballotSalt = randomBytes32();
       await runTransaction(() => contract.callTx.castVote(BigInt(candidateId), secret, ballotSalt));
     } catch (err: any) {
-      setError(err.message || String(err));
+      const diagnostics = formatProofServerError(err, PROOF_SERVER_URL);
+      setError(diagnostics.formattedMessage);
     }
   };
 

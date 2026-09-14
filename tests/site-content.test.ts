@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { demoDisclosures, demoElection, developmentMilestones, faqs, sourceContext } from '../src/content/siteContent';
+import { demoDisclosures, demoElection, developmentMilestones, faqs, preflightChecklist, sourceContext } from '../src/content/siteContent';
 
 describe('public site content', () => {
   it('describes the MVP without claiming unimplemented eligibility or tally features', () => {
@@ -37,6 +37,13 @@ describe('public site content', () => {
     expect(demoDisclosures.prototypeBadge).toContain('Preprod Prototype');
     expect(demoDisclosures.fictionalElectionNotice).toContain('Fictional demo');
     expect(demoDisclosures.candidatesBadge).toContain('Fictional candidates');
+
+    // R4
+    expect(preflightChecklist).toHaveLength(3);
+    const preflightText = preflightChecklist.map((c) => `${c.title} ${c.description}`).join(' ');
+    expect(preflightText).toContain('Lace');
+    expect(preflightText).toContain('Preprod');
+    expect(preflightText).toContain('proof server');
 
   });
 

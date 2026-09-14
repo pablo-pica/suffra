@@ -107,3 +107,21 @@ export const demoDisclosures = {
   ballotActionNote: 'Preprod prototype: cast a sealed ballot for demonstration only',
   ballotAreaDisclosure: 'Preprod prototype: cast a sealed ballot for demonstration only',
 } as const;
+
+export const preflightChecklist = [
+  {
+    step: 1,
+    title: 'Lace Wallet (Midnight edition)',
+    description: 'Ensure the Lace browser extension is installed with Midnight support enabled.',
+  },
+  {
+    step: 2,
+    title: 'Midnight Preprod Network',
+    description: 'Ensure Lace is connected to Midnight Preprod network with funded tNIGHT and DUST.',
+  },
+  {
+    step: 3,
+    title: 'Local Proof Server',
+    description: 'Run the Midnight proof server locally on port 6300 (`npm run proof-server:start`) before proving.',
+  },
+] as const;

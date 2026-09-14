@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Vote, Shield, RefreshCw, CheckCircle2, AlertTriangle, ExternalLink, UserPlus, Lock, Ban, Sparkles } from 'lucide-react';
-import { explorerTransactionUrl, resolveDappNetwork } from '../config/network';
+import { Vote, Shield, RefreshCw, CheckCircle2, AlertTriangle, ExternalLink, UserPlus, Lock, Ban, Sparkles, Terminal } from 'lucide-react';
+import { explorerTransactionUrl, resolveDappNetwork, resolveProofServerUrl } from '../config/network';
 import { demoElection, demoDisclosures, type DemoCandidateId } from '../content/siteContent';
 import { type UseMidnightResult } from '../hooks/useMidnight';
+import { formatProofServerError } from '../utils/ballot-flow';
 
 interface BallotBoxProps {
   midnight: UseMidnightResult;
@@ -36,6 +37,9 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
   };
 
   const disabled = loading || !contractReady || electionState?.votingOpen === false || candidateId === null;
+
+  const configuredProofServer = resolveProofServerUrl(import.meta.env.VITE_PROOF_SERVER_URL);
+  const proofDiagnostics = error ? formatProofServerError(error, configuredProofServer) : null;
 
   return (
     <div className="w-full rounded-3xl border border-hope-ink/10 bg-white p-6 shadow-card transition-shadow duration-200 hover:shadow-elevated">
@@ -120,14 +124,38 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
             </motion.div>
           )}
 
+          {/* R4: Error handling with specific proof server guidance */}
           {error && (
             <motion.div
               initial={{ opacity: 0, y: -5 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex items-start gap-2.5 rounded-lg bg-red-50 border border-red-200 p-3.5 text-xs text-red-700 leading-relaxed font-mono"
+              className="rounded-lg border p-3.5 text-xs leading-relaxed"
             >
-              <AlertTriangle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
-              <span>{error}</span>
+              {proofDiagnostics?.isProofServerError ? (
+                <div className="flex items-start gap-2.5 text-red-800">
+                  <AlertTriangle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                  <div className="space-y-1.5 flex-1">
+                    <p className="font-bold text-red-900">Local Proof Server Offline</p>
+                    <p className="text-red-700">
+                      Cannot reach proof server at{' '}
+                      <code className="bg-red-100 px-1 py-0.5 rounded font-mono font-semibold">
+                        {proofDiagnostics.endpoint}
+                      </code>.
+                    </p>
+                    <div className="mt-2 rounded bg-red-100/90 p-2 text-red-950 flex items-center gap-2 font-mono text-[11px]">
+                      <Terminal className="w-3.5 h-3.5 shrink-0" />
+                      <span>
+                        Run: <strong>{proofDiagnostics.recoveryCommand}</strong>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-start gap-2.5 text-red-700 font-mono">
+                  <AlertTriangle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+                  <span>{error}</span>
+                </div>
+              )}
             </motion.div>
           )}
 
