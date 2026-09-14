@@ -99,3 +99,44 @@ export const faqs = [
     answer: 'Transparent ledgers can expose useful clues when vote choices or per-choice counts change publicly. Midnight lets Suffra prove ballot rules while keeping the raw choice out of public state.',
   },
 ] as const;
+
+export const demoDisclosures = {
+  prototypeBadge: 'Preprod Prototype',
+  fictionalElectionNotice: 'Fictional demo election · Not an official election',
+  candidatesBadge: 'Fictional candidates',
+  ballotActionNote: 'Preprod prototype: cast a sealed ballot for demonstration only',
+  ballotAreaDisclosure: 'Preprod prototype: cast a sealed ballot for demonstration only',
+} as const;
+
+export const preflightChecklist = [
+  {
+    step: 1,
+    title: 'Lace Wallet (Midnight edition)',
+    description: 'Ensure the Lace browser extension is installed with Midnight support enabled.',
+  },
+  {
+    step: 2,
+    title: 'Midnight Preprod Network',
+    description: 'Ensure Lace is connected to Midnight Preprod network with funded tNIGHT and DUST.',
+  },
+  {
+    step: 3,
+    title: 'Local Proof Server',
+    description: 'Run the Midnight proof server locally on port 6300 (`npm run proof-server:start`) before proving.',
+  },
+] as const;
+
+export const privacyComparison = {
+  publicLedger: [
+    'Registered voter commitment (cryptographic hash of voter secret)',
+    'One-use nullifier (prevents double-voting without revealing identity)',
+    'Salted sealed ballot commitment (candidate ID + random salt)',
+    'Public registration & ballot counts (total activity auditable by anyone)',
+  ],
+  privateOffChain: [
+    'Raw voter secret (generated locally, remains on local device / proof server; never published on-chain)',
+    'Candidate selection / choice (proved in zero knowledge, never exposed)',
+    'Ballot salt (random 32-byte secret ensuring commitment confidentiality)',
+    'Link between wallet address and ballot selection (mathematically unlinked)',
+  ],
+} as const;

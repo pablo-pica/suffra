@@ -18,7 +18,7 @@ import {
 import { type UseMidnightResult } from '../hooks/useMidnight';
 import { resolveDappNetwork } from '../config/network';
 import { resolveFeedbackFormUrl } from '../config/feedback';
-import { developmentMilestones, faqs, sourceContext } from '../content/siteContent';
+import { developmentMilestones, faqs, preflightChecklist, sourceContext } from '../content/siteContent';
 import { BallotBox } from './BallotBox';
 import { ElectionSimulation } from './ElectionSimulation';
 import { WalletConnect } from './WalletConnect';
@@ -193,6 +193,29 @@ export function LandingPage({ midnight }: LandingPageProps) {
 
         <section id="try-suffra" className="border-y border-hope-ink/10 bg-white py-20 lg:py-28">
           <div className="mx-auto max-w-7xl px-5 lg:px-8"><motion.div {...animation} className="max-w-3xl"><p className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.14em] text-hope-blue"><Network className="size-4" /> {networkName} test environment</p><h2 className="mt-3 font-headings text-4xl font-bold leading-tight tracking-tight">Try the live privacy test</h2><p className="mt-4 text-hope-ink/65">The election preview above is a fictional product simulation. This working area is the real Preprod candidate-ballot test for Lace Wallet (Midnight edition), using four private candidate selections.</p></motion.div>
+            {/* R4: Preflight Checklist */}
+            <div className="mt-8 rounded-2xl border border-hope-blue/20 bg-hope-cream/60 p-5 sm:p-6">
+              <div className="flex items-center gap-2 mb-3 text-hope-blue font-bold text-sm">
+                <ShieldCheck className="size-4 text-hope-red" />
+                <span>Before You Begin: Preflight Checklist</span>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-3">
+                {preflightChecklist.map((item) => (
+                  <div key={item.step} className="rounded-xl bg-white p-4 border border-hope-ink/10 shadow-xs">
+                    <div className="flex items-center gap-2 font-semibold text-xs text-hope-ink">
+                      <span className="grid size-5 place-items-center rounded-full bg-hope-blue text-white text-[10px] font-bold">
+                        {item.step}
+                      </span>
+                      <span>{item.title}</span>
+                    </div>
+                    <p className="mt-2 text-[11px] leading-relaxed text-hope-ink/70">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div className="mt-10 grid items-start gap-6 lg:grid-cols-12"><div className="lg:col-span-5"><WalletConnect midnight={midnight} /></div><div className="lg:col-span-7"><BallotBox midnight={midnight} /></div></div>
             {feedbackUrl && (
               <div className="mt-10 rounded-2xl border border-hope-ink/10 bg-hope-cream/60 p-5 sm:p-6">

@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Wallet, LogOut, AlertTriangle, ShieldCheck, Coins } from 'lucide-react';
+import { Wallet, LogOut, AlertTriangle, ShieldCheck, Coins, Terminal } from 'lucide-react';
+import { resolveProofServerUrl } from '../config/network';
+import { formatProofServerError } from '../utils/ballot-flow';
 import { type UseMidnightResult } from '../hooks/useMidnight';
 
 interface WalletConnectProps {
@@ -25,6 +27,9 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({ midnight }) => {
     if (!addr) return '';
     return `${addr.slice(0, 12)}...${addr.slice(-6)}`;
   };
+
+  const configuredProofServer = resolveProofServerUrl(import.meta.env.VITE_PROOF_SERVER_URL);
+  const proofDiagnostics = error ? formatProofServerError(error, configuredProofServer) : null;
 
   const spring = { type: 'spring', stiffness: 400, damping: 25 } as const;
 
@@ -85,10 +90,33 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({ midnight }) => {
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
-                className="flex items-start gap-2.5 rounded-lg bg-red-50 border border-red-200 p-3.5 text-xs text-red-700 leading-relaxed font-mono"
+                className="rounded-lg border p-3.5 text-xs leading-relaxed"
               >
-                <AlertTriangle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
-                <span>{error}</span>
+                {proofDiagnostics?.isProofServerError ? (
+                  <div className="flex items-start gap-2.5 text-red-800">
+                    <AlertTriangle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                    <div className="space-y-1.5 flex-1">
+                      <p className="font-bold text-red-900">Local Proof Server Offline</p>
+                      <p className="text-red-700">
+                        Cannot reach proof server at{' '}
+                        <code className="bg-red-100 px-1 py-0.5 rounded font-mono font-semibold">
+                          {proofDiagnostics.endpoint}
+                        </code>.
+                      </p>
+                      <div className="mt-2 rounded bg-red-100/90 p-2 text-red-950 flex items-center gap-2 font-mono text-[11px]">
+                        <Terminal className="w-3.5 h-3.5 shrink-0" />
+                        <span>
+                          Run: <strong>{proofDiagnostics.recoveryCommand}</strong>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-start gap-2.5 text-red-700 font-mono">
+                    <AlertTriangle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+                    <span>{error}</span>
+                  </div>
+                )}
               </motion.div>
             )}
 

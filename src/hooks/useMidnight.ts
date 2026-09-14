@@ -1,3 +1,4 @@
+import { formatProofServerError, executeRegistration } from '../utils/ballot-flow';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { type ConnectedAPI } from '@midnight-ntwrk/dapp-connector-api';
 import { type MidnightProviders, type WalletProvider, type MidnightProvider, type UnboundTransaction } from '@midnight-ntwrk/midnight-js-types';
@@ -41,6 +42,7 @@ export interface UseMidnightResult {
   txId: string | null;
   contractAddress: string | null;
   contractReady: boolean;
+  isRegistered: boolean;
   electionState: ElectionState | null;
   connect: () => Promise<void>;
   disconnect: () => Promise<void>;
@@ -171,6 +173,7 @@ export function useMidnight(): UseMidnightResult {
   const [walletApi, setWalletApi] = useState<ConnectedAPI | null>(null);
   const [providers, setProviders] = useState<MidnightProviders | null>(null);
   const [contract, setContract] = useState<any>(null);
+  const [isRegistered, setIsRegistered] = useState(false);
   const connectInFlight = useRef(false);
 
   const contractReady = Boolean(contract && contractAddressIsConfigured());
@@ -302,6 +305,8 @@ export function useMidnight(): UseMidnightResult {
 
       setProviders(customProviders);
       setConnected(true);
+      const regKey = `suffra_registered:${CONTRACT_ADDRESS}:${unshieldedInfo.unshieldedAddress}`;
+      setIsRegistered(localStorage.getItem(regKey) === 'true');
       localStorage.setItem('midnight_wallet_connected', 'true');
 
       if (!contractAddressIsConfigured()) {
@@ -345,6 +350,7 @@ export function useMidnight(): UseMidnightResult {
     setWalletApi(null);
     setProviders(null);
     setContract(null);
+    setIsRegistered(false);
     setElectionState(null);
     setDeploymentNotice(null);
     localStorage.removeItem('midnight_wallet_connected');
@@ -367,7 +373,7 @@ export function useMidnight(): UseMidnightResult {
     }
   };
 
-  const runTransaction = async (operation: () => Promise<any>) => {
+  const runTransaction = async (operation: () => Promise<any>): Promise<boolean> => {
     setError(null);
     setLoading(true);
     setTxId(null);
@@ -380,21 +386,33 @@ export function useMidnight(): UseMidnightResult {
       setTxId(resolvedTxHash || null);
       await refreshBalances();
       await refreshElection();
+      return true;
     } catch (err: any) {
-      const detailMsg = err?.cause?.message || err?.message || String(err);
-      setError(detailMsg);
+      const diagnostics = formatProofServerError(err, PROOF_SERVER_URL);
+      setError(diagnostics.formattedMessage);
+      return false;
     } finally {
       setLoading(false);
     }
   };
 
-  const registerVoter = async () => {
+  const registerVoter = async (): Promise<void> => {
     try {
-      ensureContract();
-      const secret = getVoterSecret(walletAddress || 'anonymous');
-      await runTransaction(() => contract.callTx.registerVoter(secret));
+      await executeRegistration({
+        ensureContract,
+        getSecret: () => getVoterSecret(walletAddress || 'anonymous'),
+        runTransaction,
+        callRegister: (secret) => contract.callTx.registerVoter(secret),
+        onSuccess: () => {
+          if (walletAddress) {
+            localStorage.setItem(`suffra_registered:${CONTRACT_ADDRESS}:${walletAddress}`, 'true');
+          }
+          setIsRegistered(true);
+        },
+      });
     } catch (err: any) {
-      setError(err.message || String(err));
+      const diagnostics = formatProofServerError(err, PROOF_SERVER_URL);
+      setError(diagnostics.formattedMessage);
     }
   };
 
@@ -405,7 +423,8 @@ export function useMidnight(): UseMidnightResult {
       const ballotSalt = randomBytes32();
       await runTransaction(() => contract.callTx.castVote(BigInt(candidateId), secret, ballotSalt));
     } catch (err: any) {
-      setError(err.message || String(err));
+      const diagnostics = formatProofServerError(err, PROOF_SERVER_URL);
+      setError(diagnostics.formattedMessage);
     }
   };
 
@@ -431,6 +450,7 @@ export function useMidnight(): UseMidnightResult {
     txId,
     contractAddress: CONTRACT_ADDRESS || null,
     contractReady,
+    isRegistered,
     electionState,
     connect,
     disconnect,

@@ -29,6 +29,7 @@ export default defineConfig({
     alias: {
       'isomorphic-ws': fileURLToPath(new URL('./src/shims/isomorphic-ws-browser.ts', import.meta.url)),
       'isomorphic-ws/browser.js': fileURLToPath(new URL('./src/shims/isomorphic-ws-browser.ts', import.meta.url)),
+      'object-inspect': fileURLToPath(new URL('./src/shims/object-inspect.ts', import.meta.url)),
     },
   },
   build: {
