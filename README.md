@@ -27,7 +27,6 @@ The public demo includes a fictional SK election preview and a live candidate-ba
 | **Product Proposal** | [PROPOSAL.md](PROPOSAL.md) |
 | **Usage Guide** | [docs/USAGE.md](docs/USAGE.md) |
 | **CI/CD Workflow** | [.github/workflows/ci.yml](.github/workflows/ci.yml) |
-| **Level Progress Tracker** | [docs/PROGRESS.md](docs/PROGRESS.md) |
 | **X Launch Posts** | [docs/X-LAUNCH-POSTS.md](docs/X-LAUNCH-POSTS.md) |
 | **Level 5 Feedback Log** | [docs/FEEDBACK.md](docs/FEEDBACK.md) |
 | **Level 5 User Evidence** | [USERS.md](USERS.md) |

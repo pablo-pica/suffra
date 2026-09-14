@@ -1,5 +1,8 @@
 # Progress Tracker — Suffra
 
+> [!NOTE]
+> **Deprecated.** This historical Level 1–4 tracker is no longer maintained and must not be used to determine submission readiness. For current Level 5 evidence, see [`README.md`](../README.md), [`USERS.md`](../USERS.md), and [`docs/FEEDBACK.md`](FEEDBACK.md).
+
 ## Current Status
 - **Active Level**: Level 4 — Waxing Gibbous (MVP Goes Live)
 - **Active Step**: Step 9 — final checklist and submission
