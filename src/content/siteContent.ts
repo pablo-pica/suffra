@@ -99,3 +99,11 @@ export const faqs = [
     answer: 'Transparent ledgers can expose useful clues when vote choices or per-choice counts change publicly. Midnight lets Suffra prove ballot rules while keeping the raw choice out of public state.',
   },
 ] as const;
+
+export const demoDisclosures = {
+  prototypeBadge: 'Preprod Prototype',
+  fictionalElectionNotice: 'Fictional demo election · Not an official election',
+  candidatesBadge: 'Fictional candidates',
+  ballotActionNote: 'Preprod prototype: cast a sealed ballot for demonstration only',
+  ballotAreaDisclosure: 'Preprod prototype: cast a sealed ballot for demonstration only',
+} as const;

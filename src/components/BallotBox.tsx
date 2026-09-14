@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Vote, Shield, RefreshCw, CheckCircle2, AlertTriangle, ExternalLink, UserPlus, Lock, Ban } from 'lucide-react';
+import { Vote, Shield, RefreshCw, CheckCircle2, AlertTriangle, ExternalLink, UserPlus, Lock, Ban, Sparkles } from 'lucide-react';
 import { explorerTransactionUrl, resolveDappNetwork } from '../config/network';
-import { demoElection, type DemoCandidateId } from '../content/siteContent';
+import { demoElection, demoDisclosures, type DemoCandidateId } from '../content/siteContent';
 import { type UseMidnightResult } from '../hooks/useMidnight';
 
 interface BallotBoxProps {
@@ -39,12 +39,25 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
 
   return (
     <div className="w-full rounded-3xl border border-hope-ink/10 bg-white p-6 shadow-card transition-shadow duration-200 hover:shadow-elevated">
+      {/* R3: Prominent Preprod Prototype and Fictional Demo Disclosures */}
+      <div className="mb-4 flex flex-wrap items-center gap-2">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-300 bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-900">
+          <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+          {demoDisclosures.prototypeBadge}
+        </span>
+        <span className="text-xs text-hope-ink/65 font-medium">
+          {demoDisclosures.fictionalElectionNotice}
+        </span>
+      </div>
+
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-semibold font-headings text-hope-ink flex items-center gap-2">
           <Vote className="w-5 h-5 text-hope-red" />
           <span>
             <span className="block">Live Candidate Ballot</span>
-            <span className="mt-1 block text-xs font-normal text-hope-ink/55">{demoElection.title} · {demoElection.office}</span>
+            <span className="mt-1 block text-xs font-normal text-hope-ink/55">
+              {demoElection.title} · {demoElection.office}
+            </span>
           </span>
         </h2>
         {connected && (
@@ -64,7 +77,7 @@ export const BallotBox: React.FC<BallotBoxProps> = ({ midnight }) => {
           <Shield className="w-8 h-8 text-slate-300 mb-3" />
           <p className="text-sm font-medium text-slate-600 mb-1">Wallet Connection Required</p>
           <p className="text-xs text-slate-400 max-w-[300px]">
-            Connect Lace to register a local voter secret and cast a sealed Midnight ballot.
+            Connect Lace to register a local voter secret and cast a sealed Midnight ballot on Preprod.
           </p>
         </div>
       ) : (

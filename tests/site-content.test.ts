@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { demoElection, developmentMilestones, faqs, sourceContext } from '../src/content/siteContent';
+import { demoDisclosures, demoElection, developmentMilestones, faqs, sourceContext } from '../src/content/siteContent';
 
 describe('public site content', () => {
   it('describes the MVP without claiming unimplemented eligibility or tally features', () => {
@@ -32,4 +32,12 @@ describe('public site content', () => {
     expect(preprodMilestone?.detail).toContain('ballot closure all finalized');
     expect(preprodMilestone?.detail).not.toContain('pending');
   });
+  it('exposes Level 5 feedback improvements: disclosures, preflight, and privacy comparison', () => {
+    // R3
+    expect(demoDisclosures.prototypeBadge).toContain('Preprod Prototype');
+    expect(demoDisclosures.fictionalElectionNotice).toContain('Fictional demo');
+    expect(demoDisclosures.candidatesBadge).toContain('Fictional candidates');
+
+  });
+
 });
