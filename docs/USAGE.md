@@ -20,10 +20,10 @@ The real privacy test below the preview uses Candidate-ballot V2 on Preprod. It 
 2. Open the Suffra dApp.
 3. Connect Lace Wallet.
 4. Confirm Lace is on Midnight Preprod, the network configured through `VITE_MIDNIGHT_NETWORK` for the Level 4 deployment.
-5. Select **Register Local Voter Secret**. The local proof server constructs the proof; this keeps proof inputs on your machine.
-6. Approve the transaction in Lace when it appears.
-7. Choose one fictional candidate in the live candidate ballot.
-8. Select **Cast Sealed Candidate Ballot** and approve in Lace.
+5. Complete **Step 1: Register Local Voter Secret** (required before voting). The local proof server constructs the zero-knowledge proof locally on your machine.
+6. Approve the registration transaction in Lace when prompted.
+7. Under **Step 2: Choose Candidate & Cast Ballot**, select one fictional candidate.
+8. Select **Cast Sealed Vote** (held until Step 1 registration is confirmed) and approve the transaction in Lace.
 9. Wait for the transaction ID and refreshed ballot box counts.
 10. Click **Give feedback** in the dApp (or visit the public feedback form) to share your testing experience. **Warning:** Never submit private voting inputs (such as your local voter secret, candidate choice, ballot salt, or transaction ID) in the feedback form.
 
