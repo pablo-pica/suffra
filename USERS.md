@@ -13,59 +13,60 @@ Collection status: **Collection concluded on 2026-09-13 with 51 consented record
 - Only self-chosen aliases and public wallet addresses are published; real names and private voting data are never requested or stored.
 - Submitted addresses will be confirmed as Midnight Preprod wallets before inclusion.
 - A submitted wallet address confirms user onboarding and testing participation; it does not claim a completed vote or reveal vote choices.
+- Transaction hashes verify active Preprod transaction execution without exposing private voter secrets, candidate selections, or ballot salts.
 
 ## Consented User Log
 
-| Midnight Preprod Wallet Address | Date |
-| :--- | :--- |
-| mn_addr_preprod1cy6rp24ch67njppwjesmnz7qczp9cwl0lq6um9agg304e0mdp0yq7hk28u | 2026-09-03 |
-| mn_addr_preprod1dwtyyz5y34xjkndzt57a2h4v33hzn7sxg33dju9kqwgn4lknhasqklwsrl | 2026-09-03 |
-| mn_addr_preprod154dj6zfyrsz2qzuhv6dezwjrh5r3clc8a2pegspu5wqzajmr7pfs0kuwvh | 2026-09-03 |
-| mn_addr_preprod15yr7rus66tc3q0jcvq5dwx507s96jdv9lyr50c8xmknw3wnxyrrsvz873n | 2026-09-03 |
-| mn_addr_preprod1tm9sphn24mpprg90wl06zj8z0w2t3rs0wy6gttm2mem9wy9l6amsqrd358 | 2026-09-03 |
-| mn_addr_preprod1prgjc0andpgxwsapw62atrmnnxzlextsutqpwqlm7ff3dlc7akdqxt059n | 2026-09-04 |
-| mn_addr_preprod18rq2xug6jz8m6f0p4nse7up3rlec34fdrp0u96tdhzdyv960rh2slrpu9q | 2026-09-04 |
-| mn_addr_preprod1cqfp5nfty9e4njxlh4wcvxe6gfy9kdng30r42htqjarn8zxd8ctsq37skg | 2026-09-04 |
-| mn_addr_preprod1nspa4ru6wg406wsec4jezanaer0jxuva5fq7l5x8f0gwxd7h4xwq86ate7 | 2026-09-04 |
-| mn_addr_preprod1qcecjal444cv793q0j6g2w2r2vvj9a3e4agt4d5ppl5xanfanf4quln42s | 2026-09-04 |
-| mn_addr_preprod1hmens3rec0xee2vnw7v38p3h4kqras2matcmfscptg4acsjd4uassgc6xy | 2026-09-05 |
-| mn_addr_preprod15xq8cq2ka4tyywuq4qr03nvx846lfkx7gs87c0egewd54a8lh24s2hvmey | 2026-09-05 |
-| mn_addr_preprod1nrrtzhuryssesw7jq5jwxx8s2nzt2day5jrmn2qmpz2m83aptr7qgv9d5n | 2026-09-05 |
-| mn_addr_preprod1h2g8jxu4ue55ff6z5lfj5p4hh5hd78tar8nn7q4j9mv326ddpgesa594vc | 2026-09-05 |
-| mn_addr_preprod1eh3zwudemjzyazxa57v5ulg0ceq3c9jxz4jwx0gxj2gffwrsajgs2frzr4 | 2026-09-05 |
-| mn_addr_preprod12q6asw8k7jw7q5k7dwmr7kd0jqn6mcrmrstlwct48mpg2drcajmsgsarzq | 2026-09-06 |
-| mn_addr_preprod12j9evttc07unemfm7upa766rtny75u932m9nawg0wdhygg3xgr9q3hkvhx | 2026-09-06 |
-| mn_addr_preprod1gpddzdn8varddux632h0rcc0qaw6jauxtl45p0me089fsjnqra9szqfcvk | 2026-09-06 |
-| mn_addr_preprod1kd8qx4mvcrku4xd3kxg0akzp0w2aluqgcy7d89arvvjtnreyghkszevak3 | 2026-09-06 |
-| mn_addr_preprod1ugh39rpf820fp3mzun3zgzw37qazu8qkesatlceeqqguh2ss0ccqgyf3j8 | 2026-09-06 |
-| mn_addr_preprod1sruhfk4jehcvux3gzscptn64ns0492unhr6pn8985vqaq865rzvqhyqa5m | 2026-09-07 |
-| mn_addr_preprod18slulcvjm3lykm0ncunhafmmym0ttztxwwxrcwfpxg6dn8wvalasscqkhl | 2026-09-07 |
-| mn_addr_preprod12eueda4ekalzgntm4j5rq80f8830r2yy6hp2a4ru56z2agthpglsapqacm | 2026-09-07 |
-| mn_addr_preprod1u9d5ydmv76lazqhkyf5nw0dx009rljx0w0alqc7c8faumrn0zays26pzqt | 2026-09-07 |
-| mn_addr_preprod16e466ef9fmqsz5cvtp3p5705ak6fp00djdc7uxw0080ey5f0qetqsuawd3 | 2026-09-07 |
-| mn_addr_preprod14qd85sypp5z27fqwfuvlzxegh6wahg46fezd3829mhak4289zdqs5487my | 2026-09-08 |
-| mn_addr_preprod1camgd54m385jyxmqeh4pky6mkutxah4te87cs8dk9dyz6h6tqelscupnl4 | 2026-09-08 |
-| mn_addr_preprod1we7022skkddmeg2chezgtglj65e9580kwlhplwwkqmrq05zuvzps6w3j5m | 2026-09-08 |
-| mn_addr_preprod1lqjlsdc8h5wqewq5ups48q3xqcmf4yayuevs0p4zrmw5y3jjul2shz39gl | 2026-09-08 |
-| mn_addr_preprod183x72a2seuskpjkanxx557j6jvr23umnwjdg5l538chah8e7yqvq9ghezk | 2026-09-08 |
-| mn_addr_preprod1zz2heqczyjmf0qsugkarzsj2psp0fuyexkdhr49rayk5068wlfhs3exwa2 | 2026-09-09 |
-| mn_addr_preprod174kd0w9405vmvdl3vn0evde6sxawcjr924k4ud2pcjrm95qt0scqx6a53j | 2026-09-09 |
-| mn_addr_preprod187upmer8mru3kmfrmfshj6r5n66jywcuqp494akw6ezprksp6e8qme9qaz | 2026-09-09 |
-| mn_addr_preprod1x7skfhluxz7dllspzeylz9jqxxm2zdempn7nahj825h9r0vvq2tq3znl58 | 2026-09-09 |
-| mn_addr_preprod1ecdnf4uv4xhx9x54wehme0n59xj309ck6up68w8e8kpal6qnuhaqgjtasg | 2026-09-09 |
-| mn_addr_preprod1ksx6skuenqx2u2nefhxlks4pnh9q4dms5jukhev9jhupgz3falgqgy9a09 | 2026-09-10 |
-| mn_addr_preprod1lmckhswvwqravgxcwcs0hzkv6q0y6jqwp07cxjvryw6w8pcxqelsfpk0g6 | 2026-09-10 |
-| mn_addr_preprod14m8yx5hvej0q79l09909pwlvk8jnk5gjl6pu7qe09aahwlcl0las3s33mu | 2026-09-10 |
-| mn_addr_preprod1ndepm2he6a47t50lp0gc73wstfhu42efk9y2fcg7hgg96nyyq4ystkvcs0 | 2026-09-10 |
-| mn_addr_preprod1kg9nsjd6ecgt62zx9rakctkt20eejms8a6x2r782zprttjzqwggsdg8rkt | 2026-09-10 |
-| mn_addr_preprod1dxca4hudgkck9dfxh99tyrrjtf90kfq2nwylfeteaa7y8wtklj3s6nr33v | 2026-09-11 |
-| mn_addr_preprod18tyehxsv0t3q4p2takal0t4az0vj76cxdu7rw27jne92wnal4v8qyfa5qw | 2026-09-11 |
-| mn_addr_preprod18ahg74qdfenh2s6kmpgxwu8drnaafyw0kvawwrnuaq0gvgqavs7s3jal49 | 2026-09-11 |
-| mn_addr_preprod15fvq8cmd2z2ulr4mzk2gtylve2zr4hcvyt707g90s4fx460gczxs6wju3d | 2026-09-11 |
-| mn_addr_preprod17g3k0nm7vyc2ra8zzllhpy9k3276r76e7prdnlscvewzde3kffzqg6rkqk | 2026-09-11 |
-| mn_addr_preprod12flrypwlpq587xjgaaz99rphd59p92jfsk20lxqzmctya7t2whlsjknqx8 | 2026-09-12 |
-| mn_addr_preprod15dfsw5rr395934zteum4gu7tjeapakdshtv3smcnqeghyh25tuzqlwnf45 | 2026-09-12 |
-| mn_addr_preprod1xp59qgmw30nx35kt2e4cutkpah4sdp449r0g8ut5stcq3yp2f0ysxhlt2x | 2026-09-12 |
-| mn_addr_preprod18vz26jt6hjznqc0jc99cxzzspckuczued4x8da3nlqm2257rqcgs73z09h | 2026-09-12 |
-| mn_addr_preprod192h0h29y0gcka76us84m3ksg7gh7r86cxj9wuwgn30j9wxvk7tuqu5krcp | 2026-09-12 |
-| mn_addr_preprod1r9wvkxsm70e82rm79cg8e9579qme0sn9lzfe80tdyq6a26rxr22s3nt7x0 | 2026-09-13 |
+| Midnight Preprod Wallet Address | Suffra Preprod transaction hash | Date |
+| :--- | :--- | :--- |
+| mn_addr_preprod1cy6rp24ch67njppwjesmnz7qczp9cwl0lq6um9agg304e0mdp0yq7hk28u | 06d0d8097efaf74b8088304ff53174c43b839537b9939623caf6d70df1f04d5a | 2026-09-03 |
+| mn_addr_preprod1dwtyyz5y34xjkndzt57a2h4v33hzn7sxg33dju9kqwgn4lknhasqklwsrl | 0a3804d99114ee22f48793c5d0bb92b04da1164f78c89e5d7442dad842656c55 | 2026-09-03 |
+| mn_addr_preprod154dj6zfyrsz2qzuhv6dezwjrh5r3clc8a2pegspu5wqzajmr7pfs0kuwvh | 0d14203a1622de609123e1045d1d1ba679dc26f1d2ff9ce9910aa8138c435364 | 2026-09-03 |
+| mn_addr_preprod15yr7rus66tc3q0jcvq5dwx507s96jdv9lyr50c8xmknw3wnxyrrsvz873n | 10bbe8adfad60c9e1964546741c79cbcc26c96d6697b4fdb95449ebd911e3742 | 2026-09-03 |
+| mn_addr_preprod1tm9sphn24mpprg90wl06zj8z0w2t3rs0wy6gttm2mem9wy9l6amsqrd358 | 175840be6f64a88bc29d63a29390e42e70e741cfcab6aae5bc63fe5fd8f9463b | 2026-09-03 |
+| mn_addr_preprod1prgjc0andpgxwsapw62atrmnnxzlextsutqpwqlm7ff3dlc7akdqxt059n | 2280c1ae953d794ce67a7f09d9a2ac2cc3b3027cc5c6dd68133173eed843d15a | 2026-09-04 |
+| mn_addr_preprod18rq2xug6jz8m6f0p4nse7up3rlec34fdrp0u96tdhzdyv960rh2slrpu9q | 29a7ab256bcf5b2250cd8ce37131a0fa7e1bb0f0b9d450612390417edbb7b205 | 2026-09-04 |
+| mn_addr_preprod1cqfp5nfty9e4njxlh4wcvxe6gfy9kdng30r42htqjarn8zxd8ctsq37skg | 2b51c570f3a854ee1b3fc86a640b19ddf1ee833f3b67227bfde2c22da8a405a5 | 2026-09-04 |
+| mn_addr_preprod1nspa4ru6wg406wsec4jezanaer0jxuva5fq7l5x8f0gwxd7h4xwq86ate7 | 2ee30c863b3ee5ced3467e8c2f80dd39d939c13c1614d34b6373352290c8e32a | 2026-09-04 |
+| mn_addr_preprod1qcecjal444cv793q0j6g2w2r2vvj9a3e4agt4d5ppl5xanfanf4quln42s | 2ff98aa10eaae85b41f311e3421634ad808fc04688a8e942551f34d0d0cb3d3f | 2026-09-04 |
+| mn_addr_preprod1hmens3rec0xee2vnw7v38p3h4kqras2matcmfscptg4acsjd4uassgc6xy | 32250c3d63d765db769547935c7836cfb7419a051caafb2a47dbe8ef1c363df7 | 2026-09-05 |
+| mn_addr_preprod15xq8cq2ka4tyywuq4qr03nvx846lfkx7gs87c0egewd54a8lh24s2hvmey | 3476259f59f3dad7cdab2d1c04b6ad616eb21930e64efb4b9a52a8e1f968ab05 | 2026-09-05 |
+| mn_addr_preprod1nrrtzhuryssesw7jq5jwxx8s2nzt2day5jrmn2qmpz2m83aptr7qgv9d5n | 36bdfd420d3214f6aa624b432726646fd209194bffcf037f3786a7fb14fd166d | 2026-09-05 |
+| mn_addr_preprod1h2g8jxu4ue55ff6z5lfj5p4hh5hd78tar8nn7q4j9mv326ddpgesa594vc | 38f28d8c6c1d9edf6456822e41bee9347f1ec15a379772d6a9fe7b366f283946 | 2026-09-05 |
+| mn_addr_preprod1eh3zwudemjzyazxa57v5ulg0ceq3c9jxz4jwx0gxj2gffwrsajgs2frzr4 | 3e9199388cee75e77b2d54eed9f0873b02b860b92e530ad9d1f5a4c4a6e8d128 | 2026-09-05 |
+| mn_addr_preprod12q6asw8k7jw7q5k7dwmr7kd0jqn6mcrmrstlwct48mpg2drcajmsgsarzq | 43aaf033fa688bfcd4bdf398430791c0add5ff47d24d6dbcf744e565fdb8ccaa | 2026-09-06 |
+| mn_addr_preprod12j9evttc07unemfm7upa766rtny75u932m9nawg0wdhygg3xgr9q3hkvhx | 4a4ab5ef663c9d6c7b40c2915b8686e92fc2ac7869ddf8dacdadbc2fc1e850c2 | 2026-09-06 |
+| mn_addr_preprod1gpddzdn8varddux632h0rcc0qaw6jauxtl45p0me089fsjnqra9szqfcvk | 4b210d36a470c76b9cab7dc1ad5db970a1f54bd3b6b22d93480443ff3c9e1fab | 2026-09-06 |
+| mn_addr_preprod1kd8qx4mvcrku4xd3kxg0akzp0w2aluqgcy7d89arvvjtnreyghkszevak3 | 4dae763f7ce5075d437ea7bbd6d781b4f4549fba0f65003236644e565d31a4db | 2026-09-06 |
+| mn_addr_preprod1ugh39rpf820fp3mzun3zgzw37qazu8qkesatlceeqqguh2ss0ccqgyf3j8 | 5796416a715afaef4712f27767dc5bfaa6548986da9aef284158e9584b4efff5 | 2026-09-06 |
+| mn_addr_preprod1sruhfk4jehcvux3gzscptn64ns0492unhr6pn8985vqaq865rzvqhyqa5m | 5d3c1578036a92ba56b35e429711df5f3f4b2b07f0c48c599c0f110568d020b9 | 2026-09-07 |
+| mn_addr_preprod18slulcvjm3lykm0ncunhafmmym0ttztxwwxrcwfpxg6dn8wvalasscqkhl | 5e536b0c7f0a9860a243db18a8ef5066dee588815abb81326fdfd2ebe7e13b42 | 2026-09-07 |
+| mn_addr_preprod12eueda4ekalzgntm4j5rq80f8830r2yy6hp2a4ru56z2agthpglsapqacm | 62e5449308e727fe8e58807351001358fa17cd1dd161efbec8c2986d905bc766 | 2026-09-07 |
+| mn_addr_preprod1u9d5ydmv76lazqhkyf5nw0dx009rljx0w0alqc7c8faumrn0zays26pzqt | 71784e3f78fd55474600c7319ea9c6a9a3b0d3bff61580b0a96f5e5ffdb2d254 | 2026-09-07 |
+| mn_addr_preprod16e466ef9fmqsz5cvtp3p5705ak6fp00djdc7uxw0080ey5f0qetqsuawd3 | 73a6cacf54b7ce41c8f4edec15096f0d5cd7bdc6bda6404015688df258840575 | 2026-09-07 |
+| mn_addr_preprod14qd85sypp5z27fqwfuvlzxegh6wahg46fezd3829mhak4289zdqs5487my | 78def84be19a5d541cc369d70c7598c4cc2531bf0abe1e08dbb03ea4e68d077b | 2026-09-08 |
+| mn_addr_preprod1camgd54m385jyxmqeh4pky6mkutxah4te87cs8dk9dyz6h6tqelscupnl4 | 7c0c4ca066a746c0639ce1bd25ea2d982479311c70ee449ecc1a8859ebc3b5fa | 2026-09-08 |
+| mn_addr_preprod1we7022skkddmeg2chezgtglj65e9580kwlhplwwkqmrq05zuvzps6w3j5m | 89c1c27506400a276afad639e58a9949344f10e1a22aa82d3797ae4489fd98ea | 2026-09-08 |
+| mn_addr_preprod1lqjlsdc8h5wqewq5ups48q3xqcmf4yayuevs0p4zrmw5y3jjul2shz39gl | 9120d75a736f067ee6c9c22877e577500956396bb968d93f22f5f74f36b913cd | 2026-09-08 |
+| mn_addr_preprod183x72a2seuskpjkanxx557j6jvr23umnwjdg5l538chah8e7yqvq9ghezk | 953cb3ec8c1c4f584e8d70179a238818d1d7328b56c10931808f55b86487b808 | 2026-09-08 |
+| mn_addr_preprod1zz2heqczyjmf0qsugkarzsj2psp0fuyexkdhr49rayk5068wlfhs3exwa2 | 96e3f083d9f0ebf7029cdd747ecc54f4b530d7e89e3958b82fa5c6e9a63dc813 | 2026-09-09 |
+| mn_addr_preprod174kd0w9405vmvdl3vn0evde6sxawcjr924k4ud2pcjrm95qt0scqx6a53j | 9c0031439d23b6614018104dfeef27d39905a674008d75c09fdbec171d39802a | 2026-09-09 |
+| mn_addr_preprod187upmer8mru3kmfrmfshj6r5n66jywcuqp494akw6ezprksp6e8qme9qaz | 9e0724d6f3f814821779c0cd675a0d6ce57143ea8985cbd076a253e020abdc00 | 2026-09-09 |
+| mn_addr_preprod1x7skfhluxz7dllspzeylz9jqxxm2zdempn7nahj825h9r0vvq2tq3znl58 | 9ebe6e5c962330f584c251b0dc6d7376afff5caae6e651145918212a9af2f3ae | 2026-09-09 |
+| mn_addr_preprod1ecdnf4uv4xhx9x54wehme0n59xj309ck6up68w8e8kpal6qnuhaqgjtasg | a2b388114f55f51a638409078f0f25b58359b458392127e89ad8620f3b739aa9 | 2026-09-09 |
+| mn_addr_preprod1ksx6skuenqx2u2nefhxlks4pnh9q4dms5jukhev9jhupgz3falgqgy9a09 | a2efa9a04f0a1fb683aef232308628eb3d3b6f9bd08e4d439ed72a28136d8ebf | 2026-09-10 |
+| mn_addr_preprod1lmckhswvwqravgxcwcs0hzkv6q0y6jqwp07cxjvryw6w8pcxqelsfpk0g6 | a57af4a266c3b7e223dc0fa1de34247926b46fe78d8474a3da91551a39bdb34e | 2026-09-10 |
+| mn_addr_preprod14m8yx5hvej0q79l09909pwlvk8jnk5gjl6pu7qe09aahwlcl0las3s33mu | a68bc34ce88fbda9afd05b915afd81aeb3b32176cbb45c91f87f7ae81e778798 | 2026-09-10 |
+| mn_addr_preprod1ndepm2he6a47t50lp0gc73wstfhu42efk9y2fcg7hgg96nyyq4ystkvcs0 | a6a4e47c452e7a138190d7f9573a54fc0c74482fd11ac374f5defcbc7cd8d85a | 2026-09-10 |
+| mn_addr_preprod1kg9nsjd6ecgt62zx9rakctkt20eejms8a6x2r782zprttjzqwggsdg8rkt | ab19312295eb07c4b770b3558f77af4f73d557949414f3b2f15fd5fd5aff3ca1 | 2026-09-10 |
+| mn_addr_preprod1dxca4hudgkck9dfxh99tyrrjtf90kfq2nwylfeteaa7y8wtklj3s6nr33v | adcf47a96bf3b08f025525a098e502926587e070300d29fc838009e15791fde8 | 2026-09-11 |
+| mn_addr_preprod18tyehxsv0t3q4p2takal0t4az0vj76cxdu7rw27jne92wnal4v8qyfa5qw | ade450510fccc07daecb68c4d2bd06096ebd35a6eba13a11ea5f0c56ac9aec3d | 2026-09-11 |
+| mn_addr_preprod18ahg74qdfenh2s6kmpgxwu8drnaafyw0kvawwrnuaq0gvgqavs7s3jal49 | b0f53ab73d5efd3d86702dc0aa70f362d11bbf15df4f9f8c1e68bf223b98bf39 | 2026-09-11 |
+| mn_addr_preprod15fvq8cmd2z2ulr4mzk2gtylve2zr4hcvyt707g90s4fx460gczxs6wju3d | b129103e191c0c51856e6951cec19c149f1e98674db5c49cb48ab8a315c4c75b | 2026-09-11 |
+| mn_addr_preprod17g3k0nm7vyc2ra8zzllhpy9k3276r76e7prdnlscvewzde3kffzqg6rkqk | b42b64b1acfe4066e4a1082bba6191cf2229ede66f2775669c6d6a7de2545076 | 2026-09-11 |
+| mn_addr_preprod12flrypwlpq587xjgaaz99rphd59p92jfsk20lxqzmctya7t2whlsjknqx8 | c230c46b452b7fdb851e4b63121151c1d596ac6249f87a6c31ed3e73cb7e9321 | 2026-09-12 |
+| mn_addr_preprod15dfsw5rr395934zteum4gu7tjeapakdshtv3smcnqeghyh25tuzqlwnf45 | ce91e2ef09b8217f9cc0c0f81c831aa39561f2fea1e7e6bd8b82fd9f85fe65fa | 2026-09-12 |
+| mn_addr_preprod1xp59qgmw30nx35kt2e4cutkpah4sdp449r0g8ut5stcq3yp2f0ysxhlt2x | d942cce6cedd3fb29aa03a4945b5c670d1b66342e977e86978765934c648796d | 2026-09-12 |
+| mn_addr_preprod18vz26jt6hjznqc0jc99cxzzspckuczued4x8da3nlqm2257rqcgs73z09h | dd09a369c1201ed50f238c3e3c0b9d9f1388a75460bd879786a8821c3b21d4bd | 2026-09-12 |
+| mn_addr_preprod192h0h29y0gcka76us84m3ksg7gh7r86cxj9wuwgn30j9wxvk7tuqu5krcp | e198f8b2187c195c5d71598eacc0c9c9a28defaed9f629b6c54cb8c1e44648e8 | 2026-09-12 |
+| mn_addr_preprod1r9wvkxsm70e82rm79cg8e9579qme0sn9lzfe80tdyq6a26rxr22s3nt7x0 | e550063e258db0e8611782cce029b79478ee13f3aa879840ba2260fcb0c9a768 | 2026-09-13 |
