@@ -48,10 +48,6 @@ This section summarizes the key evidence for Level 5 submission requirements, in
   - Detailed Synthesis: [docs/FEEDBACK.md](docs/FEEDBACK.md)
 - **Public Git History:** [github.com/pablo-pica/suffra/commits](https://github.com/pablo-pica/suffra/commits) (96 commits, well exceeding the 20+ requirement).
 
-> [!NOTE]
-> **Data Minimization & Evidence Authorization Note:**
-> In strict accordance with user privacy and participant consent, no real names, email addresses, or private voting choices were requested or collected. Testers are identified exclusively by their self-chosen `Consented alias` alongside their Midnight Preprod wallet address and Preprod transaction hash. Submitted transaction hashes demonstrate active dApp execution on Midnight Preprod; they verify on-chain participation without exposing private voter secrets, candidate selections, or ballot salts.
-
 ### 📣 Published Product Updates (X / Twitter)
 
 Suffra maintains 6 published posts on its official X profile ([@SuffraPrivVote](https://x.com/SuffraPrivVote)): three initial MVP launch posts from August 2026, and three fresh product updates published in September 2026 for Level 5 covering public prototype progress, privacy architecture, and tester feedback improvements:
