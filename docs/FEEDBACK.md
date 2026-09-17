@@ -5,17 +5,18 @@
 Feedback is collected through a minimal, privacy-preserving Google Form:
 `https://forms.gle/QSgaRPbEE1W6UJST9`
 
-The form contains only:
+The form contains the following fields:
 
 - Self-chosen alias (never real names or identifying handles)
 - Public Midnight Preprod wallet address (required)
+- Preprod Transaction Hash (required)
 - Explicit consent question (required): *"I consent to publishing this alias and public wallet address in Suffra's public GitHub project evidence. I also consent to anonymous summaries of my feedback. I will not submit private voting information."* (Only "Yes" responses qualify for public evidence)
 - 1–5 clarity rating (*"Suffra clearly explained what it does."*)
 - 1–5 ease rating (*"Suffra was easy to understand and try."*)
 - 1–5 privacy rating (*"I feel confident my ballot choice stays private."*)
 - Open response (*"What was confusing, broken, or most worth improving?"*)
 
-The form does **not** collect email addresses, voter secrets, candidate selections, ballot salts, transaction IDs, real names, contact details, or screenshots. Google sign-in is disabled, and the underlying response sheet remains private to the maintainer. Only consented responses are summarized and published to this repository.
+The form does **not** collect email addresses, voter secrets, candidate selections, ballot salts, real names, contact details, seed phrases, private keys, or screenshots. Google sign-in is disabled. In accordance with Level 5 requirements, consented responses have been exported to a public spreadsheet ([Google Sheets Export](https://docs.google.com/spreadsheets/d/18JxtA0tSGjJ-atJAAvidaJwMlgxYji4VMvruaZOKclc/edit?usp=sharing)). Only consented responses are included in repository evidence.
 
 > [!IMPORTANT]
 > **Maintainer Note on Level 6 Form Reuse:**
@@ -96,22 +97,22 @@ Collection status: **Concluded on 2026-09-13 with 51 consented submissions.**
 Feedback from the 51 Preprod testers clustered into four clear, recurring themes:
 
 1. **Demo &amp; Fictional Candidate Disclosures (Clarity &amp; Decision Context):**
-ultiple testers asked whether the San Isidro Youth Council election was real, whether their vote carried real-world weight, or suggested adding prominent "DEMO" and "fictional candidates" badges near the decision points.
+Multiple testers asked whether the San Isidro Youth Council election was real, whether their vote carried real-world weight, or suggested adding prominent "DEMO" and "fictional candidates" badges near the decision points.
 2. **First-Use Friction &amp; Proof Server Guidance (Ease of Use):**
-esters noted confusion regarding the local proof server prerequisite, recommended a concise preflight checklist covering Lace, Preprod, and the proof server, and requested specific error messages pointing to `127.0.0.1:6300` with the exact recovery command (`npm run proof-server:start`).
+Testers noted confusion regarding the local proof server prerequisite, recommended a concise preflight checklist covering Lace, Preprod, and the proof server, and requested specific error messages pointing to `127.0.0.1:6300` with the exact recovery command (`npm run proof-server:start`).
 3. **Register-then-Vote Sequence Legibility (Workflow &amp; Safety):**
-esters found the initial button layout confusing or wondered whether to register or vote first. Several users requested numbering the steps and disabling or holding the vote action until local registration is confirmed.
+Testers found the initial button layout confusing or wondered whether to register or vote first. Several users requested numbering the steps and disabling or holding the vote action until local registration is confirmed.
 4. **Privacy Comprehension (Confidence &amp; Public vs. Private Transparency):**
-hile privacy confidence was generally high (3.94 mean), testers expressed a desire for a compact comparison table right beside the ballot action showing exactly what is stored on the public ledger versus what stays private off-chain.
+While privacy confidence was generally high (3.94 mean), testers expressed a desire for a compact comparison table right beside the ballot action showing exactly what is stored on the public ledger versus what stays private off-chain.
 
 ## Changes
 
 
 | Change                                                                   | Reason                                                                                                                                                             | Commit                                                                |
 | :------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------- |
-| **Prominent Preprod Prototype &amp; Fictional Demo Disclosures**         | Testers requested clear disclosures in the ballot area clarifying that this is a Preprod test with fictional candidates, not an official election.                 | feat: add prominent Preprod prototype and fictional demo disclosures  |
-| **First-Use Preflight Checklist &amp; Proof Server Guidance**            | Testers reported setup friction with the local proof server; added visible 3-point preflight and specific error diagnostics citing endpoint and recovery commands. | feat: add first-use checklist and proof server guidance               |
-| **Step-by-Step Register &amp; Vote Flow with Local Registration Gating** | Testers requested numbered steps and preventing vote attempts before registering local voter secret.                                                               | feat: add numbered registration flow and gate voting until registered |
-| **Compact Public vs. Private Ledger Comparison Card**                    | Testers requested an adjacent comparison of what is published on-chain vs kept private off-chain.                                                                  | feat: add public versus private ledger comparison card                |
+| **Prominent Preprod Prototype &amp; Fictional Demo Disclosures**         | Testers requested clear disclosures in the ballot area clarifying that this is a Preprod test with fictional candidates, not an official election.                 | [`a7d0079`](https://github.com/pablo-pica/suffra/commit/a7d00798e27cb5d441474a7a41820ad53a09af45) `feat: clarify Preprod demo disclosures` |
+| **First-Use Preflight Checklist &amp; Proof Server Guidance**            | Testers reported setup friction with the local proof server; added visible 3-point preflight and specific error diagnostics citing endpoint and recovery commands. | [`96a811d`](https://github.com/pablo-pica/suffra/commit/96a811df2c6eafa28bf29d9389559c50154b737b) `feat: guide first-use proof setup` |
+| **Step-by-Step Register &amp; Vote Flow with Local Registration Gating** | Testers requested numbered steps and preventing vote attempts before registering local voter secret.                                                               | [`829d878`](https://github.com/pablo-pica/suffra/commit/829d878eaf265e9b876a6a4458613a1c568f566a) `feat: gate voting on local registration` |
+| **Compact Public vs. Private Ledger Comparison Card**                    | Testers requested an adjacent comparison of what is published on-chain vs kept private off-chain.                                                                  | [`b3b2b84`](https://github.com/pablo-pica/suffra/commit/b3b2b8488e6f4176e654ace5140b5a7d7913260b) `feat: explain public and private ballot data` |
 
 
