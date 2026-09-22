@@ -116,26 +116,28 @@ Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 - [x] Step 8 — X launch posts/profile: profile linked; three launch posts documented in `docs/X-LAUNCH-POSTS.md` and published on X (maintainer confirmation)
 - [x] Step 9 — final checklist: evidence and checker audit complete; public Rise In submission remains a maintainer action
 
-### Submission Checklist
+> **Historical Record (Level 4 Snapshot):** The checklist and verification table below document the Level 4 milestone achieved on August 20, 2026. For the September 2026 Level 5 review redeployment, see [`README.md`](../README.md) and [`docs/DEPLOYMENT.md`](DEPLOYMENT.md) for active contract `b5d98072ed399fecdd49ef080d0556a3f46f358cc39486826ba1cb65b182841e`.
+
+### Submission Checklist (Level 4 Historical Baseline)
 - [x] Public GitHub repository with full documentation
 - [x] Live Preprod demo link
-- [x] Verified Suffra Preprod contract address: current open Candidate-ballot V2 `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` (deployed 2026-08-20); closed V2 evidence instance and V1 remain documented
+- [x] Verified Suffra Preprod contract address (Level 4 baseline): Candidate-ballot V2 `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` (deployed 2026-08-20; closed V2 evidence instance and V1 remain documented; redeployed September 2026 as `b5d98072ed399fecdd49ef080d0556a3f46f358cc39486826ba1cb65b182841e`)
 - [x] CI/CD badge or workflow file with passing runs
 - [x] Link to product X profile: https://x.com/SuffraPrivVote
 - [x] Demo video of the MVP: https://youtu.be/lxYipwonU5Y- (maintainer-confirmed Level 4 recording)
 - [x] Minimum 15 meaningful commits
 
-### Verification Record
+### Verification Record (Level 4 Historical Baseline)
 
 | Blocker | Verified State |
 |:--|:--|
-| Suffra Preprod deployment | Open Candidate-ballot V2 `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` deployed 2026-08-20; prior V2 instance was Lace-smoke-tested with registration, sealed ballot, and closure transactions recorded in README |
+| Suffra Preprod deployment | Historical Level 4 snapshot: Candidate-ballot V2 `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` deployed 2026-08-20; prior V2 instance was Lace-smoke-tested with registration, sealed ballot, and closure transactions recorded in README (redeployed September 2026 as `b5d98072ed399fecdd49ef080d0556a3f46f358cc39486826ba1cb65b182841e`) |
 | Local deployment state | `.midnight-state.json` records the Suffra Preprod deployment and the legacy Preview counter address `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` (historical only) |
 | Product X profile | Live at https://x.com/SuffraPrivVote; README link present |
 | Fresh Level 4 demo | Published: https://youtu.be/lxYipwonU5Y- (maintainer confirmation) |
 | X launch posts | Three posts in `docs/X-LAUNCH-POSTS.md` have been published (maintainer confirmation) |
-| Current deployment documentation | Verified: Candidate-ballot V2 (not V3) is the current open demo contract, `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597`; README and deployment/usage docs identify it consistently |
-| Frontend network | Verified: the Vercel production bundle embeds `VITE_MIDNIGHT_NETWORK=preprod` and the current V2 address; V2 real-wallet smoke test completed 2026-08-20 |
+| Level 4 deployment documentation | Verified for Level 4: Candidate-ballot V2 (not V3) was the August 2026 demo contract, `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597`; updated to `b5d98072ed399fecdd49ef080d0556a3f46f358cc39486826ba1cb65b182841e` for September 2026 Level 5 redeployment |
+| Frontend network | Verified for Level 4: the Vercel production bundle embedded `VITE_MIDNIGHT_NETWORK=preprod` and the August 2026 V2 address; V2 real-wallet smoke test completed 2026-08-20 |
 
 ---
 
