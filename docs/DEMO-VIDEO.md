@@ -57,11 +57,13 @@ Narration:
 
 ## Pre-Recording Checklist
 
+> **Historical Record:** This checklist reflects the verified state prior to recording the Level 4 MVP demo video on August 20, 2026.
+
 - [x] `npm run compile` completed.
 - [x] `npm run test` passes.
 - [x] `npm run build` passes.
 - [x] Proof server was running for the recorded flow.
-- [x] Candidate-ballot V2 is deployed to Preprod.
-- [x] Vercel is configured with `VITE_SUFFRA_CONTRACT_ADDRESS=eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597`.
+- [x] Candidate-ballot V2 was deployed to Preprod.
+- [x] Vercel was configured with `VITE_SUFFRA_CONTRACT_ADDRESS=eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` during the recorded Level 4 demo (historical snapshot; active contract redeployed September 2026 is `b5d98072ed399fecdd49ef080d0556a3f46f358cc39486826ba1cb65b182841e`).
 - [x] Lace Wallet had sufficient test funds and DUST.
 - [x] README contract table identifies the deployed address.

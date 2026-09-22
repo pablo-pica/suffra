@@ -8,7 +8,7 @@
 
 - **Idea/The Turn:** approved; approval date is not recorded.
 - **Active level:** Level 5 — Users & Feedback.
-- **Verified Preprod deployments:** V1 was deployed and smoke-tested on 2026-08-13. Candidate-ballot V2 was deployed, configured, and smoke-tested with Lace on 2026-08-20. A fresh open V2 instance powers the public demo. The Product X profile and Level 4 demo video are live.
+- **Verified Preprod deployments:** V1 was deployed and smoke-tested on 2026-08-13. Candidate-ballot V2 was deployed, configured, and smoke-tested with Lace on 2026-08-20. A fresh open V2 instance was redeployed to Preprod on 2026-09-22 for Level 5 review revisions; switching the live public Vercel demo to this new contract address remains pending human operational configuration and redeployment. The Product X profile and Level 4 demo video are live.
 
 ## 🌐 Live Demo
 
@@ -138,7 +138,8 @@ The table below lists all 51 consented Preprod testers, their public wallet addr
 
 | Network | Contract | Address | Status |
 | :--- | :--- | :--- | :--- |
-| Preprod | Suffra candidate sealed ballot V2 — current open demo | `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` | Fresh open instance deployed 2026-08-20; public Vercel demo target |
+| Preprod | Suffra candidate sealed ballot V2 — current open demo | `b5d98072ed399fecdd49ef080d0556a3f46f358cc39486826ba1cb65b182841e` | Fresh open instance redeployed 2026-09-22; public Vercel demo target (Vercel redeployment pending) |
+| Preprod | Suffra candidate sealed ballot V2 — August 2026 open demo | `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` | Deployed 2026-08-20; previous instance currently serving live demo pending maintainer Vercel redeployment |
 | Preprod | Suffra candidate sealed ballot V2 — evidence instance | `4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a` | Deployed and Lace smoke-tested 2026-08-20; now closed |
 | Preprod | Suffra sealed ballot V1 | `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` | Historical Level 4 evidence; Lace smoke test verified 2026-08-19 |
 | Preview | Legacy counter demo | `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` | Historical Level 1 evidence only; not a Suffra Preprod deployment |
@@ -153,7 +154,22 @@ The deployed V2 flow was exercised with Lace on Preprod using the fictional San 
 | Cast sealed candidate ballot | [8f2cb58abc28f5c30d0add15aa4313c7466b5271d4dd9f228fc2c468d73b8070](https://explorer.preprod.midnight.network/transactions/8f2cb58abc28f5c30d0add15aa4313c7466b5271d4dd9f228fc2c468d73b8070) |
 | Close ballot box | [5537a11722c05b37f642d9fb1f765907fba5d0a4837a925e385b0b05135f9a34](https://explorer.preprod.midnight.network/transactions/5537a11722c05b37f642d9fb1f765907fba5d0a4837a925e385b0b05135f9a34) |
 
-The evidence instance is now intentionally closed. The transactions demonstrate the complete register, sealed-candidate-ballot, and close lifecycle; no final tally is claimed. The public demo points to the fresh open V2 instance above so judges can run another ballot.
+The evidence instance is now intentionally closed. The transactions demonstrate the complete register, sealed-candidate-ballot, and close lifecycle; no final tally is claimed. The public demo targets the fresh open V2 instance above once the human maintainer applies the Vercel update.
+
+### September 2026 Redeployment Provenance (Level 5 Revision)
+
+The Suffra candidate-ballot V2 contract was redeployed to Midnight Preprod on September 22, 2026 in response to Level 5 review revisions:
+
+| Attribute | Verified Value |
+| :--- | :--- |
+| **Network** | Midnight Preprod |
+| **Contract Address** | `b5d98072ed399fecdd49ef080d0556a3f46f358cc39486826ba1cb65b182841e` |
+| **Deployment Transaction** | [`78491394531bfc1d933a7d5cea071470d9474bb59f38e7f818047c5e17655ff1`](https://explorer.preprod.midnight.network/transactions/78491394531bfc1d933a7d5cea071470d9474bb59f38e7f818047c5e17655ff1) |
+| **Block Height** | 2,658,331 |
+| **Block Hash** | `616285d29daecbff0900666c83310b2cfbc21476c54bf401e7adf3ac3ebfa144` |
+| **Timestamp** | 2026-09-22 09:00:12 UTC (`1790067612000`) |
+| **Deployer Address** | `mn_addr_preprod135vdhaz2g90s90ekrhsnmf8sttpv562szwkx4c433r5mcweyakps8drqsq` |
+| **Live Vercel Demo Status** | Operational update pending: live demo currently serves the August 2026 instance until the maintainer updates Vercel `VITE_SUFFRA_CONTRACT_ADDRESS` and triggers redeployment |
 
 ## ✨ What This Product Does
 
@@ -201,7 +217,7 @@ VITE_SUFFRA_CONTRACT_ADDRESS=<64-char-contract-address> \
 npm run dev
 ```
 
-The frontend validates `VITE_MIDNIGHT_NETWORK` and defaults to `preprod`. The current public demo uses `VITE_SUFFRA_CONTRACT_ADDRESS=eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597`. The deployed dApp uses a local proof server at `http://127.0.0.1:6300` by default, so start it with `npm run proof-server:start` before registering or voting. Lace is still responsible for transaction approval and Preprod submission. Every fresh instance starts with empty counts, so register the local voter secret before voting.
+The frontend validates `VITE_MIDNIGHT_NETWORK` and defaults to `preprod`. The current repository configuration targets `VITE_SUFFRA_CONTRACT_ADDRESS=b5d98072ed399fecdd49ef080d0556a3f46f358cc39486826ba1cb65b182841e` (redeployed 2026-09-22; live Vercel update pending). The deployed dApp uses a local proof server at `http://127.0.0.1:6300` by default, so start it with `npm run proof-server:start` before registering or voting. Lace is still responsible for transaction approval and Preprod submission. Every fresh instance starts with empty counts, so register the local voter secret before voting.
 
 ## 🧪 Run Tests
 
