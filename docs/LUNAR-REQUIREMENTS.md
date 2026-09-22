@@ -146,19 +146,19 @@ Do not rewrite `docs/IDEA-SUBMISSION.md`; it is approved submission text.
 *Prize: $100 per winner × 20 winners = $2,000 total.*
 
 ### Requirements to Pass
-- [ ] Same Level 4 MVP, extended on Preprod
-- [ ] 50 Preprod users with verifiable wallet addresses
-- [ ] Feedback loop documented
-- [ ] Updated documentation
-- [ ] Minimum 20 meaningful commits
+- [x] Same Level 4 MVP, extended on Preprod (`b5d98072ed399fecdd49ef080d0556a3f46f358cc39486826ba1cb65b182841e` redeployed to Preprod on 2026-09-22; live on Vercel)
+- [x] 50 Preprod users with verifiable wallet addresses (51 consented records in `USERS.md`)
+- [x] Feedback loop documented (`docs/FEEDBACK.md`, Google Form, public Sheets export, four feedback-driven UX improvements)
+- [x] Updated documentation (`README.md`, `docs/DEPLOYMENT.md`, `docs/USAGE.md`, `docs/FEEDBACK.md`, `USERS.md`)
+- [x] Minimum 20 meaningful commits (96+ commits on repository)
 
 ### Submission Checklist
-- [ ] Public GitHub repository with updated documentation
-- [ ] Live demo link
-- [ ] List of 50 Preprod user wallet addresses
-- [ ] Feedback documentation or link to feedback document
-- [ ] Demo video showing full MVP functionality
-- [ ] Minimum 20 meaningful commits
+- [x] Public GitHub repository with updated documentation: https://github.com/pablo-pica/suffra
+- [x] Live demo link: https://suffra-pica.vercel.app
+- [x] List of 50 Preprod user wallet addresses: [`USERS.md`](../USERS.md) (51 consented records)
+- [x] Feedback documentation or link to feedback document: [`docs/FEEDBACK.md`](FEEDBACK.md) and [Google Sheets Export](https://docs.google.com/spreadsheets/d/18JxtA0tSGjJ-atJAAvidaJwMlgxYji4VMvruaZOKclc/edit?usp=sharing)
+- [x] Demo video showing full MVP functionality: https://youtu.be/lxYipwonU5Y-
+- [x] Minimum 20 meaningful commits (96+ commits on repository)
 
 ---
 

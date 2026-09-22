@@ -35,7 +35,7 @@ The live V2 demo completed registration, selected fictional candidate **Iñigo V
 - Sealed candidate ballot: `8f2cb58abc28f5c30d0add15aa4313c7466b5271d4dd9f228fc2c468d73b8070`
 - Close ballot box: `5537a11722c05b37f642d9fb1f765907fba5d0a4837a925e385b0b05135f9a34`
 
-The evidence V2 ballot box is now closed. These transactions prove the lifecycle, not a final candidate tally. A fresh open V2 instance was redeployed on 2026-09-22 at `b5d98072ed399fecdd49ef080d0556a3f46f358cc39486826ba1cb65b182841e` (deployment transaction: [`78491394531bfc1d933a7d5cea071470d9474bb59f38e7f818047c5e17655ff1`](https://explorer.preprod.midnight.network/transactions/78491394531bfc1d933a7d5cea071470d9474bb59f38e7f818047c5e17655ff1)) as the target for new interactions; updating the public Vercel demo deployment to this address is pending maintainer operational redeployment.
+The evidence V2 ballot box is now closed. These transactions prove the lifecycle, not a final candidate tally. A fresh open V2 instance was redeployed on 2026-09-22 at `b5d98072ed399fecdd49ef080d0556a3f46f358cc39486826ba1cb65b182841e` (deployment transaction: [`78491394531bfc1d933a7d5cea071470d9474bb59f38e7f818047c5e17655ff1`](https://explorer.preprod.midnight.network/transactions/78491394531bfc1d933a7d5cea071470d9474bb59f38e7f818047c5e17655ff1)) as the target for new interactions, and is currently live and verified on the public Vercel demo at `https://suffra-pica.vercel.app`.
 
 ## What Gets Proved
 
