@@ -2,12 +2,12 @@
 
 ## Current Deployment Status
 
-- The latest Candidate-ballot V2 demo instance was redeployed to Preprod on 2026-09-22 at `b5d98072ed399fecdd49ef080d0556a3f46f358cc39486826ba1cb65b182841e` (transaction: [`78491394531bfc1d933a7d5cea071470d9474bb59f38e7f818047c5e17655ff1`](https://explorer.preprod.midnight.network/transactions/78491394531bfc1d933a7d5cea071470d9474bb59f38e7f818047c5e17655ff1), block 2658331).
-- The previous Candidate-ballot V2 open demo instance is deployed at `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` (2026-08-20); it currently powers the live public demo pending human maintainer Vercel redeployment.
+- The latest Candidate-ballot V2 demo instance was redeployed to Preprod on 2026-09-22 at `b5d98072ed399fecdd49ef080d0556a3f46f358cc39486826ba1cb65b182841e` (transaction: [`78491394531bfc1d933a7d5cea071470d9474bb59f38e7f818047c5e17655ff1`](https://explorer.preprod.midnight.network/transactions/78491394531bfc1d933a7d5cea071470d9474bb59f38e7f818047c5e17655ff1), block 2658331); it currently powers the live public Vercel demo.
+- The previous Candidate-ballot V2 open demo instance is deployed at `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597` (2026-08-20) and is retained as a historical record.
 - The previous Candidate-ballot V2 evidence instance is deployed at `4bfc66f3473135f01156f7115ad820afad9d08b2b07b8ac0432b1e10ea97441a` (2026-08-20) and is intentionally closed after smoke testing.
 - The original binary Suffra V1 remains deployed at `f26ffd59ec7531b96b40b9cb748e7fac12ea7be6fef87e80007bd80e066e2da6` (2026-08-13) as historical fallback evidence.
 - Local `.midnight-state.json` records the latest V2 deployment; the legacy Preview counter address `445c735e72a3909940076aa3adf0ec86abeff505a7282b9988ac6a77dc4cd748` is not Suffra Preprod evidence.
-- `src/config/network.ts` validates `VITE_MIDNIGHT_NETWORK` as `undeployed`, `preview`, or `preprod`, and defaults the frontend to `preprod`. Updating the live Vercel production environment variable `VITE_SUFFRA_CONTRACT_ADDRESS` to the September 2026 redeployment address and redeploying the public dApp is an operational action pending maintainer execution.
+- `src/config/network.ts` validates `VITE_MIDNIGHT_NETWORK` as `undeployed`, `preview`, or `preprod`, and defaults the frontend to `preprod`. The live Vercel production environment variable `VITE_SUFFRA_CONTRACT_ADDRESS` has been updated to the September 2026 redeployment address `b5d98072ed399fecdd49ef080d0556a3f46f358cc39486826ba1cb65b182841e`, and the public dApp redeployment is verified live.
 
 ## Prerequisites
 
@@ -108,7 +108,7 @@ For Vercel, configure:
 - Output directory: `dist`
 - Environment variables (human-owned configuration in Vercel Preview and Production): `VITE_MIDNIGHT_NETWORK=preprod`, `VITE_SUFFRA_CONTRACT_ADDRESS=b5d98072ed399fecdd49ef080d0556a3f46f358cc39486826ba1cb65b182841e` (update from prior `eaeadd1e9f6df11ba0e9f1cf48f8e70b21bf7257bf7de2f9a459fc3869205597`), and `VITE_FEEDBACK_FORM_URL=https://forms.gle/QSgaRPbEE1W6UJST9`; leave `VITE_PROOF_SERVER_URL` unset unless overriding it with another local loopback address.
 
-The Product X profile is [@SuffraPrivVote](https://x.com/SuffraPrivVote); the published Level 4 demo is [youtu.be/lxYipwonU5Y-](https://youtu.be/lxYipwonU5Y-). The September 2026 V2 Preprod address above is the verified target for the next demo release (live demo update pending human redeploy).
+The Product X profile is [@SuffraPrivVote](https://x.com/SuffraPrivVote); the published Level 4 demo is [youtu.be/lxYipwonU5Y-](https://youtu.be/lxYipwonU5Y-). The September 2026 V2 Preprod address above is verified live on the public Vercel demo at `https://suffra-pica.vercel.app`.
 
 ## 7. Local Development
 
